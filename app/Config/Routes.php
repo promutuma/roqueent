@@ -51,6 +51,10 @@ $routes->get('/html/product-list.html', 'Product::index');
 
 //Sales
 $routes->get('/html/sales-list.html', 'Sales::index');
+
+//Expense
+$routes->get('/html/expense-list.html', 'Expense::index');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
