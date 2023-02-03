@@ -29,8 +29,28 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
 
+// auth files/routes
+$routes->get('/', 'Home::index');
+$routes->get('html/pages/auths/auth-login-v2.html', 'Home::index');
+$routes->get('html/pages/auths/auth-reset-v2.html', 'Home::resetPasscode');
+
+//home routes
+$routes->get('html/index.html', 'Dashboard::index');
+$routes->get('/html/user-profile-regular.html', 'Dashboard::myAccount');
+$routes->get('/html/user-profile-notification.html', 'Dashboard::myAccountNotification');
+$routes->get('/html/user-profile-setting.html', 'Dashboard::myAccountSettings');
+$routes->get('/html/user-profile-activity.html', 'Dashboard::myAccountActivity');
+$routes->get('/html/user-profile-social.html', 'Dashboard::myAccountSocial');
+
+//users routes
+$routes->get('html/user-list-regular.html', 'User::index'); 
+
+//product
+$routes->get('/html/product-list.html', 'Product::index');
+
+//Sales
+$routes->get('/html/sales-list.html', 'Sales::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
