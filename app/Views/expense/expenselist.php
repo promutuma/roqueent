@@ -35,7 +35,7 @@
                                                     </li>
                                                     <li class="nk-block-tools-opt">
                                                         <a href="#" data-target="addProduct" class="toggle btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                        <a href="#" data-target="addProduct" class="toggle btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Add Product</span></a>
+                                                        <a href="#" data-target="addProduct" class="toggle btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Add Expense</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -611,9 +611,9 @@
                             <div class="nk-add-product toggle-slide toggle-slide-right" data-content="addProduct" data-toggle-screen="any" data-toggle-overlay="true" data-toggle-body="true" data-simplebar>
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-content">
-                                        <h5 class="nk-block-title">New Product</h5>
+                                        <h5 class="nk-block-title">New Expense</h5>
                                         <div class="nk-block-des">
-                                            <p>Add information and add new product.</p>
+                                            <p>Add information and add new Expense.</p>
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
@@ -621,23 +621,16 @@
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label class="form-label" for="product-title">Product Title</label>
+                                                <label class="form-label" for="product-title">Expense Title</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="product-title">
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label" for="regular-price">Regular Price</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="regular-price">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="sale-price">Sale Price</label>
+                                                <label class="form-label" for="sale-price">Cost</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="sale-price">
                                                 </div>
@@ -645,40 +638,17 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label" for="stock">Stock</label>
+                                                <label class="form-label" for="stock">Description</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="stock">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="SKU">SKU</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="SKU">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="category">Category</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="category">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="tags">Tags</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="tags">
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                         <div class="col-12">
                                             <div class="upload-zone small bg-lighter my-2">
                                                 <div class="dz-message">
-                                                    <span class="dz-message-text">Drag and drop file</span>
+                                                    <span class="dz-message-text">Reciept </span>
                                                 </div>
                                             </div>
                                         </div>

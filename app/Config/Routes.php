@@ -48,12 +48,18 @@ $routes->get('html/user-list-regular.html', 'User::index');
 
 //product
 $routes->get('/html/product-list.html', 'Product::index');
+$routes->post('/html/product-add.html', 'Product::addProduct');
+$routes->post(' html/product-update.html', 'Product::updateProduct');
+$routes->post('/html/category-add.html', 'Product::addCategory');
+$routes->get('/html/product-find.html/(:any)', 'Product::findProduct/$1');
 
 //Sales
 $routes->get('/html/sales-list.html', 'Sales::index');
+$routes->get('/html/sales-new.html', 'Sales::newSale');
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');
+$routes->get('/html/expense-add.html', 'Expense::formView');
 
 /*
  * --------------------------------------------------------------------

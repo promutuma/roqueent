@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'username' => 'camerapr_kamau',
+        'password' => 'camerapr_kamau',
+        'database' => 'camerapr_kamau',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

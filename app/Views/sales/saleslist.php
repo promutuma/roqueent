@@ -79,7 +79,7 @@
                                             </div><!-- .card-title-group -->
                                         </div><!-- .card-inner -->
                                         <div class="card-inner p-0">
-                                            <table class="table table-orders">
+                                            <table class="table table-orders" id="saleslist">
                                                 <thead class="tb-odr-head">
                                                     <tr class="tb-odr-item">
                                                         <th class="tb-odr-info">
@@ -284,3 +284,11 @@
                 </div>
             </div>
             <!-- content @e -->
+
+
+
+            <script>
+                $(document).ready( function () {
+    $('#saleslist').DataTable();
+} );
+            </script>

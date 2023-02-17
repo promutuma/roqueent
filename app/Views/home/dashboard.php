@@ -23,9 +23,9 @@
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="#"><em class="icon ni ni-user-add-fill"></em><span>Add User</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-coin-alt-fill"></em><span>Add Sale</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-note-add-fill-c"></em><span>Add Expense</span></a></li>
+                                                                    <li><a href="html/user-list-regular.html"><em class="icon ni ni-user-add-fill"></em><span>Add User</span></a></li>
+                                                                    <li><a href="html/sales-new.html"><em class="icon ni ni-coin-alt-fill"></em><span>Add Sale</span></a></li>
+                                                                    <li><a href="/html/expense-list.html"><em class="icon ni ni-note-add-fill-c"></em><span>Add Expense</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -277,7 +277,7 @@
                                                         <h6 class="title">Recent Sales</h6>
                                                     </div>
                                                     <div class="card-tools">
-                                                        <a href="#" class="link">View All</a>
+                                                        <a href="/html/sales-list.html" class="link">View All</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -521,7 +521,7 @@
                                                         <h6 class="title">Recent Expenses</h6>
                                                     </div>
                                                     <div class="card-tools">
-                                                        <a href="#" class="link">View All</a>
+                                                        <a href="/html/expense-list.html" class="link">View All</a>
                                                     </div>
                                                 </div>
                                             </div>

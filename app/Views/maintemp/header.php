@@ -14,6 +14,12 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?php echo base_url()?>/files/assets/css/dashlite.css?ver=2.9.1">
     <link id="skin-default" rel="stylesheet" href="<?php echo base_url()?>/files/assets/css/theme.css?ver=2.9.1">
+
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 </head>
 
 <body class="nk-body bg-lighter ">
@@ -65,7 +71,7 @@
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
-                                            <a href="html/apps-messages.html" class="nk-menu-link"><span class="nk-menu-text">New Sales</span></a>
+                                            <a href="html/sales-new.html" class="nk-menu-link"><span class="nk-menu-text">New Sale</span></a>
                                         </li>
                                         <li class="nk-menu-item">
                                             <a href="/html/sales-list.html" class="nk-menu-link"><span class="nk-menu-text">Sales</span></a>
@@ -79,11 +85,7 @@
                                     </a>
                                     <ul class="nk-menu-sub">
                                        
-                                        <li class="nk-menu-item">
-                                            <a href="html/pricing-table.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">New Expense</span>
-                                            </a>
-                                        </li><!-- .nk-menu-item -->
+                                       
                                         <li class="nk-menu-item">
                                             <a href="/html/expense-list.html" class="nk-menu-link">
                                                 <span class="nk-menu-text">View Expense</span>
@@ -98,30 +100,19 @@
                                     </a>
                                     <ul class="nk-menu-sub">
                                         
-                                        <li class="nk-menu-item">
-                                            <a href="html/_blank.html" class="nk-menu-link"><span class="nk-menu-text">Add Items/Products</span></a>
-                                        </li>
+                                        
                                         <li class="nk-menu-item">
                                             <a href="/html/product-list.html" class="nk-menu-link"><span class="nk-menu-text">View Stock</span></a>
                                         </li>
-                                        <li class="nk-menu-item">
-                                            <a href="html/pages/terms-policy.html" class="nk-menu-link"><span class="nk-menu-text">Category</span></a>
-                                        </li>
+                                        
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-text">User</span>
                                     </a>
-                                    <ul class="nk-menu-sub">
-                                        
-                                        
-                                        <li class="nk-menu-item">
-                                            <a href="html/email-templates.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Add User</span>
-                                            </a>
-                                        </li>
-
+                                    <ul class="nk-menu-sub">                                
+                                    
                                         <li class="nk-menu-item">
                                             <a href="html/user-list-regular.html" class="nk-menu-link">
                                                 <span class="nk-menu-text">View Users</span>
