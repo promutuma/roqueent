@@ -82,7 +82,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
                                                                             <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnEdit"><em class="icon ni ni-edit" ></em><span>Edit Product</span></a></li>
-                                                                            <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnView"><em class="icon ni ni-eye"></em><span>View Product</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnAddStock"><em class="icon ni ni-eye"></em><span>Add Stock</span></a></li>
                                                                             <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnOrders"><em class="icon ni ni-activity-round"></em><span>Product Orders</span></a></li>
                                                                             <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnDelete"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>
                                                                         </ul>
@@ -128,6 +128,7 @@
         <input type="text" name="txtProductName" id="txtProductName" class="form-control"  placeholder="Product Name">
     </div>
 </div>
+
 <div class="form-group">
     <label class="form-label" for="default-01">Regular Price</label>
     <div class="form-control-wrap">
@@ -273,6 +274,62 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" tabindex="-1" id="addstockModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <em class="icon ni ni-cross"></em>
+            </a>
+            <div class="modal-header">
+                <h5 class="modal-title">Add Stock To this Product</h5>
+            </div>
+            <div class="modal-body">
+            <form id="addStock" name="addStock" action="/html/product-add-stock.html" method="post">
+<div class="form-group">
+    <label class="form-label" for="default-01">Product SKU</label>
+    <div class="form-control-wrap">
+        <input type="text" name="txtProductSku" id="txtProductSku" class="form-control"  placeholder="Product SKU" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Product Name</label>
+    <div class="form-control-wrap">
+        <input type="text" name="txtProductName" id="txtProductName" class="form-control"  placeholder="Product Name" readonly>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Current Stock</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtStock" id="txtStock" placeholder="Stock" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Stock to add</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtAddStock" id="txtAddStock" placeholder="Stock">
+    </div>
+</div>
+
+
+
+
+            </div>
+            <div class="modal-footer bg-light">
+            <div class="form-group">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+                                    </form>
+            </div>
+        </div>
+    </div>
+</div>
  
 
 
@@ -288,6 +345,56 @@
                 </div>
             </div>
             <!-- content @e -->
+            <script>
+                    $('body').on('click','.btnDelete',function(){
+                        var product_sku = $(this).attr('data-id');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning...',
+                            text: 'Do you want to delete item with SKU Number '+product_sku +' Note this cannot be Undone',
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'Delete',
+                            denyButtonText: `Don't Delete`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: '/html/product-delete.html/'+product_sku,
+                                    type: "GET",
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Product Deleted Successfully',
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        }).then(()=>{
+                                            window.location.href = "/html/product-list.html";
+                                        });
+                                    },
+                                    error: function (data) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Failed',
+                                            text: "An error: "+JSON.stringify(data.responseText)+" has occured",
+                                            
+                                        })
+                                    }
+                                });
+                            } else{
+                                Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Product Deletetion Canceled Successfully',
+                                            showConfirmButton: false,
+                                            timer: 3500
+                                        })
+                            }
+                        })
+                    });
+            </script>
 
 
 
@@ -295,7 +402,9 @@
                 $(document).ready( function () {
     $('#productlist').DataTable();
 } );
+</script>
 
+<script>
 $("#addproduct").validate({
         rules: {
             txtProductName: "required",
@@ -314,28 +423,101 @@ $("#addproduct").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
-                success: function (res) {
-                    alert("Product "+JSON.stringify(res.data.product_name)+" with SKU number "+JSON.stringify(res.data.product_sku)+" Updated Successfully");
-                    var product = '<tr id="'+res.data.product_sku+'">';
-                    product += '<td>' + res.data.product_sku + '</td>';
-                    product += '<td>' + res.data.product_name + '</td>';
-                    product += '<td> Ksh ' + res.data.sale_price + '</td>';
-                    product += '<td>' + res.data.stock + '</td>';
-                    product += '<td>' + res.data.category + '</td>';
-                    
-                    product += '<td><a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a><div class="dropdown-menu dropdown-menu-right">                                                                    <ul class="link-list-opt no-bdr">                                                                            <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Product</span></a></li>                                                                            <li><a href="#"><em class="icon ni ni-eye"></em><span>View Product</span></a></li>                                                                            <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Product Orders</span></a></li>                                                                            <li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>                                                                        </ul>                                                                    </div></td>';
-                    product += '</tr>';
-                    $('#productlist tbody').prepend(product);
-                    $('#addproduct')[0].reset();
-                    window.location.href = "/html/product-list.html";
+                success: function (res) { 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "Product "+JSON.stringify(res.data.product_name)+" with SKU number "+JSON.stringify(res.data.product_sku)+" Added Successfully",
+                        
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#addproduct')[0].reset();
+                            window.location.href = "/html/product-list.html";
+                        } else if (result.isDenied) {
+                            window.location.href = "/html/product-list.html";
+                        }
+                    })
                     
                 },
                     error: function (data) {
-                        alert(JSON.stringify(data));
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
                         
                 }
             });
         }
+    });
+</script>
+
+<script>
+    $('body').on('click','.btnAddStock',function(){
+        var product_sku = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/product-find.html/'+product_sku,
+            type: "GET",
+            dataType: 'json',
+            success: function (res) {
+                $('#addstockModal').modal('show');
+                $('#addStock #txtProductSku').val(res.data.product_sku); 
+                $('#addStock #txtProductName').val(res.data.product_name);
+                $('#addStock #txtStock').val(res.data.stock);
+            },
+            error: function (data) {
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+        
+    });
+</script>
+
+<script>
+    $("#addStock").validate({
+        rules:{
+            txtAddStock: "required",
+        },
+        messages:{
+        },
+        submitHandler: function(form) {
+            var form_action = $("#addStock").attr("action");
+            $.ajax({
+                data: $('#addStock').serialize(),
+                url: form_action,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    
+                    $('#addStock')[0].reset();
+                    $('#addstockModal').modal('hide');
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "Stock added to "+JSON.stringify(res.data.product_name)+" with SKU number "+JSON.stringify(res.data.product_sku)+" Successfully",
+                        
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/html/product-list.html";
+                        } else if (result.isDenied) {
+                            window.location.href = "/html/product-list.html";
+                        }
+                    })
+                },
+                    error: function (res) {
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(res.responseText)+" has occured"
+                        })
+                        
+                }})}
+        
     });
 
     $('body').on('click', '.btnEdit', function () {
@@ -354,12 +536,18 @@ $("#addproduct").validate({
                 $('#updateproduct #txtCategory').val(res.data.category);
             },
                 error: function (data) {
-                    alert(JSON.stringify(data));
+                    Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(res.responseText)+" has occured"
+                        })
             }
         });
         
     });
+    </script>
 
+<script>
     $("#updateproduct").validate({
         rules: {
             txtProductName: "required",
@@ -378,24 +566,28 @@ $("#addproduct").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
-                success: function (res) {
-                    alert("Product "+JSON.stringify(res.data.product_name)+" with SKU number "+JSON.stringify(res.data.product_sku)+" added Successfully");
-                    var product = '<tr id="'+res.data.product_sku+'">';
-                    product += '<td>' + res.data.product_sku + '</td>';
-                    product += '<td>' + res.data.product_name + '</td>';
-                    product += '<td> Ksh ' + res.data.sale_price + '</td>';
-                    product += '<td>' + res.data.stock + '</td>';
-                    product += '<td>' + res.data.category + '</td>';
-                    
-                    product += '<td><a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a><div class="dropdown-menu dropdown-menu-right"><ul class="link-list-opt no-bdr"><li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Product</span></a></li><li><a href="#"><em class="icon ni ni-eye"></em><span>View Product</span></a></li>                                                                            <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Product Orders</span></a></li>                                                                            <li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>                                                                        </ul>                                                                    </div></td>';
-                    product += '</tr>';
-                    $('#productlist tbody #'+ res.data.product_sku).html(product)                    
+                success: function (res) {                 
                     $('#updateproduct')[0].reset();
                     $('#updateModal').modal('hide');
-                    window.location.href = "/html/product-list.html";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "Product "+JSON.stringify(res.data.product_name)+" with SKU number "+JSON.stringify(res.data.product_sku)+" updated Successfully",
+                        
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/html/product-list.html";
+                        } else if (result.isDenied) {
+                            window.location.href = "/html/product-list.html";
+                        }
+                    })
                 },
                     error: function (data) {
-                        alert("error"+JSON.stringify(data));
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
                         
                 }
             });
@@ -404,13 +596,6 @@ $("#addproduct").validate({
  
 
             </script>
-
-
-
-
-
-
-
 <script>
 
 
@@ -434,13 +619,27 @@ $("#addcategory").validate({
                 type: "POST",
                 dataType: 'json',
                 success: function (res) {
-                    alert("Category "+JSON.stringify(res.data.category_name)+" added Successfully");                    
-                    
-                    $('#addcategory')[0].reset();
-                    window.location.href = "/html/product-list.html";
+                   
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "Category "+JSON.stringify(res.data.category_name)+" added Successfully",
+                        
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#addcategory')[0].reset();
+                            window.location.href = "/html/product-list.html";
+                        } else if (result.isDenied) {
+                            window.location.href = "/html/product-list.html";
+                        }
+                    })
                 },
                     error: function (data) {
-                        alert(JSON.stringify(data));
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
                         
                 }
             });

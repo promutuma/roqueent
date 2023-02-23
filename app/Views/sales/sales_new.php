@@ -6,37 +6,25 @@
                             <div class="nk-block-head nk-block-head-sm">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">New Sale</h3>
+                                        <h3 class="nk-block-title page-title">New Sale #<?php echo $saleId;?></h3>
                                         <div class="nk-block-des text-soft">
-                                            <p>You have total 2,595 items added.</p>
+                                            <p>You have total <?php echo $itemsN;?> items added.</p>
                                         </div>
                                     </div><!-- .nk-block-head-content -->
                                     <div class="nk-block-head-content">
-                                        
+                                    <a data-id="<?php echo $saleId ?>" class="btn btnAddItem btn-xl btn-outline-info"> Add Item</a>
                                     </div><!-- .nk-block-head-content -->
                                 </div><!-- .nk-block-between -->
                             </div><!-- .nk-block-head -->
                             <div class="nk-block">
                                 <div class="card card-bordered card-stretch">
+                                
                                     <div class="card-inner-group">
+                                    
                                         
 
                                     <div class="card-inner position-relative card-tools-toggle">
                                             
-                                            <div class="form-group">
-                                                        <label class="form-label">Search Item</label>
-                                                        <div class="form-control-wrap">
-                                                            <select class="form-select" data-search="on">
-                                                                <option value="default_option">Default Option</option>
-                                                                <option value="option_select_name">Option select name</option>
-                                                                <option value="option_select_name">Option select name</option>
-                                                                <option value="option_select_name">Option select name</option>
-                                                                <option value="option_select_name">Franklin Mutuma</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- .card-tools -->
-                                            </div><!-- .card-title-group -->
                                             <div class="card-search search-wrap" data-search="search">
                                                 <div class="card-body">
                                                     <div class="search-content">
@@ -48,133 +36,331 @@
                                             </div><!-- .card-search -->
                                         </div><!-- .card-inner -->
 
+                                        <div class="table-responsive">
+<table class="table table-striped table-hover table-bordered" id="itemlist">
+  <thead>
+    <tr>
+      <th scope="col">Item SKU</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
 
-                                        <div class="card-inner p-0">
-                                            <div class="nk-tb-list nk-tb-ulist">
-                                                <div class="nk-tb-item nk-tb-head">
-                                                    
-                                                    
-                                                    <div class="nk-tb-col"><span class="sub-text">User</span></div>
-                                                    <div class="nk-tb-col tb-col-mb"><span class="sub-text">Balance</span></div>
-                                                    <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span class="sub-text">Verified</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span class="sub-text">Last Login</span></div>
-                                                    <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
-                                                    <div class="nk-tb-col nk-tb-col-tools text-right">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="btn btn-xs btn-outline-light btn-icon dropdown-toggle" data-toggle="dropdown" data-offset="0,5"><em class="icon ni ni-plus"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
-                                                                <ul class="link-tidy sm no-bdr">
-                                                                    <li>
-                                                                        <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" checked="" id="bl">
-                                                                            <label class="custom-control-label" for="bl">Balance</label>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" checked="" id="ph">
-                                                                            <label class="custom-control-label" for="ph">Phone</label>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="vri">
-                                                                            <label class="custom-control-label" for="vri">Verified</label>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="st">
-                                                                            <label class="custom-control-label" for="st">Status</label>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- .nk-tb-item -->
-                                                <div class="nk-tb-item">
-                                                    
-                                                    <div class="nk-tb-col">
-                                                        <a href="html/user-details-regular.html">
-                                                            <div class="user-card">
-                                                                
-                                                                <div class="user-info">
-                                                                    <span class="tb-lead">Ice cream <span class="dot dot-success d-md-none ml-1"></span></span>
-                                                                    <span>info@softnio.com</span>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-mb">
-                                                        <span class="tb-amount"><span class="currency">Ksh</span> 35</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span>+811 847-4958</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <ul class="list-status">
-                                                            <li><em class="icon text-success ni ni-check-circle"></em> <span>Email</span></li>
-                                                            <li><em class="icon ni ni-alert-circle"></em> <span>KYC</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span>10 Feb 2020</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span class="tb-status text-success">Active</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-tools">
-                                                        <ul class="nk-tb-actions gx-1">
-                                                            <li class="nk-tb-action-hidden">
-                                                                <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Wallet">
-                                                                    <em class="icon ni ni-wallet-fill"></em>
-                                                                </a>
-                                                            </li>
-                                                            <li class="nk-tb-action-hidden">
-                                                                <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Send Email">
-                                                                    <em class="icon ni ni-mail-fill"></em>
-                                                                </a>
-                                                            </li>
-                                                            <li class="nk-tb-action-hidden">
-                                                                <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Suspend">
-                                                                    <em class="icon ni ni-user-cross-fill"></em>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <div class="drodown">
-                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+  <tbody>
+  <?php foreach($item as $row):?>
+    <tr>
+      <td><?php echo $row['product_sku']?></th>
+      <td><span class="tb-sub"><?php echo $row['product_name']?></span></td>
+      <td><span class="tb-lead">Ksh <?php echo $row['price_per_unit']?></span></td>
+      <td><?php echo $row['quantity']?></td>
+      <td>Ksh <?php echo $row['total_price']?></td>
+      <td>
+      <div class="dropdown">
+                                                                    <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
-                                                                            <li><a href="#"><em class="icon ni ni-focus"></em><span>Quick View</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
-                                                                            <li class="divider"></li>
-                                                                            <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['item_sale_id']?>" class="btn btnAddQ"><em class="icon ni ni-edit" ></em><span>Add / Deduct Quantity</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['item_sale_id']?>" class="btn btnRemoveI"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                                                         </ul>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
                                                     </div>
-                                                </div><!-- .nk-tb-item -->
-                                               
-                                            </div><!-- .nk-tb-list -->
-                                        </div><!-- .card-inner -->
+      </td>
+    </tr>
+    <?php endforeach;?> 
+   
+  </tbody>
+  <tfoot>
+    <tr>
+        <td colspan=3><b>Total</b></td>
+        <td><b><?php echo $totalQuantity;?></b></td>
+        <td><b>Ksh <?php echo $totalPrice;?></b></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+  </div>
+                                        
                                         <div class="card-inner">
-                                        <a href="#" class="btn btn-xl btn-primary">Recieve Payment</a>
+                                        <a data-id="<?php echo $saleId?>" class="btn btnRecievePayment btn-xl btn-dim btn-primary">Recieve Payment</a>
                                         <a href="#" class="btn btn-xl btn-success">Generate Invoice</a>
                                         <a href="#" class="btn btn-xl btn-danger">Cancel Sale</a>
                                         </div><!-- .card-inner -->
+
+  
                                     </div><!-- .card-inner-group -->
+
                                 </div><!-- .card -->
+                                <!-- With Footer Header -->
+
                             </div><!-- .nk-block -->
                         </div>
                     </div>
                 </div>
             </div>
             <!-- content @e -->
+
+
+<div class="modal fade" tabindex="-1" id="addItemModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <em class="icon ni ni-cross"></em>
+            </a>
+            <div class="modal-header">
+                <h5 class="modal-title">Select Item</h5>
+            </div>
+            <div class="modal-body">
+            <form id="addItem" name="addItem" action="/html/sales-add-item-cart.html" method="post">
+            <div class="form-group">
+    <label class="form-label" for="default-01">Sale Id</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtSaleId" id="txtSaleId" placeholder="Stock" value="<?php echo $saleId;?>" readonly>
+    </div>
+</div>
+
+
+            <div class="form-group">
+    <label class="form-label" for="default-01">Select Product</label>
+    
+    <div class="form-control-wrap">
+                                                            <select class="form-select" data-search="on" name="txtItem" id="txtItem" placeholder="Select Item">
+                                                                <?php foreach($product as $row):?>
+                                                                <option value="<?php echo $row['product_sku']?>"><?php echo $row['product_name']?> @ <?php echo $row['sale_price']?></option>
+                                                                <?php endforeach;?> 
+                                                            </select>
+                                                        </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Quantity</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtQuantity" id="txtQuantity" placeholder="Quantity">
+    </div>
+</div>
+            </div>
+            <div class="modal-footer bg-light">
+            <div class="form-group">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+            </div>
+</form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="addPaymentModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <em class="icon ni ni-cross"></em>
+            </a>
+            <div class="modal-header">
+                <h5 class="modal-title">Add Payment</h5>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis explicabo.</p>
+            </div>
+            <div class="modal-footer bg-light">
+                <span class="sub-text">Modal Footer Text</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="addQuantityModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <em class="icon ni ni-cross"></em>
+            </a>
+            <div class="modal-header">
+                <h5 class="modal-title">Add / Deduct Quantity</h5>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis explicabo.</p>
+            </div>
+            <div class="modal-footer bg-light">
+                <span class="sub-text">Modal Footer Text</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#addItem").validate({
+        rules:{
+            txtItem: "required",
+            txtQuantity: "required",
+        },
+        messages: {},
+        submitHandler: function(form) {
+            var form_action = $("#addItem").attr("action");
+            $.ajax({
+                data: $('#addItem').serialize(),
+                url: form_action,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    var $status =  JSON.stringify(res.status);
+                    var $sts = 'false';
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        Swal.fire({
+                        icon:'success',
+                        title: 'Success',
+                        text: JSON.stringify(res.data)
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                            $('#addItem')[0].reset();
+                                window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                            } else if (result.isDenied) {
+                                window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                            }
+                        })
+                    }
+
+                },
+                error: function (data) {
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                    })
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $('body').on('click','.btnAddQ',function(){
+        var $itemId = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/item-get-item.html/'+$itemId,
+            type: "GET",
+            dataType: 'json',
+            success: function(res){
+                var $status =  JSON.stringify(res.status);
+                    
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        $('#addQuantityModal').modal('show');
+                    }
+            },
+            error: function (data){
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+    });
+</script>
+
+<script>
+    $('body').on('click','.btnRemoveI',function(){
+        var $itemId = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/item-remove-item.html/'+$itemId,
+            type: "GET",
+            dataType: 'json',
+            success: function(res){
+                var $status =  JSON.stringify(res.status);
+                    
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        $('#addItemModal').modal('show');
+                    }
+            },
+            error: function (data){
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+    });
+</script>
+
+<script>
+    $('body').on('click','.btnRecievePayment',function(){
+        var $saleId = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/sales-get-payment.html/'+$saleId,
+            type: "GET",
+            dataType: 'json',
+            success: function(res){
+                var $status =  JSON.stringify(res.status);
+                    
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        $('#addPaymentModal').modal('show');
+                    }
+            },
+            error: function (data){
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+    });
+</script>
+
+<script>
+    $('body').on('click','.btnAddItem',function(){
+        var $saleId = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/sales-add-item.html/'+$saleId,
+            type: "GET",
+            dataType: 'json',
+            success: function (res) {
+                var $status =  JSON.stringify(res.status);
+                    
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        $('#addItemModal').modal('show');
+                    }
+            },
+            error: function (data) {
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+        
+    });
+</script>

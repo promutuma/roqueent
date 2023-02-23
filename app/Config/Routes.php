@@ -51,11 +51,19 @@ $routes->get('/html/product-list.html', 'Product::index');
 $routes->post('/html/product-add.html', 'Product::addProduct');
 $routes->post(' html/product-update.html', 'Product::updateProduct');
 $routes->post('/html/category-add.html', 'Product::addCategory');
+$routes->post('/html/product-add-stock.html', 'Product::addStock');
 $routes->get('/html/product-find.html/(:any)', 'Product::findProduct/$1');
+$routes->get('/html/product-delete.html/(:any)', 'Product::deleteProduct/$1');
 
 //Sales
 $routes->get('/html/sales-list.html', 'Sales::index');
 $routes->get('/html/sales-new.html', 'Sales::newSale');
+$routes->get('/html/sales-new.html/(:any)', 'Sales::sale/$1');
+$routes->get('/html/sales-add-item.html/(:any)', 'Sales::addSaleItem/$1');
+$routes->get('/html/item-get-item.html/(:any)', 'Sales::getItem/$1');
+$routes->get('/html/item-remove-item.html/(:any)', 'Sales::removeItem/$1');
+$routes->get('/html/sales-get-payment.html/(:any)', 'Sales::getPayment/$1');
+$routes->post('/html/sales-add-item-cart.html', 'Sales::addCart');
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');
