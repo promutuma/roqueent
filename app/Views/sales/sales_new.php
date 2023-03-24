@@ -63,7 +63,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
                                                                             <li><a data-id="<?php echo $row['item_sale_id']?>" class="btn btnAddQ"><em class="icon ni ni-edit" ></em><span>Add / Deduct Quantity</span></a></li>
-                                                                            <li><a data-id="<?php echo $row['item_sale_id']?>" class="btn btnRemoveI"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['item_sale_id']?>" class="btn btnRemoveItem"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                                                         </ul>
                                                                     </div>
                                                     </div>
@@ -162,10 +162,30 @@
                 <h5 class="modal-title">Add Payment</h5>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis explicabo.</p>
+
+
+            <form id="addPayment" name="addPayment" action="/html/sales-add-payment.html" method="post">
+
+            <div class="form-group">
+    <label class="form-label" for="default-01">Sale Id</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtSaleId" id="txtSaleId" placeholder="Stock" value="<?php echo $saleId;?>" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Amount</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtAmount" id="txtAmount" placeholder="Amount">
+    </div>
+</div>
+
             </div>
             <div class="modal-footer bg-light">
-                <span class="sub-text">Modal Footer Text</span>
+                <div class="form-group">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+                                                                </form>
             </div>
         </div>
     </div>
@@ -181,14 +201,173 @@
                 <h5 class="modal-title">Add / Deduct Quantity</h5>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem similique earum necessitatibus nesciunt! Quia id expedita asperiores voluptatem odit quis fugit sapiente assumenda sunt voluptatibus atque facere autem, omnis explicabo.</p>
+            <form id="QtrChange" name="QtrChange" action="/html/sales-quantity-change.html" method="post">
+            <div class="form-group">
+    <label class="form-label" for="default-01">Item Sale Id</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtItemSaleId" id="txtItemSaleId" placeholder="Stock" value="<?php echo $saleId;?>" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Quantity to Add / Deduct</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtQD" id="txtQD" placeholder="Quantity to Add or Deduct">
+    </div>
+</div>
+
             </div>
             <div class="modal-footer bg-light">
-                <span class="sub-text">Modal Footer Text</span>
+            <div class="form-group">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+                                                                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $("#QtrChange").validate({
+        rules:{
+            txtQD: "required",
+        },
+        messages:{
+            txtQD: "You must fill the quantity field. example 40 to add 40 units and -40 for substract 40 units from existing number",
+        },
+        submitHandler: function(form){
+            var form_action = $("#QtrChange").attr("action");
+            $.ajax({
+                data: $('#QtrChange').serialize(),
+                url: form_action,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    var $status =  JSON.stringify(res.status);
+                    var $sts = 'false';
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        Swal.fire({
+                        icon:'success',
+                        title: 'Success',
+                        text: JSON.stringify(res.data)
+                        })
+                    }
+
+                },
+                error: function (data) {
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                    })
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+    $("#addPayment").validate({
+        rules:{
+            txtAmount: "required",
+        },
+        messages: {
+            txtAmount: "Please enter the Amount Paid",
+        },
+        submitHandler: function(form){
+            var form_action = $("#addPayment").attr("action");
+            $.ajax({
+                data: $('#addPayment').serialize(),
+                url: form_action,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    var $status =  JSON.stringify(res.status);
+                    var $sts = 'false';
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        Swal.fire({
+                        icon:'success',
+                        title: 'Success',
+                        text: JSON.stringify(res.data)
+                        })
+                    }
+
+                },
+                error: function (data) {
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                    })
+                }
+            });
+        }
+    });
+
+</script>
+
+<script>
+    $('body').on('click','.btnRemoveItem',function(){
+        var item_sale_id = $(this).attr('data-id');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning...',
+                            text: 'Do you want to remove item with sale ID '+item_sale_id +' from the Cart',
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'YES, Remove This Item',
+                            denyButtonText: `NO`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: '/html/item-sale-id-remove.html/'+item_sale_id,
+                                    type: "GET",
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Product Deleted Successfully',
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        }).then(()=>{
+                                            window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                                        });
+                                    },
+                                    error: function (data) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Failed',
+                                            text: "An error: "+JSON.stringify(data.responseText)+" has occured",
+                                            
+                                        })
+                                    }
+                                });
+                            } else{
+                                Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Action Canceled Successfully',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                            }
+                        })
+    });
+</script>
 
 <script>
     $("#addItem").validate({
@@ -240,6 +419,7 @@
         }
     });
 </script>
+
 <script>
     $('body').on('click','.btnAddQ',function(){
         var $itemId = $(this).attr('data-id');
@@ -248,8 +428,7 @@
             type: "GET",
             dataType: 'json',
             success: function(res){
-                var $status =  JSON.stringify(res.status);
-                    
+                var $status =  JSON.stringify(res.status);                    
                     if ($status < "1"){
                         Swal.fire({
                         icon:'error',
@@ -258,68 +437,7 @@
                         })
                     }else{
                         $('#addQuantityModal').modal('show');
-                    }
-            },
-            error: function (data){
-                Swal.fire({
-                            icon:'error',
-                            title: 'Ooops...',
-                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
-                        })
-            }
-        });
-    });
-</script>
-
-<script>
-    $('body').on('click','.btnRemoveI',function(){
-        var $itemId = $(this).attr('data-id');
-        $.ajax({
-            url: '/html/item-remove-item.html/'+$itemId,
-            type: "GET",
-            dataType: 'json',
-            success: function(res){
-                var $status =  JSON.stringify(res.status);
-                    
-                    if ($status < "1"){
-                        Swal.fire({
-                        icon:'error',
-                        title: 'Ooops...',
-                        text: JSON.stringify(res.data)
-                        })
-                    }else{
-                        $('#addItemModal').modal('show');
-                    }
-            },
-            error: function (data){
-                Swal.fire({
-                            icon:'error',
-                            title: 'Ooops...',
-                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
-                        })
-            }
-        });
-    });
-</script>
-
-<script>
-    $('body').on('click','.btnRecievePayment',function(){
-        var $saleId = $(this).attr('data-id');
-        $.ajax({
-            url: '/html/sales-get-payment.html/'+$saleId,
-            type: "GET",
-            dataType: 'json',
-            success: function(res){
-                var $status =  JSON.stringify(res.status);
-                    
-                    if ($status < "1"){
-                        Swal.fire({
-                        icon:'error',
-                        title: 'Ooops...',
-                        text: JSON.stringify(res.data)
-                        })
-                    }else{
-                        $('#addPaymentModal').modal('show');
+                        $('#addQuantityModal #txtItemSaleId').val(res.data.item_sale_id);
                     }
             },
             error: function (data){

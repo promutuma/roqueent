@@ -61,9 +61,10 @@ $routes->get('/html/sales-new.html', 'Sales::newSale');
 $routes->get('/html/sales-new.html/(:any)', 'Sales::sale/$1');
 $routes->get('/html/sales-add-item.html/(:any)', 'Sales::addSaleItem/$1');
 $routes->get('/html/item-get-item.html/(:any)', 'Sales::getItem/$1');
-$routes->get('/html/item-remove-item.html/(:any)', 'Sales::removeItem/$1');
+$routes->get('/html/item-sale-id-remove.html/(:any)', 'Sales::removeItem/$1');
 $routes->get('/html/sales-get-payment.html/(:any)', 'Sales::getPayment/$1');
 $routes->post('/html/sales-add-item-cart.html', 'Sales::addCart');
+$routes->post('/html/sales-quantity-change.html', 'Sales::quantityChange');
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');

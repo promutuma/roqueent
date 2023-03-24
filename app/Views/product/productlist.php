@@ -345,6 +345,8 @@
                 </div>
             </div>
             <!-- content @e -->
+
+
             <script>
                     $('body').on('click','.btnDelete',function(){
                         var product_sku = $(this).attr('data-id');
@@ -594,14 +596,10 @@ $("#addproduct").validate({
         }
     });
  
+</script>
 
-            </script>
+
 <script>
-
-
-
-
-
 
 $("#addcategory").validate({
         rules: {

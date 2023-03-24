@@ -163,12 +163,18 @@ class Sales extends BaseController
         }        
     }
 
-    public function getItem($itemid){
-        echo json_encode(array("status" => 1 , 'data' => "Item with Id (" .$itemid .") found."));
+    public function getItem($itemsaleid){
+        $fitem = new ItemModel();
+        $cartitem = $fitem->where('item_sale_id', $itemsaleid)->first();
+        echo json_encode(array("status" => true , 'data' => $cartitem));
     }
 
-    public function getPayment($salesId){
-        echo json_encode(array("status" => 1 , 'data' => "Payment with Sale Id (" .$salesId .") not found."));
+    public function quantityChange(){
+        
+    }
+
+    public function removeItem(){
+        
     }
     
 }
