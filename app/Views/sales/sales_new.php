@@ -256,7 +256,9 @@
                         icon:'success',
                         title: 'Success',
                         text: JSON.stringify(res.data)
-                        })
+                        }).then(()=>{
+                                window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                        });
                     }
 
                 },

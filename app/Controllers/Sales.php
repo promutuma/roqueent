@@ -150,8 +150,7 @@ class Sales extends BaseController
         }              
     }
 
-    public function addSaleItem($salesId)
-    {
+    public function addSaleItem($salesId){
         $sale = new SaleModel();
         $sale->where('sale_id',$salesId);
         $fsale =$sale->first();
@@ -170,7 +169,68 @@ class Sales extends BaseController
     }
 
     public function quantityChange(){
-        
+        $itemsaleid = $this->request->getVar('txtItemSaleId');
+        $fitem = new ItemModel();
+        $Qitem = $fitem->where('item_sale_id', $itemsaleid)->first();
+        $sale_id=$Qitem['sale_id'];
+        $quantityToadd = $this->request->getVar('txtQD');
+        $previousQuantity = $Qitem['quantity'];
+        $newQuantity=$previousQuantity+$quantityToadd;
+        $product_sku = $Qitem['product_sku'];
+        $product = new ProductModel();
+        $IProduct = $product->where('product_sku',$product_sku)->first();
+        $availableStock = $IProduct['stock'];
+        $total_price = $IProduct['sale_price']*$newQuantity;
+        $total_buying_price = $IProduct['regular_price']*$newQuantity;
+        $newStock=$availableStock-$quantityToadd;
+        if($availableStock>$quantityToadd){
+            $itemData=[
+                'quantity' => $newQuantity,
+                'price_per_unit' =>$IProduct['sale_price'],
+                'total_price' => $total_price,
+                'total_buying_price'=>$total_buying_price,
+                'total_profit'=>$total_price-$total_buying_price,
+            ];
+            $productData = [
+                'stock' => $newStock,
+            ];
+            $updateproduct = new ProductModel();
+            $updateitem = new ItemModel();
+            $updateproduct->where('product_sku',$product_sku);
+            $updateproduct->set($productData);
+            $updateproduct->update();
+
+            $updateitem->where('item_sale_id',$itemsaleid);
+            $updateitem->set($itemData);
+            $updateitem->update();
+
+            $item = new ItemModel();
+            $item->where('sale_id',$sale_id);
+            $data['item'] =$item->findAll();
+            $tP = $item->where('sale_id',$sale_id)->select('sum(total_price) as TotalPrice')->first();
+            $totalP = $tP['TotalPrice'];
+            $sts='Pending Payment';
+
+            $saleData = [
+                'amount'=>$totalP,
+                'sale_status' =>$sts,
+            ];
+
+            $sale = new SaleModel();
+            $sale->where('sale_id',$sale_id);
+            $sale->set($saleData);
+            $sale->update();
+
+            if($updateitem == false || $updateproduct == false){
+                echo json_encode(array("status" => 0 , 'data' => 'An Error occured when trying to update the quantity'));
+            }else{
+                echo json_encode(array("status" => 1 , 'data' => 'Item Update successful'));
+            }
+        }
+        else{
+            echo json_encode(array("status" => 0 , 'data' => 'Selected quatity of '.$quantityToadd.' is more than the available stock of '.$IProduct['stock']));
+        }
+
     }
 
     public function removeItem(){
@@ -178,7 +238,7 @@ class Sales extends BaseController
     }
 
     public function getPayment(){
-        
+
     }
     
 }

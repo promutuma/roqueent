@@ -50,7 +50,7 @@
                                             
 
 
-                                        <table class="table table-striped table-hover table-bordered" id="expenselist">
+                                        <table class="table table-striped table-hover" id="expenselist">
   <thead>
     <tr>
       <th scope="col">Expense ID</th>
@@ -75,7 +75,7 @@
                                                                     <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
-                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnAddQ"><em class="icon ni ni-edit" ></em><span>Add / Deduct Quantity</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnAddQ"><em class="icon ni ni-edit" ></em><span>Edit Expense</span></a></li>
                                                                             <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnRemoveItem"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                                                         </ul>
                                                                     </div>
@@ -188,7 +188,7 @@
                         title: 'Success',
                         text: JSON.stringify(res.data)
                         }).then(()=>{
-                                        window.location.href = "//html/expense-list.html";
+                                        window.location.href = "/html/expense-list.html";
                                     });
                     }
 
