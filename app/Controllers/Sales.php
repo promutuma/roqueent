@@ -176,5 +176,9 @@ class Sales extends BaseController
     public function removeItem(){
         
     }
+
+    public function getPayment(){
+        
+    }
     
 }

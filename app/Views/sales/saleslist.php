@@ -122,7 +122,14 @@
             </div>
             <!-- content @e -->
 
-
+<script>
+import DataTable from 'datatables.net-dt';
+import 'datatables.net-responsive-dt';
+ 
+let table = new DataTable('#saleslist', {
+    responsive: true
+});
+</script>
 
             <script>
                 $(document).ready( function () {

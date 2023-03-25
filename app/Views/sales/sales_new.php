@@ -482,3 +482,34 @@
         
     });
 </script>
+
+<script>
+    $('body').on('click','.btnRecievePayment',function(){
+        var $saleId = $(this).attr('data-id');
+        $.ajax({
+            url: '/html/sales-get-payment.html/'+$saleId,
+            type: "GET",
+            dataType: 'json',
+            success: function(res){
+                var $status =  JSON.stringify(res.status);
+
+                    if ($status < "1"){
+                        Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: JSON.stringify(res.data)
+                        })
+                    }else{
+                        $('#addPaymentModal').modal('show');
+                    }
+            },
+            error: function (data){
+                Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                        })
+            }
+        });
+    });
+</script>

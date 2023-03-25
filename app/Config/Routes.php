@@ -68,7 +68,7 @@ $routes->post('/html/sales-quantity-change.html', 'Sales::quantityChange');
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');
-$routes->get('/html/expense-add.html', 'Expense::formView');
+$routes->post('/html/expense-add-item.html','Expense::addExpense');
 
 /*
  * --------------------------------------------------------------------
