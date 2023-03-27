@@ -45,6 +45,7 @@ $routes->get('/html/user-profile-social.html', 'Dashboard::myAccountSocial');
 
 //users routes
 $routes->get('html/user-list-regular.html', 'User::index'); 
+$routes->post('/html/user-add-user.html/', 'User::addUser'); 
 
 //product
 $routes->get('/html/product-list.html', 'Product::index');

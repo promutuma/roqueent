@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\LogModel;
 
 
 class Sys extends BaseController
@@ -144,30 +145,38 @@ class Sys extends BaseController
             'device'    => $deviceType
         );
     }
-
-    public function depositAmount($grandtotal){
-        if($grandtotal==0){
-            $bal=0;
-            $pbal=0;
-            $data['bal']=$bal;
-            $data['pbal']=$pbal;
-        }else{
-            $bal=$grandtotal-$ttp;
-            $pbal=$bal/$grandtotal*100;
-            $data['bal']=$bal;
-            $data['pbal']=$pbal;
-        }
+    public function addLog($sessionId,$userId,$logType,$logDesc){
+        $newLog = new LogModel();
+        $time=$this->getTime();
+        $logData = [
+            'log_id'=>$time['ts'],
+            'session_id'=>$sessionId,
+            'user_id'=>$userId,
+            'log_type'=>$logType,
+            'log_desc'=>$logDesc,
+            'log_date'=>$time['date'],
+            'log_time'=>$time['time']
+        ];
+        $newLog->save($logData);
     }
 
-    public function totalPercentage($grandtotal,$ttp){
-        if($grandtotal==0){
-            $ttper = 0;
-        }else{
-            $ttper = $ttp/$grandtotal*100;
+    public function sendEmail($toEmail,$subject,$message){
+        $email = \Config\Services::email();    
+        $email->setFrom('admin@camera20production.co.ke', 'C20 POS');
+        $email->setTo($toEmail);
+        #$email->setCC('another@another-example.com');
+        #$email->setBCC('them@their-example.com');
+        $email->setSubject($subject);
+        $email->setMessage($message);
+        
+        if ($email->send()) 
+		{
+            $data = 'Email successfully sent';
+        } 
+		else 
+		{
+            $data = $email->printDebugger(['headers']);
         }
-        
-        return $ttper;
-        
+        return $data;
     }
-
 }

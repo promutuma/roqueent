@@ -971,12 +971,13 @@
                                     </div>
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block">
+                                <form id="addUser" name="addUser" action="/html/user-add-user.html/" method="post"> 
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-label" for="product-title">First Name</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="product-title">
+                                                    <input type="text" class="form-control" id="txtFname" name="txtFname" placeholder="Franklin">
                                                 </div>
                                             </div>
                                         </div>
@@ -985,7 +986,16 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="product-title">Other Name</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="product-title">
+                                                    <input type="text" class="form-control" id="txtOname" name="txtOname" placeholder="Mutuma">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="product-title">Email</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="info@camera20production.co.ke">
                                                 </div>
                                             </div>
                                         </div>
@@ -994,7 +1004,7 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="sale-price">Id Number</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="sale-price">
+                                                    <input type="text" class="form-control" id="txtID" name="txtID" placeholder="12345678">
                                                 </div>
                                             </div>
                                         </div>
@@ -1002,8 +1012,12 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="stock">User Type</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="stock">
-                                                </div>
+                                                            <select class="form-select" data-search="on" name="txtUT" id="txtUT" placeholder="Category">
+                                                                <option value="User">User</option>
+                                                                <option value="Admin">Admin</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
 
@@ -1011,7 +1025,7 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="stock">Phone Number</label>
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="stock">
+                                                    <input type="text" class="form-control" id="txtPN" name="txtPN" placeholder="0796096678">
                                                 </div>
                                             </div>
                                         </div>
@@ -1028,4 +1042,64 @@
                                         </div>
                                     </div>
                                 </div><!-- .nk-block -->
+</form>
                             </div>
+
+
+<!-- scripts -->
+<script>
+    $('#addUser').validate({
+        rules:{
+            txtFname: "required",
+            txtOname: "required",
+            txtEmail: "required",
+            txtID: "required",
+            txtUT: "required",
+            txtPN: "required",
+        },
+        messages:{
+            txtFname: "First name is required",
+            txtOname: "Other name is required",
+            txtEmail: "Email is required",
+            txtID: "User national ID isrequired",
+            txtUT: "User Type is required",
+            txtPN: "User phone number is required",
+        },
+        submitHandler: function(form){
+            var form_action = $("#addUser").attr("action");
+                    $.ajax({
+                        data: $('#addUser').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {
+                            var $status =  + JSON.stringify(res.status);
+                            var $sts = 'false';
+                            if ($status < 1){
+                                Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: JSON.stringify(res.data.message)
+                                })
+                            }else{
+                                Swal.fire({
+                                icon:'success',
+                                title: 'Success',
+                                text: JSON.stringify(res.data.message)
+                                }).then(()=>{
+                                    window.location.href = "/html/user-list-regular.html";
+                                });
+                            }
+
+                        },
+                        error: function (data) {
+                            Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                            })
+                        }
+            });
+        }
+    });
+</script>
