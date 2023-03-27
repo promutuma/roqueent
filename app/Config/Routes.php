@@ -65,6 +65,8 @@ $routes->get('/html/item-sale-id-remove.html/(:any)', 'Sales::removeItem/$1');
 $routes->get('/html/sales-get-payment.html/(:any)', 'Sales::getPayment/$1');
 $routes->post('/html/sales-add-item-cart.html', 'Sales::addCart');
 $routes->post('/html/sales-quantity-change.html', 'Sales::quantityChange');
+$routes->post('/html/sales-add-payment.html', 'Sales::addPayment');
+
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');

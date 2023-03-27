@@ -74,9 +74,26 @@
   </tbody>
   <tfoot>
     <tr>
-        <td colspan=3><b>Total</b></td>
-        <td><b><?php echo $totalQuantity;?></b></td>
+        <td rowspan=4></td>
+        <td colspan=2><b>Total Price</b></td>
+        <td><b></b></td>
         <td><b>Ksh <?php echo $totalPrice;?></b></td>
+        <td rowspan=4></td>
+    </tr>
+    <tr>
+        <td colspan=2><b>Total Items In Cart</b></td>
+        <td><b><?php echo $totalQuantity;?></b></td>
+        <td><b></b></td>
+    </tr>
+    <tr>
+        <td colspan=2><b>Total Payment</b></td>
+        <td><b></b></td>
+        <td><b>Ksh <?php echo $Payment;?></b></td>
+    </tr>
+    <tr>
+        <td colspan=2><b>Amount Not Paid</b></td>
+        <td><b></b></td>
+        <td><b>Ksh <?php echo $totalPrice-$Payment;?></b></td>
     </tr>
   </tfoot>
 </table>
@@ -169,7 +186,24 @@
             <div class="form-group">
     <label class="form-label" for="default-01">Sale Id</label>
     <div class="form-control-wrap">
-        <input type="text" class="form-control" name="txtSaleId" id="txtSaleId" placeholder="Stock" value="<?php echo $saleId;?>" readonly>
+        <input type="text" class="form-control" name="txtSaleId" id="txtSaleId" placeholder="Sale ID" value="<?php echo $saleId;?>" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Payment To Be Done</label>
+    <div class="form-control-wrap">
+        <input type="text" class="form-control" name="txtPrice" id="txtPrice" value="<?php echo $totalPrice-$Payment;?>" readonly>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="default-01">Transaction Type</label>
+    <div class="form-control-wrap">
+    <select class="form-select" data-search="" name="txtTT" id="txtTT" placeholder="Select Item">
+            <option value="Cash">Cash</option>
+            <option value="Mpesa">Mpesa</option>
+    </select>
     </div>
 </div>
 
@@ -228,6 +262,77 @@
 </div>
 
 <script>
+    $("#addPayment").validate({
+        rules:{
+            txtAmount: "required",
+        },
+        messages: {
+            txtAmount: "Please enter the Amount Paid",
+        },
+        submitHandler: function(form){
+            var form_action = $("#addPayment").attr("action");
+            $.ajax({
+                data: $('#addPayment').serialize(),
+                url: form_action,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    $('#addPaymentModal').modal('hide');
+                    var $status =  + JSON.stringify(res.status);
+                    var $sts = 'false';
+                    if ($status > 1){
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Payment not Enough',
+                            text: JSON.stringify(res.data.message),
+                            showCancelButton: true,
+                            confirmButtonText: 'Ask Now',
+                            cancelButtonText: `No, Payment to be done in future`,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                $('#addPaymentModal').modal('show');
+                                $('#addPaymentModal #txtPrice').val(res.data.toPay);
+                            } else{
+                                Swal.fire('You Canceled the Transaction, Please not that the sale is not complete, but a transaction was recorded', '', 'info').then((result) => {
+                                    window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                                })
+                            }
+                        })
+                    }else{
+                        if ($status===1) {
+                            Swal.fire({
+                            icon:'success',
+                            title: 'Success',
+                            text: JSON.stringify(res.data.message)
+                            }).then((result) => {
+                                window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
+                            })
+                        } else {
+                            Swal.fire({
+                            icon:'error',
+                            title: 'Ooops...',
+                            text: JSON.stringify(res.data.message)
+                            })
+                        }
+                        
+                    }
+
+                },
+                error: function (data) {
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Ooops...',
+                        text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                    })
+                }
+            });
+        }
+    });
+
+</script>
+
+<script>
     $("#QtrChange").validate({
         rules:{
             txtQD: "required",
@@ -275,52 +380,6 @@
 </script>
 
 <script>
-    $("#addPayment").validate({
-        rules:{
-            txtAmount: "required",
-        },
-        messages: {
-            txtAmount: "Please enter the Amount Paid",
-        },
-        submitHandler: function(form){
-            var form_action = $("#addPayment").attr("action");
-            $.ajax({
-                data: $('#addPayment').serialize(),
-                url: form_action,
-                type: "POST",
-                dataType: 'json',
-                success: function (res) {
-                    var $status =  JSON.stringify(res.status);
-                    var $sts = 'false';
-                    if ($status < "1"){
-                        Swal.fire({
-                        icon:'error',
-                        title: 'Ooops...',
-                        text: JSON.stringify(res.data)
-                        })
-                    }else{
-                        Swal.fire({
-                        icon:'success',
-                        title: 'Success',
-                        text: JSON.stringify(res.data)
-                        })
-                    }
-
-                },
-                error: function (data) {
-                    Swal.fire({
-                        icon:'error',
-                        title: 'Ooops...',
-                        text: "An error: "+JSON.stringify(data.responseText)+" has occured"
-                    })
-                }
-            });
-        }
-    });
-
-</script>
-
-<script>
     $('body').on('click','.btnRemoveItem',function(){
         var item_sale_id = $(this).attr('data-id');
                         Swal.fire({
@@ -338,15 +397,25 @@
                                     type: "GET",
                                     dataType: 'json',
                                     success: function (res) {
-                                        Swal.fire({
+                                        var $status = + JSON.stringify(res.status);
+                                        var $sts = 'false';
+                                        if ($status < 1) {
+                                            Swal.fire({
+                                                icon:'error',
+                                                title: 'Ooops...',
+                                                text: JSON.stringify(res.data.message)
+                                            })
+                                        } else {
+                                            Swal.fire({
                                             position: 'center',
                                             icon: 'success',
-                                            title: 'Product Deleted Successfully',
+                                            title: JSON.stringify(res.data.message),
                                             showConfirmButton: false,
                                             timer: 2500
                                         }).then(()=>{
                                             window.location.href = "/html/sales-new.html/"+<?php echo $saleId;?>;
-                                        });
+                                        });                                        
+                                        }
                                     },
                                     error: function (data) {
                                         Swal.fire({
@@ -502,7 +571,21 @@
                         text: JSON.stringify(res.data)
                         })
                     }else{
-                        $('#addPaymentModal').modal('show');
+                        Swal.fire({
+                            icon:'info',
+                            text: JSON.stringify(res.data),
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            denyButtonText: `No, Not now`,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                $('#addPaymentModal').modal('show');
+                            } else{
+                                Swal.fire('You Canceled the Transaction', '', 'info')
+                            }
+                        })
                     }
             },
             error: function (data){
