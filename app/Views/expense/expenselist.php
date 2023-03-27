@@ -75,8 +75,8 @@
                                                                     <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
-                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnAddQ"><em class="icon ni ni-edit" ></em><span>Edit Expense</span></a></li>
-                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnRemoveItem"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnEditEX"><em class="icon ni ni-edit" ></em><span>Edit Expense</span></a></li>
+                                                                            <li><a data-id="<?php echo $row['expense_ID']?>" class="btn btnDeleteEX"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                                                         </ul>
                                                                     </div>
                                                     </div>
@@ -152,8 +152,232 @@
                     </div>
                 </div>
             </div>
+            <!--modal-->
+<div class="modal" tabindex="-1" role="dialog" id="editExpense">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      
+      <form id="ee" name="ee" action="/html/expense-edit-item.html" method="post">    
+                                        
+      
+                                    <div class="row g-3">
+
+
+                                    <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="sale-price">Expense ID</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="txtExpID" name="txtExpID" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="product-title">Description</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="txtDesc" name="txtDesc">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="sale-price">Amount</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="txtAmount" name="txtAmount">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="stock">Remarks</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="txtRemarks" name="txtRemarks" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-12">
+                                            <div class="upload-zone small bg-lighter my-2">
+                                                <div class="dz-message">
+                                                    <span class="dz-message-text">Reciept </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+      </div>
+      <div class="form-group">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+  </form>
+  </form>
+    </div>
+  </div>
+</div>
             <!-- content @e -->
             <!-- Scripts -->
+            <script>
+                $("#ee").validate({
+                    rules:{
+                        txtAmount: "required",
+                        txtDesc: "required",
+                    },
+                    messages:{
+                        txtAmount: "Amount required",
+                        txtDesc: "Description required",
+                    },
+                    submitHandler: function(form){
+                    var form_action = $("#ee").attr("action");
+                    $.ajax({
+                        data: $('#ee').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {
+                            var $status =  + JSON.stringify(res.status);
+                            var $sts = 'false';
+                            if ($status < 1){
+                                Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: JSON.stringify(res.data.message)
+                                })
+                            }else{
+                                Swal.fire({
+                                icon:'success',
+                                title: 'Success',
+                                text: JSON.stringify(res.data.message)
+                                }).then(()=>{
+                                    window.location.href = "/html/expense-list.html";
+                                });
+                            }
+
+                        },
+                        error: function (data) {
+                            Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                            })
+                        }
+            });
+        }
+                });
+            </script>
+            <script>
+                $('body').on('click','.btnDeleteEX',function(){
+                    var $expenseId = $(this).attr('data-id');
+                    Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning...',
+                            text: 'Do you want to remove Expense with ID '+$expenseId +' from the System',
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'YES, Remove This Item',
+                            denyButtonText: `NO`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    url: '/html/expense-remove-item.html/'+ $expenseId,
+                                    type: "GET",
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        var $status = + JSON.stringify(res.status);
+                                        if ($status < 1) {
+                                            Swal.fire({
+                                                icon:'error',
+                                                title: 'Ooops...',
+                                                text: JSON.stringify(res.data.message)
+                                            })
+                                        } else {
+                                            Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: JSON.stringify(res.data.message),
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        }).then(()=>{
+                                            window.location.href = "/html/expense-list.html";
+                                        });                                        
+                                        }
+                                    },
+                                    error: function (data) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Failed',
+                                            text: JSON.stringify(data.responseText),
+                                            
+                                        })
+                                    }
+                                });
+                            } else{
+                                Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Action Canceled Successfully',
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        }).then(()=>{
+                                            window.location.href = "/html/expense-list.html";
+                                        });
+                            }
+                        })
+                    });
+            </script>
+            <script>
+                $('body').on('click','.btnEditEX',function(){
+                    var $expenseId = $(this).attr('data-id');
+                    $.ajax({
+                        url: '/html/expense-get-item.html/Edit/'+$expenseId,
+                        type: "GET",
+                        dataType: 'json',
+                        success: function(res){
+                            var $status =  + JSON.stringify(res.status);
+                            if ($status < 1) {
+                                Swal.fire({icon:'error',title: 'Ooops...',text: JSON.stringify(res.data.message)})
+                            } else {
+                                Swal.fire({
+                                    icon:'info',
+                                    text: JSON.stringify(res.data.message),
+                                    showDenyButton: true,
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes',
+                                    denyButtonText: `No, Not now`,
+                                }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        $('#editExpense').modal('show');
+                                        $('#editExpense #txtExpID').val(res.data.expense.expense_ID);
+                                        $('#editExpense #txtDesc').val(res.data.expense.expense_description);
+                                        $('#editExpense #txtAmount').val(res.data.expense.expense_amount);
+                                        $('#editExpense #txtRemarks').val(res.data.expense.remarks);
+                                    }
+                                    else{
+                                        Swal.fire('You Canceled the edit process', '', 'info')
+                                }   
+                            })
+                            }
+                        },
+                        error: function (data){
+                            Swal.fire({icon:'error',title: 'Ooops...',text: "An error: "+JSON.stringify(data.responseText)+" has occured"})
+                        }
+                    });
+                });
+            </script>
+           
             <script>
                 $("#addExpense").validate({
                     rules:{

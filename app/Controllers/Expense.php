@@ -40,4 +40,59 @@ class Expense extends BaseController
             echo json_encode(array("status" => 1 , 'data' => 'Expense with ID:' .$expenseData['expense_ID'].' added to the System Successfully at '.$ExpenseDate .' '.$ExpenseTime.', Please note that this information is editable for only 30 minutes.'));
         }
     }
+
+    public function expenseGet($action,$expenseId){
+        $getexpense = new ExpenseModel();
+        $expense = $getexpense->where('expense_ID',$expenseId)->first();
+        $data['expense'] = $expense;
+
+        if (empty($expense)) {
+            # code...
+            $status = 0;
+            $data['message'] = "Expense not found";
+        } else {
+            # code...
+            $status = 1;
+            $data['message'] = "Do you want to ".$action." this Expense";
+        }
+        echo json_encode(array("status" => $status , 'data' => $data));
+    }
+
+    public function removeExpense($expenseId){
+        $status =0;
+        $data['message']="Expenses cannot be removed, Please edit the expense";
+        echo json_encode(array("status" => $status , 'data' => $data));
+    }
+    public function editExpense(){
+        $expenseID = $this->request->getVar('txtExpID');
+        $expenseDesc = $this->request->getVar('txtDesc');
+        $expenseAmount = $this->request->getVar('txtAmount');
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+        $remarks = $this->request->getVar('txtRemarks')."(Edited on ".$Date." at ".$Time.")";
+        $expenseData=[
+            'expense_description'=>$expenseDesc,
+            'expense_amount'=>$expenseAmount,
+            'remarks'=>$remarks
+        ];
+        
+        $updateExpense = new ExpenseModel();
+        $updateExpense->where('expense_ID',$expenseID);
+        $updateExpense->set($expenseData);
+        $updateExpense->update();
+
+        if ($updateExpense==false) {
+            # code...
+            $status=0;
+            $data['message']="Update failed to save to database";
+        } else {
+            # code...
+            $status=1;
+            $data['message']="Update Successful. The page will reload now.";
+        }
+        echo json_encode(array("status" => $status , 'data' => $data));
+    }
 }

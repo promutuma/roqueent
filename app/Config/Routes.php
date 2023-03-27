@@ -70,7 +70,10 @@ $routes->post('/html/sales-add-payment.html', 'Sales::addPayment');
 
 //Expense
 $routes->get('/html/expense-list.html', 'Expense::index');
+$routes->get('/html/expense-get-item.html/(:any)/(:any)', 'Expense::expenseGet/$1/$2');
+$routes->get('/html/expense-remove-item.html/(:any)', 'Expense::removeExpense/$1');
 $routes->post('/html/expense-add-item.html','Expense::addExpense');
+$routes->post('/html/expense-edit-item.html','Expense::editExpense');
 
 /*
  * --------------------------------------------------------------------
