@@ -160,6 +160,7 @@ class Sys extends BaseController
         $newLog->save($logData);
     }
 
+    
     public function sendEmail($toEmail,$subject,$message){
         $email = \Config\Services::email();    
         $email->setFrom('admin@camera20production.co.ke', 'C20 POS');

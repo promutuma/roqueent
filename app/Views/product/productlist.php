@@ -364,7 +364,10 @@
                                     url: '/html/product-delete.html/'+product_sku,
                                     type: "GET",
                                     dataType: 'json',
+                                    beforeSend:function(){$('#loading').modal('show');},
+                                    complete:function(){$('#loading').modal('hide');},
                                     success: function (res) {
+                                        $('#loading').modal('hide');
                                         Swal.fire({
                                             position: 'center',
                                             icon: 'success',
@@ -376,6 +379,7 @@
                                         });
                                     },
                                     error: function (data) {
+                                        $('#loading').modal('hide');
                                         Swal.fire({
                                             position: 'center',
                                             icon: 'error',
@@ -425,7 +429,9 @@ $("#addproduct").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
                 success: function (res) { 
+                    $('#loading').modal('hide');
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -442,6 +448,7 @@ $("#addproduct").validate({
                     
                 },
                     error: function (data) {
+                        $('#loading').modal('hide');
                         Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -461,13 +468,16 @@ $("#addproduct").validate({
             url: '/html/product-find.html/'+product_sku,
             type: "GET",
             dataType: 'json',
+            beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
             success: function (res) {
+                $('#loading').modal('hide');
                 $('#addstockModal').modal('show');
                 $('#addStock #txtProductSku').val(res.data.product_sku); 
                 $('#addStock #txtProductName').val(res.data.product_name);
                 $('#addStock #txtStock').val(res.data.stock);
             },
             error: function (data) {
+                $('#loading').modal('hide');
                 Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -493,8 +503,9 @@ $("#addproduct").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
                 success: function (res) {
-                    
+                    $('#loading').modal('hide');
                     $('#addStock')[0].reset();
                     $('#addstockModal').modal('hide');
                     
@@ -512,6 +523,7 @@ $("#addproduct").validate({
                     })
                 },
                     error: function (res) {
+                        $('#loading').modal('hide');
                         Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -521,14 +533,18 @@ $("#addproduct").validate({
                 }})}
         
     });
+</script>
 
+<script>
     $('body').on('click', '.btnEdit', function () {
         var product_sku = $(this).attr('data-id');
         $.ajax({
             url: '/html/product-find.html/'+product_sku,
             type: "GET",
             dataType: 'json',
+            beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
             success: function (res) {
+                $('#loading').modal('hide');
                 $('#updateModal').modal('show');
                 $('#updateproduct #txtProductSku').val(res.data.product_sku); 
                 $('#updateproduct #txtProductName').val(res.data.product_name);
@@ -536,8 +552,10 @@ $("#addproduct").validate({
                 $('#updateproduct #txtSPrice').val(res.data.sale_price);
                 $('#updateproduct #txtStock').val(res.data.stock);
                 $('#updateproduct #txtCategory').val(res.data.category);
+                
             },
                 error: function (data) {
+                    $('#loading').modal('hide');
                     Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -547,7 +565,7 @@ $("#addproduct").validate({
         });
         
     });
-    </script>
+</script>
 
 <script>
     $("#updateproduct").validate({
@@ -568,9 +586,11 @@ $("#addproduct").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
                 success: function (res) {                 
                     $('#updateproduct')[0].reset();
                     $('#updateModal').modal('hide');
+                    $('#loading').modal('hide');
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -585,6 +605,7 @@ $("#addproduct").validate({
                     })
                 },
                     error: function (data) {
+                        $('#loading').modal('hide');
                         Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -616,8 +637,8 @@ $("#addcategory").validate({
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
                 success: function (res) {
-                   
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -633,6 +654,7 @@ $("#addcategory").validate({
                     })
                 },
                     error: function (data) {
+                        $('#loading').modal('hide');
                         Swal.fire({
                             icon:'error',
                             title: 'Ooops...',
@@ -644,5 +666,4 @@ $("#addcategory").validate({
         }
     });
  
-
-            </script>
+</script>

@@ -276,6 +276,7 @@
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 3500})},
                 success: function (res) {
                     $('#addPaymentModal').modal('hide');
                     var $status =  + JSON.stringify(res.status);
@@ -396,6 +397,7 @@
                                     url: '/html/item-sale-id-remove.html/'+item_sale_id,
                                     type: "GET",
                                     dataType: 'json',
+                                    beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 3500})},
                                     success: function (res) {
                                         var $status = + JSON.stringify(res.status);
                                         var $sts = 'false';
@@ -449,11 +451,13 @@
         messages: {},
         submitHandler: function(form) {
             var form_action = $("#addItem").attr("action");
+            
             $.ajax({
                 data: $('#addItem').serialize(),
                 url: form_action,
                 type: "POST",
                 dataType: 'json',
+                beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 3500})},
                 success: function (res) {
                     var $status =  JSON.stringify(res.status);
                     var $sts = 'false';
@@ -498,6 +502,7 @@
             url: '/html/item-get-item.html/'+$itemId,
             type: "GET",
             dataType: 'json',
+            beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 3500})},
             success: function(res){
                 var $status =  JSON.stringify(res.status);                    
                     if ($status < "1"){
@@ -529,6 +534,7 @@
             url: '/html/sales-add-item.html/'+$saleId,
             type: "GET",
             dataType: 'json',
+            beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 2500})},
             success: function (res) {
                 var $status =  JSON.stringify(res.status);
                     
@@ -561,6 +567,7 @@
             url: '/html/sales-get-payment.html/'+$saleId,
             type: "GET",
             dataType: 'json',
+            beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 3500})},
             success: function(res){
                 var $status =  JSON.stringify(res.status);
 

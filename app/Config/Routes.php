@@ -33,7 +33,9 @@ $routes->set404Override();
 // auth files/routes
 $routes->get('/', 'Home::index');
 $routes->get('html/pages/auths/auth-login-v2.html', 'Home::index');
-$routes->get('html/pages/auths/auth-reset-v2.html', 'Home::resetPasscode');
+$routes->post('html/user-access-login.html', 'Home::login');
+$routes->post('/html/pages/auths/auth-request-password-reset-v2.html','Home::resetPasscode');
+$routes->get('/html/pages/auths/auth-check-password-reset-v2.html/(:any)','Home::changePasscode/$1');
 
 //home routes
 $routes->get('html/index.html', 'Dashboard::index');
@@ -45,7 +47,8 @@ $routes->get('/html/user-profile-social.html', 'Dashboard::myAccountSocial');
 
 //users routes
 $routes->get('html/user-list-regular.html', 'User::index'); 
-$routes->post('/html/user-add-user.html/', 'User::addUser'); 
+$routes->post('/html/user-add-user.html', 'User::addUser');
+ 
 
 //product
 $routes->get('/html/product-list.html', 'Product::index');

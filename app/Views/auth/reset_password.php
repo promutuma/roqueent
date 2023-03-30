@@ -19,21 +19,37 @@
                                     <div class="nk-block-head-content">
                                         <h5 class="nk-block-title">Reset password</h5>
                                         <div class="nk-block-des">
-                                            <p>If you forgot your password, well, then we’ll email you instructions to reset your password.</p>
+                                            <p>Set your new password here.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <form action="html/pages/auths/auth-success-v2.html">
-                                    <div class="form-group">
+                                <div class="form-group">
                                         <div class="form-label-group">
-                                            <label class="form-label" for="default-01">Email</label>
+                                            <label class="form-label" for="default-01">Reset Code</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address">
+                                            <input type="text" class="form-control form-control-lg" id="txtResetcode" name="txtResetcode" value=<?php echo $resetCode;?> readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-lg btn-primary btn-block">Send Reset Link</button>
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="default-01">Password</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="password" class="form-control form-control-lg" id="txtPassword" name="txtPassword" placeholder="Enter your new password here">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="default-01">Repeat Password</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="password" class="form-control form-control-lg" id="txtPassword" name="txtPassword" placeholder="Enter your new password here">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary btn-block">Set Password</button>
                                     </div>
                                 </form>
                                 <div class="form-note-s2 text-center pt-4">
