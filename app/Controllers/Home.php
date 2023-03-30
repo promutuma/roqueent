@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\SessionModel;
 
 class Home extends BaseController
 {
@@ -18,8 +19,85 @@ class Home extends BaseController
         echo view('auth/#/footer');
     }
     public function login(){
+        $status=0;
         $id=$this->request->getVar('txtEmail');
         $password=$this->request->getVar('txtPassword');
+
+        $checkUser= new UserModel();
+        $userId = $checkUser->where('user_id',$id)->first();
+        $userEmail = $checkUser->where('user_email',$id)->first();
+
+        if ($userId>0) {
+            # code...
+            $userData = $userId;
+            if (password_verify($password,$userData['user_password'])) {
+                # code...
+                $status = 1;
+                $this->setSession($userData);
+                $data['message']="Password verified. PRESS OKAY TO LOG IN";
+                
+            } else {
+                # code...
+                $data['message']="Incorrect Password";
+            }
+            
+        } else {
+            # code...
+            if ($userEmail>0) {
+                # code...
+                $userData = $userEmail;
+                if (password_verify($password,$userData['user_password'])) {
+                    # code...
+                    $status = 1;
+                    $this->setSession($userData);
+                    $data['message']="Password verified. PRESS OKAY TO LOG IN";
+                    
+                } else {
+                    # code...
+                    $data['message']="Incorrect Password";
+                }
+                
+            } else {
+                # code...
+                $status = 0;
+                $data['message']="User not Found";
+            }
+            
+        }
+
+        
+        echo json_encode(array("status" => $status , 'data' => $data));
+    }
+
+    private function setSession($user){
+        $Sys = new Sys();
+
+        $getTime = $Sys->getTime();
+        $sessionId =  $getTime['ts'];
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+
+        $getBrowser = $Sys->getBrowser();
+
+        $Sessiondata = [
+            'session_id' => $sessionId ,
+            'user_id' => $user['user_id'],
+            'ip_address' => $Sys->getIPAddress(),
+            'device' => $getBrowser['device'],
+            'user_agent' => $getBrowser['user_agent'],
+            'browser' => $getBrowser['browser'],
+            'browser_version' => $getBrowser['browser_version'],
+            'os_platform' => $getBrowser['os_platform'],
+            'pattern' => $getBrowser['pattern'],
+            'date_time'=> $Date.$Time,
+            'usertype' => $user['user_type'],
+            'userEmail' => $user['user_email'],
+            'isLoggedIn'=>true,
+        ];
+        session()->set($Sessiondata);
+        $savesession = new SessionModel();
+        $savesession->save($Sessiondata);
+        return true;
     }
 
 
@@ -98,9 +176,43 @@ class Home extends BaseController
     }
     public function changePasscode($resetCode)
     {
-        $data['resetCode'] = $resetCode;
-        echo view('auth/#/header');
-        echo view('auth/reset_password',$data);
-        echo view('auth/#/footer');
+        $selectUser = new UserModel();
+        $userData = $selectUser->where('user_status',$resetCode)->first();
+        if (empty($userData)) {
+            # code...
+            echo view('auth/#/header');
+            echo view('auth/login');
+            echo view('auth/#/footer');
+        } else {
+            # code...
+            $data['userId'] = $userData['user_id'];
+            echo view('auth/#/header');
+            echo view('auth/reset_password',$data);
+            echo view('auth/#/footer');
+        }
+    }
+
+    public function setPasscode(){
+        $status = 0;
+        $userId=$this->request->getVar('txtResetcode');
+        $password=$this->request->getVar('txtPassword');
+
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        $updateUser = new UserModel();
+        $userData = [
+            'user_password'=>$passwordHash,
+            'user_status' => 1
+        ];
+
+        $updateUser->where('user_id',$userId);
+        $updateUser->set($userData);
+        $updateUser->update();
+
+        $status = 1;
+
+        $data['message']="Password updated successfully";
+
+        echo json_encode(array("status" => $status , 'data' => $data));
     }
 }

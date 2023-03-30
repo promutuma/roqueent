@@ -23,13 +23,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="html/pages/auths/auth-success-v2.html">
+                                <form id="setPass" name="setPass" action="html/pages/auths/user-update-password-v2.html" method="post">
                                 <div class="form-group">
                                         <div class="form-label-group">
-                                            <label class="form-label" for="default-01">Reset Code</label>
+                                            <label class="form-label" for="default-01">User ID</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="txtResetcode" name="txtResetcode" value=<?php echo $resetCode;?> readonly>
+                                            <input type="text" class="form-control form-control-lg" id="txtResetcode" name="txtResetcode" value=<?php echo $userId;?> readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -42,10 +42,10 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-label-group">
-                                            <label class="form-label" for="default-01">Repeat Password</label>
+                                            <label class="form-label" for="default-01">Retype Password</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="password" class="form-control form-control-lg" id="txtPassword" name="txtPassword" placeholder="Enter your new password here">
+                                            <input type="password" class="form-control form-control-lg" id="txtPassword1" name="txtPassword1" placeholder="Enter your new password here">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -58,3 +58,66 @@
                             </div>
                         </div>
                     </div>
+
+<script>
+    $('#setPass').validate({
+        rules:{
+            txtPassword:{
+                required: true,
+                minlength: 7,
+            },
+            txtPassword1:{
+                equalTo: '#txtPassword',
+            }
+        },
+        messages:{
+            txtPassword:{
+                required: "Please Enter new Password",
+                minlength:  jQuery.validator.format("Enter at least {0} characters"),
+            },
+            txtPassword1:{
+                equalTo: "Enter the same password as above",
+            }
+        },
+        submitHandler: function(form){
+            var form_action = $("#setPass").attr("action");
+                    $.ajax({
+                        data: $('#setPass').serialize(),
+                        url: form_action,
+                        type: 'POST',
+                        dataType: 'json',
+                        beforeSend:function(){Swal.fire({icon: 'info',title: 'Loading...',showConfirmButton: false,timer: 1500})},
+                        success: function (res) {
+                            
+                            var $status =  + JSON.stringify(res.status);
+                            var $sts = 'false';
+                            if ($status < 1){
+                                Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: JSON.stringify(res.data.message)
+                                })
+                            }else{
+                                Swal.fire({
+                                icon:'success',
+                                title: 'Success',
+                                text: JSON.stringify(res.data.message)
+                                }).then(()=>{
+                                    window.location.href = "html/pages/auths/auth-login-v2.html";
+                                });
+                            }
+                            $('#loading').modal('hide');
+
+                        },
+                        error: function (data) {
+                            
+                            Swal.fire({
+                                icon:'error',
+                                title: 'Ooops...',
+                                text: "An error: "+JSON.stringify(data.responseText)+" has occured"
+                            })
+                        }
+            });
+        }
+    });
+</script>

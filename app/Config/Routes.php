@@ -35,6 +35,7 @@ $routes->get('/', 'Home::index');
 $routes->get('html/pages/auths/auth-login-v2.html', 'Home::index');
 $routes->post('html/user-access-login.html', 'Home::login');
 $routes->post('/html/pages/auths/auth-request-password-reset-v2.html','Home::resetPasscode');
+$routes->post('html/pages/auths/user-update-password-v2.html','Home::setPasscode');
 $routes->get('/html/pages/auths/auth-check-password-reset-v2.html/(:any)','Home::changePasscode/$1');
 
 //home routes
