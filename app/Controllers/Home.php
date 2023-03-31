@@ -215,4 +215,9 @@ class Home extends BaseController
 
         echo json_encode(array("status" => $status , 'data' => $data));
     }
+
+    public function logOut(){
+        session()->destroy();
+        return redirect()->to('/');
+    }
 }
