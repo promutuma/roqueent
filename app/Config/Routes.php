@@ -33,7 +33,7 @@ $routes->set404Override();
 // auth files/routes
 $routes->get('/', 'Home::index',['filter'=>'noauth']);
 $routes->get('html/pages/auths/auth-login-v2.html', 'Home::index',['filter'=>'noauth']);
-$routes->get('html/user-session-close.html', 'Home::logOut',['filter'=>'noauth']);
+$routes->get('html/user-session-close.html', 'Home::logout');
 $routes->post('html/user-access-login.html', 'Home::login',['filter'=>'noauth']);
 $routes->post('/html/pages/auths/auth-request-password-reset-v2.html','Home::resetPasscode',['filter'=>'noauth']);
 $routes->post('html/pages/auths/user-update-password-v2.html','Home::setPasscode',['filter'=>'noauth']);

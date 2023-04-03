@@ -80,8 +80,9 @@ class Home extends BaseController
         $getBrowser = $Sys->getBrowser();
 
         $Sessiondata = [
-            'session_id' => $sessionId ,
+            'session_iddata' => $sessionId ,
             'user_id' => $user['user_id'],
+            'user_name'=> $user['user_fname']." ".$user['user_oname'],
             'ip_address' => $Sys->getIPAddress(),
             'device' => $getBrowser['device'],
             'user_agent' => $getBrowser['user_agent'],
@@ -94,7 +95,8 @@ class Home extends BaseController
             'userEmail' => $user['user_email'],
             'isLoggedIn'=>true,
         ];
-        session()->set($Sessiondata);
+        $session = session();
+        $session->set($Sessiondata);
         $savesession = new SessionModel();
         $savesession->save($Sessiondata);
         return true;
@@ -217,7 +219,9 @@ class Home extends BaseController
     }
 
     public function logOut(){
-        session()->destroy();
+        $session = session();
+        $session->destroy();
+        
         return redirect()->to('/');
     }
 }

@@ -195,7 +195,7 @@ class Sales extends BaseController
         $total_price = $IProduct['sale_price']*$newQuantity;
         $total_buying_price = $IProduct['regular_price']*$newQuantity;
         $newStock=$availableStock-$quantityToadd;
-        if($availableStock>$quantityToadd){
+        if($availableStock>=$quantityToadd){
 
             if ($newQuantity<1) {
                 # code...

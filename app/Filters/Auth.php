@@ -13,7 +13,7 @@ class Auth implements FilterInterface
         // Do something here
         if(! session()->get('isLoggedIn')){
             session()->setFlashdata('error', 'Please Login First');
-        return redirect()->to('/');
+        return redirect()->to('html/pages/auths/auth-login-v2.html');
         }
     }
 
