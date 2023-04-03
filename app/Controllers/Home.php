@@ -144,6 +144,7 @@ class Home extends BaseController
             $userData=[
                 'user_status'=>$resetId,
             ];
+            $logDesc = "User with user Id: ".$Id." requested password reset using user National ID on ".$Date." ".$Time;
             $updateUser= new UserModel();
             $updateUser->where('user_id',$Id);
             $updateUser->set($userData);
@@ -168,6 +169,7 @@ class Home extends BaseController
                 $updateUser->where('user_id',$Id);
                 $updateUser->set($userData);
                 $updateUser->update();
+                $logDesc = "User with user Email: ".$Id." requested password reset using user Email on ".$Date." ".$Time;
                 $Sys->addLog(1,$Id,$logType,$logDesc);
                 $Sys->sendEmail($email,$subject,$message);
                 $status=1;
@@ -204,6 +206,15 @@ class Home extends BaseController
         $status = 0;
         $userId=$this->request->getVar('txtResetcode');
         $password=$this->request->getVar('txtPassword');
+        $Sys = new Sys();
+
+
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+        
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -217,7 +228,11 @@ class Home extends BaseController
         $updateUser->set($userData);
         $updateUser->update();
 
+        $logDesc = "User with user ID: ".$userId." updated password successfully on ".$Date." ".$Time;
+
         $status = 1;
+
+        $Sys->addLog(1,$userId,"Update",$logDesc);
 
         $data['message']="Password updated successfully";
 
@@ -225,7 +240,14 @@ class Home extends BaseController
     }
 
     public function logOut(){
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
         $session = session();
+        $logDesc = "User with user: ".$session->get('user_name')." logged successfully on ".$Date." ".$Time;
+        $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Logout",$logDesc);
         $session->destroy();
         
         return redirect()->to('/');

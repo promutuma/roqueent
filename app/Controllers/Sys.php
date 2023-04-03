@@ -148,8 +148,16 @@ class Sys extends BaseController
     public function addLog($sessionId,$userId,$logType,$logDesc){
         $newLog = new LogModel();
         $time=$this->getTime();
+        if ($logType=="Logout") {
+            # code...
+            $logid="L".$time['ts'];
+        } else {
+            # code...
+            $logid=$time['ts'];
+        }
+        
         $logData = [
-            'log_id'=>$time['ts'],
+            'log_id'=>$logid,
             'session_id'=>$sessionId,
             'user_id'=>$userId,
             'log_type'=>$logType,

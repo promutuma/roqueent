@@ -21,6 +21,7 @@ class Sales extends BaseController
 
     public function newSale()
     {
+        $session = session();
         $Sys = new Sys();
         $getTime = $Sys->getTime();
         $saleId =  $getTime['ts'];
@@ -31,17 +32,22 @@ class Sales extends BaseController
             'sale_id'=>$saleId,
             'sale_date'=>$saleDate,
             'sale_time'=>$saleTime,
-            'sale_status'=>"Sale Initiated"
+            'sale_status'=>"Sale Initiated",
+            'createdBy'=> $session->get('user_id')
         ];
 
         $sale = new SaleModel();
 
         $sale->save($saleData);
 
+        $logDesc = "New sale (".$saleId.") initiated by ".$session->get('user_name')." on ".$saleDate." ".$saleTime;
+        $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
+
         return redirect()->to('/html/sales-new.html/'.$saleId);
     }
 
     public function sale($saleId){
+        
         $data['saleId']=$saleId;
         $product = new ProductModel();
         $data['product']=$product->where('stock >',0)->findAll();
@@ -84,6 +90,14 @@ class Sales extends BaseController
         $product = new ProductModel();
         $item = new ItemModel();
         $fitem = new ItemModel();
+        $session = session();
+
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+
         $product_sku = $this->request->getVar('txtItem');
         $quantity = $this->request->getVar('txtQuantity');
         $sale_id= $this->request->getVar('txtSaleId');
@@ -150,6 +164,8 @@ class Sales extends BaseController
                             if($sale == false){
                                 echo json_encode(array("status" => 0 , 'data' => 'Error occured when trying to add total amount. Please do not re-add the item'));
                             }else{
+                                $logDesc = "Item ".$productdata['product_name']." added to cart ".$sale_id." by ".$session->get('user_name')." on ".$Date." ".$Time;
+                                $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
                                 echo json_encode(array("status" => 1 , 'data' => $productdata['product_name'].' added to Cart with a Total Price of '.$total_price .'. With ultimate total price of Ksh'.$totalP));
                             }                            
                         }
@@ -181,6 +197,13 @@ class Sales extends BaseController
     }
 
     public function quantityChange(){
+        $session = session();
+
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
         $itemsaleid = $this->request->getVar('txtItemSaleId');
         $fitem = new ItemModel();
         $Qitem = $fitem->where('item_sale_id', $itemsaleid)->first();
@@ -243,6 +266,8 @@ class Sales extends BaseController
                 if($updateitem == false || $updateproduct == false){
                     echo json_encode(array("status" => 0 , 'data' => 'An Error occured when trying to update the quantity'));
                 }else{
+                    $logDesc = "Quantity of Item ".$IProduct['product_name']." updated on sale  ".$sale_id." by ".$session->get('user_name')." on ".$Date." ".$Time;
+                    $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Update",$logDesc);
                     echo json_encode(array("status" => 1 , 'data' => 'Item Update successful'));
                 }
             }
@@ -253,7 +278,15 @@ class Sales extends BaseController
 
     }
 
-    public function removeItem($itemId){ 
+    public function removeItem($itemId){
+        $session = session();
+
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+
         $fitem = new ItemModel();
         $Qitem = $fitem->where('item_sale_id', $itemId)->first();
         $saleId=$Qitem['sale_id'];
@@ -310,6 +343,8 @@ class Sales extends BaseController
             $data['message']="An Error occured. Try again after sometime";
         } else {
             # code...
+            $logDesc = "Item ".$IProduct['product_name']." removed in sale  ".$sale_id." by ".$session->get('user_name')." on ".$Date." ".$Time;
+            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Delete",$logDesc);
             $status = 1;
             $data['message']="Item removed successfully";
         }
@@ -318,6 +353,8 @@ class Sales extends BaseController
     }
 
     public function getPayment($saleId){
+        
+
         $checkpayment = new PaymentModel();
         $checkpayment->where('sale_id',$saleId);
         $data['payment'] =$checkpayment->findAll();
@@ -343,6 +380,14 @@ class Sales extends BaseController
     }
 
     public function addPayment(){
+
+        $session = session();
+
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
         $Sys = new Sys();
         $getTime = $Sys->getTime();
         $transactionId =  $getTime['ts'];
@@ -380,9 +425,10 @@ class Sales extends BaseController
                 $data['message']="A Payment of Ksh ".$currentPayment." plus a payment of Ksh ".$data['Payment']." done previously has been successful. Please give the customer a balance of Ksh ".$balance;
                 $status = 1;
                 $toPay=0;
-                $amount = $balance;
+                $amount = $currentPayment-$balance;
                 $saleStatus = "Complete";
                 $Payment=$totalPayment;
+                
             }else{
                 $toPay = $totalPrice - $totalPayment;
                 $data['toPay']=$toPay;
@@ -401,7 +447,8 @@ class Sales extends BaseController
                 'amount'=>$amount,
                 'total_price'=>$totalPrice,
                 'remarks'=>$data['message'],
-                'balanceNotPaid'=>$toPay
+                'balanceNotPaid'=>$toPay,
+                'createdBy'=> $session->get('user_id')
             ];
             $saleData=[
                 'paid_amount'=>$Payment,
@@ -415,6 +462,9 @@ class Sales extends BaseController
             $sale->where('sale_id',$saleId);
             $sale->set($saleData);
             $sale->update();
+
+            $logDesc = "Payment ".$ntransactionID." of Ksh ".$amount. " by ".$transactionType." payment mode added to sale  ".$saleId." by ".$session->get('user_name')." on ".$Date." ".$Time;
+            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
 
         }
         echo json_encode(array("status" => $status , 'data' => $data ));
