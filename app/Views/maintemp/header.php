@@ -141,11 +141,11 @@
                                         <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                             <div class="user-card">
                                                 <div class="user-avatar">
-                                                    <span>AB</span>
+                                                    <span><?php  echo  substr($_SESSION['fname'],0,1); ?><?php  echo  substr($_SESSION['oname'],0,1); ?></span>
                                                 </div>
                                                 <div class="user-info">
-                                                    <span class="lead-text">Abu Bin Ishtiyak</span>
-                                                    <span class="sub-text">info@softnio.com</span>
+                                                    <span class="lead-text"><?php echo $_SESSION['fname']; ?> <?php echo $_SESSION['oname']; ?></span>
+                                                    <span class="sub-text"><?php echo $_SESSION['userEmail']; ?></span>
                                                 </div>
                                                 <div class="user-action">
                                                     <a class="btn btn-icon mr-n2" href="html/user-profile-setting.html"><em class="icon ni ni-setting"></em></a>
@@ -153,17 +153,17 @@
                                             </div>
                                         </div>
                                         <div class="dropdown-inner user-account-info">
-                                            <h6 class="overline-title-alt">Account Balance</h6>
-                                            <div class="user-balance">1,494.23 <small class="currency currency-usd">USD</small></div>
-                                            <div class="user-balance-sub">Locked <span>15,495.39 <span class="currency currency-usd">USD</span></span></div>
-                                            <a href="#" class="link"><span>Withdraw Balance</span> <em class="icon ni ni-wallet-out"></em></a>
+                                            <h6 class="overline-title-alt">Your Account</h6>
+                                            <div class="user-balance">Sales <small class="currency currency-usd">Ksh 1,000</small></div>
+                                            <div class="user-balance-sub">Expenses <span>Ksh 1,000 <span class="currency currency-usd"></span></span></div>
+                                            <a href="" class="link"><span>View Total Sales</span> <em class="icon ni ni-wallet-out"></em></a>
                                         </div>
                                         <div class="dropdown-inner">
                                             <ul class="link-list">
                                                 <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
                                                 <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                                 <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                                <li><a class="dark-mode-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                                <li><a class="dark-mode-switch" href=""><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                             </ul>
                                         </div>
                                         <div class="dropdown-inner">

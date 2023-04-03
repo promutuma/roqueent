@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\SessionModel;
 
 class Dashboard extends BaseController
 {
@@ -33,8 +34,10 @@ class Dashboard extends BaseController
     }
     public function myAccountActivity()
     {
+        $activity = new SessionModel();
+        $data['logs'] = $activity->where('user_id',$_SESSION['user_id'])->orderBy('session_iddata', 'DESC')->findAll();
         echo view('maintemp/header');
-        echo view('home/myaccountactivity');
+        echo view('home/myaccountactivity',$data);
         echo view('home/#/profilesidenav');
         echo view('maintemp/footer');
     }

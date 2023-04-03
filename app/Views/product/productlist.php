@@ -56,7 +56,7 @@
                                             
 
                                         <div class="table-responsive">
-<table class="table table-striped table-hover table-bordered" id="productlist">
+<table class="table table-striped table-hover display" id="productlist" style="width:100%">
   <thead>
     <tr>
       <th scope="col">SKU</th>
@@ -71,7 +71,7 @@
   <tbody>
   <?php foreach($product as $row):?>
     <tr>
-      <td><?php echo $row['product_sku']?></th>
+      <td><span class="sub-text"><?php echo $row['product_sku']?></span></th>
       <td><span class="tb-sub"><?php echo $row['product_name']?></span></td>
       <td><span class="tb-lead">Ksh <?php echo $row['sale_price']?></span></td>
       <td><?php echo $row['stock']?></td>

@@ -3,11 +3,11 @@
                                                 <div class="card-inner">
                                                     <div class="user-card">
                                                         <div class="user-avatar bg-primary">
-                                                            <span>AB</span>
+                                                            <span><?php  echo  substr($_SESSION['fname'],0,1); ?><?php  echo  substr($_SESSION['oname'],0,1); ?></span>
                                                         </div>
                                                         <div class="user-info">
-                                                            <span class="lead-text">Abu Bin Ishtiyak</span>
-                                                            <span class="sub-text">info@softnio.com</span>
+                                                            <span class="lead-text"><?php echo $_SESSION['fname']; ?> <?php echo $_SESSION['oname']; ?></span>
+                                                            <span class="sub-text"><?php echo $_SESSION['userEmail']; ?></span>
                                                         </div>
                                                         <div class="user-action">
                                                             <div class="dropdown">

@@ -90,13 +90,19 @@ class Home extends BaseController
             'browser_version' => $getBrowser['browser_version'],
             'os_platform' => $getBrowser['os_platform'],
             'pattern' => $getBrowser['pattern'],
-            'date_time'=> $Date.$Time,
+            'date_time'=> $Date." ".$Time,
             'usertype' => $user['user_type'],
             'userEmail' => $user['user_email'],
             'isLoggedIn'=>true,
+            'fname'=> $user['user_fname'],
+            'oname'=> $user['user_oname'],
+            'pnumber'=> $user['phone_number']
         ];
+        $logDesc=$user['user_fname']." Logged in at ".$Date." ".$Time;
         $session = session();
         $session->set($Sessiondata);
+        $Sys = new Sys();
+        $Sys->addLog($sessionId,$user['user_id'],"Login",$logDesc);
         $savesession = new SessionModel();
         $savesession->save($Sessiondata);
         return true;
