@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class ProductModel extends Model{
     protected $table = 'product';
     protected $primarykey = 'product_sku';
-    protected $allowedFields = ['product_sku','product_name','regular_price','sale_price','stock','category'];
+    protected $allowedFields = ['product_sku','product_name','regular_price','sale_price','stock','category','createdBy'];
 
 
 }

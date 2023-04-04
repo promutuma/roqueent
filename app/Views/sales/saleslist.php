@@ -94,7 +94,7 @@
                                                                 <span class="amount">Ksh <?php echo $row['amount']?></span>
                                                             </span>
                                                             <span class="tb-odr-status">
-                                                                <span class="badge badge-dot <?php if($row['sale_status']=='Complete'){echo "badge-success";}if($row['sale_status']=='Created'){echo "badge-danger";}else{echo "badge-warning";}?>"><?php echo $row['sale_status']?></span>
+                                                                <span class="badge badge-dot <?php if($row['sale_status']=='Complete'){echo "badge-success";}elseif($row['sale_status']=='Created'){echo "badge-danger";}else{echo "badge-warning";}?>"><?php echo $row['sale_status']?></span>
                                                             </span>
                                                         </td>
                                                         <td class="tb-odr-action">

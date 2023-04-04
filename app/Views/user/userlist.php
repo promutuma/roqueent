@@ -219,7 +219,7 @@
                                                 </div><!-- .nk-tb-item -->
                                                 
 
-                                                <?php foreach($user as $row):?>
+                                                <?php foreach($user as $row):?> 
                                                 <div class="nk-tb-item">
                                                     <div class="nk-tb-col nk-tb-col-check">
                                                         <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -359,7 +359,8 @@
                                                 <label class="form-label" for="stock">User Type</label>
                                                 <div class="form-control-wrap">
                                                             <select class="form-select" data-search="on" name="txtUT" id="txtUT" placeholder="Category">
-                                                                <option value="User">User</option>
+                                                                <option value="Viewer">Viewer</option>    
+                                                                <option value="Editor">Editor</option>
                                                                 <option value="Admin">Admin</option>
                                                             </select>
                                                         </div>

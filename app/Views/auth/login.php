@@ -84,7 +84,7 @@
                                             <label class="form-label" for="default-01">Email or ID Number</label>
                                         </div>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" name="txtEmail" id="txtEmail" placeholder="Enter your email address">
+                                            <input type="text" class="form-control form-control-lg" name="txtEmail" id="txtEmailinput" placeholder="Enter your email address">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -157,11 +157,11 @@
 <script>
     $('#frmLogin').validate({
         rules:{
-            txtEmail: "required",
+            txtEmailinput: "required",
             txtPassword: "required",
         },
         messages:{
-            txtEmail: "Please enter your Email",
+            txtEmailinput: "Please enter your Email",
             txtPassword: "Please enter your password",
         },
         submitHandler: function(form){

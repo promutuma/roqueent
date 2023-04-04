@@ -150,7 +150,7 @@ class Sys extends BaseController
         $time=$this->getTime();
         if ($logType=="Logout") {
             # code...
-            $logid="L".$time['ts'];
+            $logid="000".$time['ts'];
         } else {
             # code...
             $logid=$time['ts'];

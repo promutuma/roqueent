@@ -8,7 +8,7 @@
                                     <div class="nk-block-head-content">
                                         <h3 class="nk-block-title page-title">Dashboard</h3>
                                         <div class="nk-block-des text-soft">
-                                            <p>Welcome to DashLite Dashboard Template.</p>
+                                            <p>Welcome to Camera 20 Production Point of Sale Dashboard.</p>
                                         </div>
                                     </div><!-- .nk-block-head-content -->
                                     <div class="nk-block-head-content">
@@ -50,19 +50,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-amount">
-                                                    <span class="amount"><span class="currency currency-usd">KSh</span> 49,595.34 
+                                                    <span class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisToday?>  
                                                     </span>
-                                                    <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span>
+                                                    <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>-%</span>
                                                 </div>
                                                 <div class="invest-data">
                                                     <div class="invest-data-amount g-2">
                                                         <div class="invest-data-history">
                                                             <div class="title">This Month</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 2,940.59 </div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisMonth?> </div>
                                                         </div>
                                                         <div class="invest-data-history">
                                                             <div class="title">This Week</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 1,259.28 </div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisWeek?></div>
                                                         </div>
                                                     </div>
                                                     <div class="invest-data-ck">
@@ -84,7 +84,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-amount">
-                                                    <span class="amount"><span class="currency currency-usd">KSh</span> 49,595.34 
+                                                    <span class="amount"><span class="currency currency-usd">KSh</span> 444
                                                     </span>
                                                     <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>
                                                 </div>
@@ -183,14 +183,12 @@
                                                         <div class="invest-ov gy-2">
                                                             <div class="subtitle">Stock</div>
                                                             <div class="invest-ov-details">
+                                                            <?php foreach($stock as $row):?>
                                                                 <div class="invest-ov-info">
-                                                                    <div class="amount">395 </div>
-                                                                    <div class="title">Ice Cream</div>
+                                                                    <div><span class="amount"><?php echo $row['stock']?></span><span class="change down text-info"><em class="icon ni ni-arrow-long-down"></em>0%</span></div>
+                                                                    <div class="title"><?php echo $row['product_name']?></div>
                                                                 </div>
-                                                                <div class="invest-ov-stats">
-                                                                    <div><span class="amount">23</span><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span></div>
-                                                                    <div class="title">Juice</div>
-                                                                </div>
+                                                            <?php endforeach;?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -284,176 +282,56 @@
                                             <div class="nk-tb-list">
                                                 <div class="nk-tb-item nk-tb-head">
                                                     <div class="nk-tb-col"><span>Plan</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>Who</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>Created By</span></div>
                                                     <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
-                                                    <div class="nk-tb-col"><span>Amount</span></div>
+                                                    <div class="nk-tb-col"><span>Total Amount</span></div>
                                                     <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
                                                     <div class="nk-tb-col"><span>&nbsp;</span></div>
                                                 </div>
+                                                <?php foreach($sales as $row):?>
                                                 <div class="nk-tb-item">
                                                     <div class="nk-tb-col">
                                                         <div class="align-center">
                                                             <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P2</span>
+                                                                <span>RS</span>
                                                             </div>
-                                                            <span class="tb-sub ml-2">Dimond <span class="d-none d-md-inline">- Daily 8.52% for 14 Days</span></span>
+                                                            <span class="tb-sub ml-2">SALE<span class="d-none d-md-inline"><?php echo $row['sale_id']?></span></span>
                                                         </div>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-sm">
                                                         <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-azure-dim">
-                                                                <span>VA</span>
+                                                            <div class="user-avatar user-avatar-xs <?php if ($row['sale_id']%4==0) {echo 'bg-azure-dim';}elseif ($row['sale_id']%3==0) {echo 'bg-purple-dim';}elseif ($row['sale_id']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
+                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
                                                             </div>
                                                             <div class="user-name">
-                                                                <span class="tb-lead">Victoria Aguilar</span>
+                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
+                                                        <span class="tb-sub"><?php $date=date_create($row['sale_date']." ".$row['sale_time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
                                                     </div>
                                                     <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
+                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['amount'],2)?></span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
+                                                        <span class="tb-sub <?php if($row['sale_status']=='Complete'){echo "text-success";}elseif($row['sale_status']=='Created'){echo "text-danger";}else{echo "text-warning";}?>"><?php echo $row['sale_status']?></span>
                                                     </div>
                                                     <div class="nk-tb-col nk-tb-col-action">
                                                         <div class="dropdown">
                                                             <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                                                 <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">View</a></li>
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Invoice</a></li>
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Print</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P3</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Platinam <span class="d-none d-md-inline">- Daily 14.82% for 7 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-purple-dim">
-                                                                <span>EH</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Emma Henry</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P1</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Silver <span class="d-none d-md-inline">- Daily 4.76% for 21 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-teal-dim">
-                                                                <span>AF</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Alice Ford</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P3</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Platinam <span class="d-none d-md-inline">- Daily 14.82% for 7 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-orange-dim">
-                                                                <span>HW</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Harold Walker</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <?php endforeach;?>
+                                                
                                             </div>
                                         </div><!-- .card -->
                                     </div><!-- .col -->
@@ -467,48 +345,24 @@
                                                     </div>
                                                     <div class="card-tools">
                                                         <ul class="card-tools-nav">
-                                                            <li><a href="#"><span>Cancel</span></a></li>
-                                                            <li class="active"><a href="#"><span>All</span></a></li>
+                                                            <li><a href=""><span>Cancel</span></a></li>
+                                                            <li class="active"><a href=""><span>All</span></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="nk-activity">
+                                            <?php foreach($logs as $row):?>
                                                 <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar bg-success"><img src="./images/avatar/c-sm.jpg" alt=""></div>
+                                                    <div class="nk-activity-media user-avatar <?php if ($row['session_id']%4==0) {echo 'bg-azure';}elseif ($row['session_id']%3==0) {echo 'bg-warning';}elseif ($row['session_id']%2==0) {echo 'bg-purple';}else{echo 'bg-pink';}?>"><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></div>
                                                     <div class="nk-activity-data">
-                                                        <div class="label">Keith Jensen requested to Widthdrawl.</div>
-                                                        <span class="time">2 hours ago</span>
+                                                        <div class="label"><?php echo $row['log_desc']?></div>
+                                                        <span class="time"><?php echo number_format(($currentTime-$row['log_id'])/60)?> Minutes ago</span>
                                                     </div>
                                                 </li>
-                                                <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar bg-warning">HS</div>
-                                                    <div class="nk-activity-data">
-                                                        <div class="label">Harry Simpson placed a Order.</div>
-                                                        <span class="time">2 hours ago</span>
-                                                    </div>
-                                                </li>
-                                                <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar bg-azure">SM</div>
-                                                    <div class="nk-activity-data">
-                                                        <div class="label">Stephanie Marshall got a huge bonus.</div>
-                                                        <span class="time">2 hours ago</span>
-                                                    </div>
-                                                </li>
-                                                <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar bg-purple"><img src="./images/avatar/d-sm.jpg" alt=""></div>
-                                                    <div class="nk-activity-data">
-                                                        <div class="label">Nicholas Carr deposited funds.</div>
-                                                        <span class="time">2 hours ago</span>
-                                                    </div>
-                                                </li>
-                                                <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar bg-pink">TM</div>
-                                                    <div class="nk-activity-data">
-                                                        <div class="label">Timothy Moreno placed a Order.</div>
-                                                        <span class="time">2 hours ago</span>
-                                                    </div>
-                                                </li>
+                                                <?php endforeach;?>                                            
+                                
+                
                                             </ul>
                                         </div><!-- .card -->
                                     </div><!-- .col -->
@@ -527,37 +381,39 @@
                                             </div>
                                             <div class="nk-tb-list">
                                                 <div class="nk-tb-item nk-tb-head">
-                                                    <div class="nk-tb-col"><span>Plan</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>Who</span></div>
+                                                    <div class="nk-tb-col"><span>Expense</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>Added By</span></div>
                                                     <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
                                                     <div class="nk-tb-col"><span>Amount</span></div>
                                                     <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
                                                     <div class="nk-tb-col"><span>&nbsp;</span></div>
                                                 </div>
+
+                                                <?php foreach($expense as $row):?>
                                                 <div class="nk-tb-item">
                                                     <div class="nk-tb-col">
                                                         <div class="align-center">
                                                             <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P2</span>
+                                                                <span>EX</span>
                                                             </div>
-                                                            <span class="tb-sub ml-2">Dimond <span class="d-none d-md-inline">- Daily 8.52% for 14 Days</span></span>
+                                                            <span class="tb-sub ml-2"><?php echo $row['expense_description']?><span class="d-none d-md-inline"> - <?php echo $row['remarks']?></span></span>
                                                         </div>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-sm">
                                                         <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-azure-dim">
-                                                                <span>VA</span>
+                                                            <div class="user-avatar user-avatar-xs <?php if ($row['expense_ID']%4==0) {echo 'bg-azure-dim';}elseif ($row['expense_ID']%3==0) {echo 'bg-purple-dim';}elseif ($row['expense_ID']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
+                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
                                                             </div>
                                                             <div class="user-name">
-                                                                <span class="tb-lead">Victoria Aguilar</span>
+                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
+                                                        <span class="tb-sub"><?php $date=date_create($row['date']." ".$row['time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
                                                     </div>
                                                     <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
+                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['expense_amount'],2)?></span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-sm">
                                                         <span class="tb-sub text-success">Completed</span>
@@ -575,129 +431,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P3</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Platinam <span class="d-none d-md-inline">- Daily 14.82% for 7 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-purple-dim">
-                                                                <span>EH</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Emma Henry</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P1</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Silver <span class="d-none d-md-inline">- Daily 4.76% for 21 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-teal-dim">
-                                                                <span>AF</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Alice Ford</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>P3</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">Platinam <span class="d-none d-md-inline">- Daily 14.82% for 7 Days</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs bg-orange-dim">
-                                                                <span>HW</span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead">Harold Walker</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub">18/10/2019</span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount">1.094780 <span>BTC</span></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <?php endforeach;?>
+
+                                                
+                                                
                                             </div>
                                         </div><!-- .card -->
                                     </div><!-- .col -->

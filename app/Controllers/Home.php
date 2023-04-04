@@ -246,7 +246,7 @@ class Home extends BaseController
         $Date =  $getTime['date'];
         $Time =  $getTime['time'];
         $session = session();
-        $logDesc = "User with user: ".$session->get('user_name')." logged successfully on ".$Date." ".$Time;
+        $logDesc = "".$session->get('user_name')." logged out successfully on ".$Date." ".$Time;
         $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Logout",$logDesc);
         $session->destroy();
         

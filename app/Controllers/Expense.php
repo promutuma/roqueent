@@ -8,13 +8,14 @@ class Expense extends BaseController
     public function index()
     {
         $expense = new ExpenseModel();
-        $data['allexpense']=$expense->findAll();
+        $data['allexpense']=$expense->orderBy('expense_ID','DESC')->findAll();
         echo view('maintemp/header');
         echo view('expense/expenselist',$data);
         echo view('maintemp/footer');
     }
     
     public function addExpense(){
+        $session = session();
         $Addexpense = new ExpenseModel();
         $Sys = new Sys();
         $getTime = $Sys->getTime();
@@ -32,11 +33,14 @@ class Expense extends BaseController
             'time'=>$ExpenseTime,
             'expense_amount'=>$expenseAmount,
             'remarks'=>$remarks,
+            'createdBy'=> $session->get('user_id'),
         ];
         $Addexpense->save($expenseData);
         if($Addexpense == false){
             echo json_encode(array("status" => 0 , 'data' => 'Error occured when trying to add Expense. Please do not re-add the item'));
         }else{
+            $logDesc = "Expense ".$ExpenseId." of Ksh ".$expenseAmount. "  added to by ".$session->get('user_name')." on ".$ExpenseDate." ".$ExpenseTime;
+            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
             echo json_encode(array("status" => 1 , 'data' => 'Expense with ID:' .$expenseData['expense_ID'].' added to the System Successfully at '.$ExpenseDate .' '.$ExpenseTime.', Please note that this information is editable for only 30 minutes.'));
         }
     }
@@ -59,11 +63,21 @@ class Expense extends BaseController
     }
 
     public function removeExpense($expenseId){
+        $Sys = new Sys();
+        $getTime = $Sys->getTime();
+        
+        $Date =  $getTime['date'];
+        $Time =  $getTime['time'];
+
+        $session = session();
         $status =0;
         $data['message']="Expenses cannot be removed, Please edit the expense";
+        $logDesc = "User ".$session->get('user_name')." tried to delete expense (".$expenseId.") data on ".$Date." ".$Time;
+        $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Delete",$logDesc);
         echo json_encode(array("status" => $status , 'data' => $data));
     }
     public function editExpense(){
+        $session = session();
         $expenseID = $this->request->getVar('txtExpID');
         $expenseDesc = $this->request->getVar('txtDesc');
         $expenseAmount = $this->request->getVar('txtAmount');
@@ -92,6 +106,8 @@ class Expense extends BaseController
             # code...
             $status=1;
             $data['message']="Update Successful. The page will reload now.";
+            $logDesc = "User ".$session->get('user_name')." updated expense ".$expenseID." data on ".$Date." ".$Time;
+            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Update",$logDesc);
         }
         echo json_encode(array("status" => $status , 'data' => $data));
     }

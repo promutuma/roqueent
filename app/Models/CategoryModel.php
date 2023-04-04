@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class CategoryModel extends Model{
     protected $table = 'category';
     protected $primarykey = 'category_name';
-    protected $allowedFields = ['category_name'];
+    protected $allowedFields = ['category_name','createdBy'];
 
 
 }

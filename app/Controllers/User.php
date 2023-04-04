@@ -14,6 +14,7 @@ class User extends BaseController
         echo view('maintemp/footer');
     }
     public function addUser(){
+        $session = session();
         $userID=$this->request->getVar('txtID');
         $email=$this->request->getVar('txtEmail');
 
@@ -47,7 +48,8 @@ class User extends BaseController
             'user_type'=>$this->request->getVar('txtUT'),
             'user_status'=>$ustatus,
             'added_on'=>$dateTime,
-            'phone_number'=>$this->request->getVar('txtPN')
+            'phone_number'=>$this->request->getVar('txtPN'),
+            'createdBy'=> $session->get('user_id'),
         ];
 
         $message='Hello '.$this->request->getVar('txtFname').', An account has been created using this email. Please login to '.base_url().' then reset password to set your password thanks.'; 
@@ -67,6 +69,8 @@ class User extends BaseController
             $status=1;
             $data['message']="Success, User account created successfully and email sent to the new user with password";
             $Sys->sendEmail($email,"Account Creation Successful",$message);
+            $logDesc = "User ".$this->request->getVar('txtFname')." added as ".$this->request->getVar('txtUT')." by ".$session->get('user_name')." on ".$dateTime;
+            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
         }
             }
             
