@@ -358,7 +358,7 @@
                                                     <div class="nk-activity-media user-avatar <?php if ($row['session_id']%4==0) {echo 'bg-azure';}elseif ($row['session_id']%3==0) {echo 'bg-warning';}elseif ($row['session_id']%2==0) {echo 'bg-purple';}else{echo 'bg-pink';}?>"><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></div>
                                                     <div class="nk-activity-data">
                                                         <div class="label"><?php echo $row['log_desc']?></div>
-                                                        <span class="time"><?php echo number_format(($currentTime-$row['log_id'])/60)?> Minutes ago</span>
+                                                        <span class="time"><?php $minutes = ($currentTime-$row['log_id'])/60; if($minutes<120){echo number_format($minutes)." Minutes ago";}elseif($minutes<2880){echo number_format($minutes/60)." Hours ago";}else{echo number_format($minutes/1440)." Days ago";} ?></span>
                                                     </div>
                                                 </li>
                                                 <?php endforeach;?>                                            
