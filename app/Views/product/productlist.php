@@ -52,11 +52,11 @@
                                 <div class="card card-bordered">
                                     <div class="card-inner-group">
                                         <div class="card-inner p-0">
-                                        <div class="nk-tb-list"> 
+                                        
                                             
 
-                                        <div class="table-responsive">
-<table class="table table-striped table-hover display" id="productlist" style="width:100%">
+
+<table class="table datatable-init-export" id="productlist">
   <thead>
     <tr>
       <th scope="col">SKU</th>
@@ -71,14 +71,14 @@
   <tbody>
   <?php foreach($product as $row):?>
     <tr>
-      <td><span class="sub-text"><?php echo $row['product_sku']?></span></th>
-      <td><span class="tb-sub"><?php echo $row['product_name']?></span></td>
-      <td><span class="tb-lead">Ksh <?php echo $row['sale_price']?></span></td>
-      <td><?php echo $row['stock']?></td>
-      <td><?php echo $row['category']?></td>
-      <td>
+      <td scope="col"><?php echo $row['product_sku']?></th>
+      <td scope="col"><span class="tb-sub"><?php echo $row['product_name']?></span></td>
+      <td scope="col">Ksh <?php echo $row['sale_price']?></td>
+      <td scope="col"><?php echo $row['stock']?></td>
+      <td scope="col"><?php echo $row['category']?></td>
+      <td scope="col">
       <div class="dropdown">
-                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
                                                                             <li><a data-id="<?php echo $row['product_sku']?>" class="btn btnEdit"><em class="icon ni ni-edit" ></em><span>Edit Product</span></a></li>
@@ -96,8 +96,8 @@
 </table>
 
 
-  </div>
-  </div>
+
+
                                            
                                         </div>
                                         
@@ -404,11 +404,7 @@
 
 
 
-            <script>
-                $(document).ready( function () {
-    $('#productlist').DataTable();
-} );
-</script>
+
 
 <script>
 $("#addproduct").validate({

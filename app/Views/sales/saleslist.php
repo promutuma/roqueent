@@ -68,7 +68,7 @@
 
 
                                         <div class="table-responsive">
-                                            <table class="table table-orders" id="saleslist">
+                                            <table class="table datatable-init-export table-orders" id="saleslist">
                                                 <thead class="tb-odr-head">
                                                     <tr class="tb-odr-item">
                                                         <th class="tb-odr-info">
@@ -122,17 +122,3 @@
             </div>
             <!-- content @e -->
 
-<script>
-import DataTable from 'datatables.net-dt';
-import 'datatables.net-responsive-dt';
- 
-let table = new DataTable('#saleslist', {
-    responsive: true
-});
-</script>
-
-            <script>
-                $(document).ready( function () {
-    $('#saleslist').DataTable();
-} );
-            </script>

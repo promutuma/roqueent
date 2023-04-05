@@ -424,9 +424,9 @@
                                                             <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                                                 <ul class="link-list-plain">
-                                                                    <li><a href="#">View</a></li>
-                                                                    <li><a href="#">Invoice</a></li>
-                                                                    <li><a href="#">Print</a></li>
+                                                                    <li><a href="">View</a></li>
+                                                                    <li><a href="">Invoice</a></li>
+                                                                    <li><a href="">Print</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

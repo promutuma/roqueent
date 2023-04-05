@@ -50,7 +50,7 @@
                                             
 
 
-                                        <table class="table table-striped table-hover" id="expenselist">
+<table class="table table-striped table-hover datatable-init-export" id="">
   <thead>
     <tr>
       <th scope="col">Expense ID</th>
