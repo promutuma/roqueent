@@ -22,8 +22,10 @@
     <title><?php echo $title ?> | Camera20 POS</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?php echo base_url()?>files/assets/css/dashlite.css?ver=2.9.1">
+    
     <link rel="stylesheet" href="<?php echo base_url()?>files/js/libs/datatable-btns.js">
     <link id="skin-default" rel="stylesheet" href="<?php echo base_url()?>files/assets/css/theme.css?ver=2.9.1">
+    
     
 
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>

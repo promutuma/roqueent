@@ -140,6 +140,183 @@
                                             </div>
                                         </div><!-- .card -->
                                     </div><!-- .col -->
+                                    
+
+                                    
+                                    <div class="col-xl-12 col-xxl-8">
+                                        <div class="card card-bordered card-full">
+                                            <div class="card-inner border-bottom">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Recent Sales</h6>
+                                                    </div>
+                                                    <div class="card-tools">
+                                                        <a href="/html/sales-list.html" class="link">View All</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nk-tb-list">
+                                                <div class="nk-tb-item nk-tb-head">
+                                                    <div class="nk-tb-col"><span>Plan</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>Created By</span></div>
+                                                    <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
+                                                    <div class="nk-tb-col"><span>Total Amount</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
+                                                    <div class="nk-tb-col"><span>&nbsp;</span></div>
+                                                </div>
+                                                <?php foreach($sales as $row):?>
+                                                <div class="nk-tb-item">
+                                                    <div class="nk-tb-col">
+                                                        <div class="align-center">
+                                                            <div class="user-avatar user-avatar-sm bg-light">
+                                                                <span>RS</span>
+                                                            </div>
+                                                            <span class="tb-sub ml-2">SALE<span class="d-none d-md-inline"><?php echo $row['sale_id']?></span></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-sm">
+                                                        <div class="user-card">
+                                                            <div class="user-avatar user-avatar-xs <?php if ($row['sale_id']%4==0) {echo 'bg-azure-dim';}elseif ($row['sale_id']%3==0) {echo 'bg-purple-dim';}elseif ($row['sale_id']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
+                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
+                                                            </div>
+                                                            <div class="user-name">
+                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-lg">
+                                                        <span class="tb-sub"><?php $date=date_create($row['sale_date']." ".$row['sale_time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
+                                                    </div>
+                                                    <div class="nk-tb-col">
+                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['amount'],2)?></span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-sm">
+                                                        <span class="tb-sub <?php if($row['sale_status']=='Complete'){echo "text-success";}elseif($row['sale_status']=='Created'){echo "text-danger";}else{echo "text-warning";}?>"><?php echo $row['sale_status']?></span>
+                                                    </div>
+                                                    <div class="nk-tb-col nk-tb-col-action">
+                                                        <div class="dropdown">
+                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                                <ul class="link-list-plain">
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">View</a></li>
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Invoice</a></li>
+                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Print</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php endforeach;?>
+                                                
+                                            </div>
+                                        </div><!-- .card -->
+                                    </div><!-- .col -->
+
+                                    <div class="col-xl-12 col-xxl-8">
+                                        <div class="card card-bordered card-full">
+                                            <div class="card-inner border-bottom">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Recent Expenses</h6>
+                                                    </div>
+                                                    <div class="card-tools">
+                                                        <a href="/html/expense-list.html" class="link">View All</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nk-tb-list">
+                                                <div class="nk-tb-item nk-tb-head">
+                                                    <div class="nk-tb-col"><span>Expense</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>Added By</span></div>
+                                                    <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
+                                                    <div class="nk-tb-col"><span>Amount</span></div>
+                                                    <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
+                                                    <div class="nk-tb-col"><span>&nbsp;</span></div>
+                                                </div>
+
+                                                <?php foreach($expense as $row):?>
+                                                <div class="nk-tb-item">
+                                                    <div class="nk-tb-col">
+                                                        <div class="align-center">
+                                                            <div class="user-avatar user-avatar-sm bg-light">
+                                                                <span>EX</span>
+                                                            </div>
+                                                            <span class="tb-sub ml-2"><?php echo $row['expense_description']?><span class="d-none d-md-inline"> - <?php echo $row['remarks']?></span></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-sm">
+                                                        <div class="user-card">
+                                                            <div class="user-avatar user-avatar-xs <?php if ($row['expense_ID']%4==0) {echo 'bg-azure-dim';}elseif ($row['expense_ID']%3==0) {echo 'bg-purple-dim';}elseif ($row['expense_ID']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
+                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
+                                                            </div>
+                                                            <div class="user-name">
+                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-lg">
+                                                        <span class="tb-sub"><?php $date=date_create($row['date']." ".$row['time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
+                                                    </div>
+                                                    <div class="nk-tb-col">
+                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['expense_amount'],2)?></span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-sm">
+                                                        <span class="tb-sub text-success">Completed</span>
+                                                    </div>
+                                                    <div class="nk-tb-col nk-tb-col-action">
+                                                        <div class="dropdown">
+                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                                <ul class="link-list-plain">
+                                                                    <li><a href="">View</a></li>
+                                                                    <li><a href="">Invoice</a></li>
+                                                                    <li><a href="">Print</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php endforeach;?>
+
+                                                
+                                                
+                                            </div>
+                                        </div><!-- .card -->
+                                    </div><!-- .col -->
+
+                                    <div class="col-md-6 col-xxl-4">
+                                        <div class="card card-bordered card-full">
+                                            <div class="card-inner border-bottom">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Recent Activities</h6>
+                                                    </div>
+                                                    <div class="card-tools">
+                                                        <ul class="card-tools-nav">
+                                                            <li><a href=""><span>Cancel</span></a></li>
+                                                            <li class="active"><a href=""><span>All</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="nk-activity">
+                                            <?php foreach($logs as $row):?>
+                                                <li class="nk-activity-item">
+                                                    <div class="nk-activity-media user-avatar <?php if ($row['session_id']%4==0) {echo 'bg-azure';}elseif ($row['session_id']%3==0) {echo 'bg-warning';}elseif ($row['session_id']%2==0) {echo 'bg-purple';}else{echo 'bg-pink';}?>"><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></div>
+                                                    <div class="nk-activity-data">
+                                                        <div class="label"><?php echo $row['log_desc']?></div>
+                                                        <span class="time"><?php $minutes = ($currentTime-$row['log_id'])/60; if($minutes<120){echo number_format($minutes)." Minutes ago";}elseif($minutes<2880){echo number_format($minutes/60)." Hours ago";}else{echo number_format($minutes/1440)." Days ago";} ?></span>
+                                                    </div>
+                                                </li>
+                                                <?php endforeach;?>                                            
+                                
+                
+                                            </ul>
+                                        </div><!-- .card -->
+                                    </div><!-- .col -->
+
+
+
                                     <div class="col-md-6 col-xxl-4">
                                         <div class="card card-bordered card-full">
                                             <div class="card-inner">
@@ -185,7 +362,7 @@
                                                             <div class="subtitle">Stock</div>
                                                             <div class="invest-ov-details">
                                                             <?php foreach($stock as $row):?>
-                                                                <div class="invest-ov-info">
+                                                                <div class="invest-ov-stats">
                                                                     <div><span class="amount"><?php echo $row['stock']?></span><span class="change down text-info"><em class="icon ni ni-arrow-long-down"></em>0%</span></div>
                                                                     <div class="title"><?php echo $row['product_name']?></div>
                                                                 </div>
@@ -268,177 +445,6 @@
                                     
 
                                     
-                                    <div class="col-xl-12 col-xxl-8">
-                                        <div class="card card-bordered card-full">
-                                            <div class="card-inner border-bottom">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Recent Sales</h6>
-                                                    </div>
-                                                    <div class="card-tools">
-                                                        <a href="/html/sales-list.html" class="link">View All</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nk-tb-list">
-                                                <div class="nk-tb-item nk-tb-head">
-                                                    <div class="nk-tb-col"><span>Plan</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>Created By</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
-                                                    <div class="nk-tb-col"><span>Total Amount</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
-                                                    <div class="nk-tb-col"><span>&nbsp;</span></div>
-                                                </div>
-                                                <?php foreach($sales as $row):?>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>RS</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2">SALE<span class="d-none d-md-inline"><?php echo $row['sale_id']?></span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs <?php if ($row['sale_id']%4==0) {echo 'bg-azure-dim';}elseif ($row['sale_id']%3==0) {echo 'bg-purple-dim';}elseif ($row['sale_id']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
-                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub"><?php $date=date_create($row['sale_date']." ".$row['sale_time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['amount'],2)?></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub <?php if($row['sale_status']=='Complete'){echo "text-success";}elseif($row['sale_status']=='Created'){echo "text-danger";}else{echo "text-warning";}?>"><?php echo $row['sale_status']?></span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">View</a></li>
-                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Invoice</a></li>
-                                                                    <li><a href="/html/sales-new.html/<?php echo $row['sale_id']?>">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php endforeach;?>
-                                                
-                                            </div>
-                                        </div><!-- .card -->
-                                    </div><!-- .col -->
-
-                                    <div class="col-md-6 col-xxl-4">
-                                        <div class="card card-bordered card-full">
-                                            <div class="card-inner border-bottom">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Recent Activities</h6>
-                                                    </div>
-                                                    <div class="card-tools">
-                                                        <ul class="card-tools-nav">
-                                                            <li><a href=""><span>Cancel</span></a></li>
-                                                            <li class="active"><a href=""><span>All</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <ul class="nk-activity">
-                                            <?php foreach($logs as $row):?>
-                                                <li class="nk-activity-item">
-                                                    <div class="nk-activity-media user-avatar <?php if ($row['session_id']%4==0) {echo 'bg-azure';}elseif ($row['session_id']%3==0) {echo 'bg-warning';}elseif ($row['session_id']%2==0) {echo 'bg-purple';}else{echo 'bg-pink';}?>"><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></div>
-                                                    <div class="nk-activity-data">
-                                                        <div class="label"><?php echo $row['log_desc']?></div>
-                                                        <span class="time"><?php $minutes = ($currentTime-$row['log_id'])/60; if($minutes<120){echo number_format($minutes)." Minutes ago";}elseif($minutes<2880){echo number_format($minutes/60)." Hours ago";}else{echo number_format($minutes/1440)." Days ago";} ?></span>
-                                                    </div>
-                                                </li>
-                                                <?php endforeach;?>                                            
-                                
-                
-                                            </ul>
-                                        </div><!-- .card -->
-                                    </div><!-- .col -->
-
-                                    <div class="col-xl-12 col-xxl-8">
-                                        <div class="card card-bordered card-full">
-                                            <div class="card-inner border-bottom">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Recent Expenses</h6>
-                                                    </div>
-                                                    <div class="card-tools">
-                                                        <a href="/html/expense-list.html" class="link">View All</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nk-tb-list">
-                                                <div class="nk-tb-item nk-tb-head">
-                                                    <div class="nk-tb-col"><span>Expense</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>Added By</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
-                                                    <div class="nk-tb-col"><span>Amount</span></div>
-                                                    <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
-                                                    <div class="nk-tb-col"><span>&nbsp;</span></div>
-                                                </div>
-
-                                                <?php foreach($expense as $row):?>
-                                                <div class="nk-tb-item">
-                                                    <div class="nk-tb-col">
-                                                        <div class="align-center">
-                                                            <div class="user-avatar user-avatar-sm bg-light">
-                                                                <span>EX</span>
-                                                            </div>
-                                                            <span class="tb-sub ml-2"><?php echo $row['expense_description']?><span class="d-none d-md-inline"> - <?php echo $row['remarks']?></span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <div class="user-card">
-                                                            <div class="user-avatar user-avatar-xs <?php if ($row['expense_ID']%4==0) {echo 'bg-azure-dim';}elseif ($row['expense_ID']%3==0) {echo 'bg-purple-dim';}elseif ($row['expense_ID']%2==0) {echo 'bg-teal-dim';}else{echo 'bg-orange-dim';}?>">
-                                                                <span><?php echo substr($row['user_fname'],0,1) ?><?php echo substr($row['user_oname'],0,1) ?></span>
-                                                            </div>
-                                                            <div class="user-name">
-                                                                <span class="tb-lead"><?php echo $row['user_fname']?> <?php echo $row['user_oname']?></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-sub"><?php $date=date_create($row['date']." ".$row['time']); echo date_format($date,"D, jS M Y H:i:s (e)")?></span>
-                                                    </div>
-                                                    <div class="nk-tb-col">
-                                                        <span class="tb-sub tb-amount"><span>KSh </span><?php echo number_format($row['expense_amount'],2)?></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-sm">
-                                                        <span class="tb-sub text-success">Completed</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-action">
-                                                        <div class="dropdown">
-                                                            <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                                <ul class="link-list-plain">
-                                                                    <li><a href="">View</a></li>
-                                                                    <li><a href="">Invoice</a></li>
-                                                                    <li><a href="">Print</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php endforeach;?>
-
-                                                
-                                                
-                                            </div>
-                                        </div><!-- .card -->
-                                    </div><!-- .col -->
                                 </div>
                             </div>
                         </div>

@@ -73,7 +73,7 @@
     <tr>
       <td scope="col"><?php echo $row['product_sku']?></th>
       <td scope="col"><span class="tb-sub"><?php echo $row['product_name']?></span></td>
-      <td scope="col">Ksh <?php echo $row['sale_price']?></td>
+      <td scope="col"><span class="tb-lead">Ksh <?php echo $row['sale_price']?></span></td>
       <td scope="col"><?php echo $row['stock']?></td>
       <td scope="col"><?php echo $row['category']?></td>
       <td scope="col">
