@@ -50,19 +50,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-amount">
-                                                    <span class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisToday?>  
+                                                    <span class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($salesThisToday,2)?>  
                                                     </span>
-                                                    <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>-%</span>
+                                                    <span class="change up text-danger"><em class=""></em>Today</span>
                                                 </div>
                                                 <div class="invest-data">
                                                     <div class="invest-data-amount g-2">
                                                         <div class="invest-data-history">
                                                             <div class="title">This Month</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisMonth?> </div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($salesThisMonth,2)?> </div>
                                                         </div>
                                                         <div class="invest-data-history">
                                                             <div class="title">This Week</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo $salesThisWeek?></div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($salesThisWeek,2)?></div>
                                                         </div>
                                                     </div>
                                                     <div class="invest-data-ck">
@@ -84,19 +84,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-amount">
-                                                    <span class="amount"><span class="currency currency-usd">KSh</span> 444
+                                                    <span class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($expenseToday,2)?>
                                                     </span>
-                                                    <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>
+                                                    <span class="change down text-danger"><em class=""></em>Today</span>
                                                 </div>
                                                 <div class="invest-data">
                                                     <div class="invest-data-amount g-2">
                                                         <div class="invest-data-history">
                                                             <div class="title">This Month</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 2,940.59 </div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($expenseThisMonth,2)?> </div>
                                                         </div>
                                                         <div class="invest-data-history">
                                                             <div class="title">This Week</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 1,259.28 </div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($expenseThisWeek,2)?> </div>
                                                         </div>
                                                     </div>
                                                     <div class="invest-data-ck">
@@ -111,25 +111,26 @@
                                             <div class="card-inner">
                                                 <div class="card-title-group align-start mb-0">
                                                     <div class="card-title">
-                                                        <h6 class="subtitle">Total Profit</h6>
+                                                        <h6 class="subtitle">All Time Totals</h6>
                                                     </div>
                                                     <div class="card-tools">
                                                         <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total Profit"></em>
                                                     </div>
                                                 </div>
                                                 <div class="card-amount">
-                                                    <span class="amount"><span class="currency currency-usd">KSh</span> 79,358.50 
+                                                    <span class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($totalProfit,2)?> 
                                                     </span>
+                                                    <span class="change up text-info"><em class=""></em>Profit</span>
                                                 </div>
                                                 <div class="invest-data">
                                                     <div class="invest-data-amount g-2">
                                                         <div class="invest-data-history">
-                                                            <div class="title">This Month</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 2,940.59 </div>
+                                                            <div class="title">Expense</div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($expenseTotal,2)?></div>
                                                         </div>
                                                         <div class="invest-data-history">
-                                                            <div class="title">This Week</div>
-                                                            <div class="amount"><span class="currency currency-usd">KSh</span> 1,259.28 </div>
+                                                            <div class="title">Sales</div>
+                                                            <div class="amount"><span class="currency currency-usd">KSh</span> <?php echo number_format($salesToday,2)?></div>
                                                         </div>
                                                     </div>
                                                     <div class="invest-data-ck">
@@ -145,7 +146,7 @@
                                                 <div class="card-title-group mb-1">
                                                     <div class="card-title">
                                                         <h6 class="title">Shop Overview</h6>
-                                                        <p>The shop overview. <a href="#">Today sales,expenses and users</a></p>
+                                                        <p>The shop overview. <a href="">Today sales,expenses and users</a></p>
                                                     </div>
                                                 </div>
                                                 <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs">
@@ -161,7 +162,7 @@
                                                 </ul>
                                                 <div class="tab-content mt-0">
                                                     <div class="tab-pane active" id="overview">
-                                                        <div class="invest-ov gy-2">
+                                                     <!--   <div class="invest-ov gy-2">
                                                             <div class="subtitle">Shop Count</div>
                                                             <div class="invest-ov-details">
                                                                 <div class="invest-ov-info">
@@ -179,7 +180,7 @@
                                                                     <div class="title">Users</div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="invest-ov gy-2">
                                                             <div class="subtitle">Stock</div>
                                                             <div class="invest-ov-details">
@@ -193,7 +194,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane" id="thisyear">
-                                                    <div class="invest-ov gy-2">
+                                                  <!--  <div class="invest-ov gy-2">
                                                             <div class="subtitle">Shop Count</div>
                                                             <div class="invest-ov-details">
                                                                 <div class="invest-ov-info">
@@ -258,7 +259,7 @@
                                                                     <div class="title">Juice</div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
