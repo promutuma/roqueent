@@ -14,6 +14,7 @@ class Dashboard extends BaseController
 {
     public function index()
     {
+        $data['title'] = "Dashboard";
         $Sys = new Sys();
         $getTime = $Sys->getTime();
 
@@ -126,7 +127,7 @@ class Dashboard extends BaseController
         $data['logs']=$getLog->orderBy('log_id','DESC')->findAll(10);
 
         
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('home/dashboard',$data);
         echo view('maintemp/footer');
     }

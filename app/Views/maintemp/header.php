@@ -19,7 +19,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="<?php echo base_url()?>files/images/favicon.png">
     <!-- Page Title  -->
-    <title>Login | Camera20 POS</title>
+    <title><?php echo $title ?> | Camera20 POS</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="<?php echo base_url()?>files/assets/css/dashlite.css?ver=2.9.1">
     <link id="skin-default" rel="stylesheet" href="<?php echo base_url()?>files/assets/css/theme.css?ver=2.9.1">

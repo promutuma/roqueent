@@ -11,10 +11,11 @@ class Sales extends BaseController
 {
     public function index()
     {
+        $data['title'] = "Sales List";
         $sale = new SaleModel();
         $data['allSales']=$sale->findAll();
         $data['CSales']=$sale->select('sum(sale_id) as TotalQ')->countAllResults();
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('sales/saleslist',$data);
         echo view('maintemp/footer');
     }
@@ -49,6 +50,7 @@ class Sales extends BaseController
     public function sale($saleId){
         
         $data['saleId']=$saleId;
+        $data['title'] = "Sale:".$saleId;
         $product = new ProductModel();
         $data['product']=$product->where('stock >',0)->findAll();
         $item = new ItemModel();
@@ -81,7 +83,7 @@ class Sales extends BaseController
         }
         
 
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('sales/sales_new',$data);
         echo view('maintemp/footer');
     }

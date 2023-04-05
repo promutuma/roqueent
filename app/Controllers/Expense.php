@@ -7,9 +7,10 @@ class Expense extends BaseController
 {
     public function index()
     {
+        $data['title'] = "Expenses";
         $expense = new ExpenseModel();
         $data['allexpense']=$expense->orderBy('expense_ID','DESC')->findAll();
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('expense/expenselist',$data);
         echo view('maintemp/footer');
     }

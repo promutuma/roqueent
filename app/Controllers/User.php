@@ -7,9 +7,10 @@ class User extends BaseController
 {
     public function index()
     {
+        $data['title'] = "Users";
         $checkUser= new UserModel();
         $data['user'] = $checkUser->findAll();
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('user/userlist',$data);
         echo view('maintemp/footer');
     }

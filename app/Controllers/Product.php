@@ -9,6 +9,7 @@ class Product extends BaseController
 {
     public function index()
     {
+        $data['title'] = "Products / Stock";
 
         $product = new ProductModel();
         $data['product']=$product->findAll();
@@ -16,7 +17,7 @@ class Product extends BaseController
         $category = new CategoryModel();
         $data['category']=$category->findAll();
 
-        echo view('maintemp/header');
+        echo view('maintemp/header',$data);
         echo view('product/productlist', $data);
         echo view('maintemp/footer');
     }

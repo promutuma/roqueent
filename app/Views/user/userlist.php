@@ -359,8 +359,8 @@
                                                 <label class="form-label" for="stock">User Type</label>
                                                 <div class="form-control-wrap">
                                                             <select class="form-select" data-search="on" name="txtUT" id="txtUT" placeholder="Category">
-                                                                <option value="Viewer">Viewer</option>    
-                                                                <option value="Editor">Editor</option>
+                                                                 
+                                                                <option value="User">User</option>
                                                                 <option value="Admin">Admin</option>
                                                             </select>
                                                         </div>
