@@ -12,54 +12,53 @@ class Product extends BaseController
         $data['title'] = "Products / Stock";
 
         $product = new ProductModel();
-        $data['product']=$product->findAll();
+        $data['product'] = $product->findAll();
 
         $category = new CategoryModel();
-        $data['category']=$category->findAll();
+        $data['category'] = $category->findAll();
 
-        echo view('maintemp/header',$data);
-        echo view('product/productlist', $data);
-        echo view('maintemp/footer');
+
+        return view('product/productlist', $data);
     }
 
-    public function addProduct(){
+    public function addProduct()
+    {
         $session = session();
         helper(['form', 'url']);
-        $Sys = new Sys();     
+        $Sys = new Sys();
         $product = new ProductModel();
         $getTime = $Sys->getTime();
         $sku =  $getTime['ts'];
         $Date = $getTime['date'];
         $Time = $getTime['time'];
 
-        
-          
+
+
         $data = [
-            'product_sku'=> $sku,
-            'product_name'=> $this->request->getVar('txtProductName'),
-            'regular_price'=> $this->request->getVar('txtRPrice'),
-            'sale_price'=> $this->request->getVar('txtSPrice'),
-            'stock'=> $this->request->getVar('txtStock'),
-            'category'=> $this->request->getVar('txtCategory'),
-            'createdBy'=> $session->get('user_id'),
+            'product_sku' => $sku,
+            'product_name' => $this->request->getVar('txtProductName'),
+            'regular_price' => $this->request->getVar('txtRPrice'),
+            'sale_price' => $this->request->getVar('txtSPrice'),
+            'stock' => $this->request->getVar('txtStock'),
+            'category' => $this->request->getVar('txtCategory'),
+            'createdBy' => $session->get('user_id'),
         ];
 
         $product->save($data);
-        if($product != false)
-        {
-            $logDesc = "Product (".$this->request->getVar('txtProductName').") added to the system by ".$session->get('user_name')." on ".$Date." ".$Time;
-            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
+        if ($product != false) {
+            $logDesc = "Product (" . $this->request->getVar('txtProductName') . ") added to the system by " . $session->get('user_name') . " on " . $Date . " " . $Time;
+            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
             $data = $product->where('product_sku', $sku)->first();
-            echo json_encode(array("status" => true , 'data' => $data));
-        }
-        else{
-            echo json_encode(array("status" => false , 'data' => $data));
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function addCategory(){
+    public function addCategory()
+    {
         $session = session();
-        $Sys = new Sys();     
+        $Sys = new Sys();
         $product = new ProductModel();
         $getTime = $Sys->getTime();
         $sku =  $getTime['ts'];
@@ -71,31 +70,31 @@ class Product extends BaseController
 
         $category_name = strtoupper($this->request->getVar('txtCategoryName'));
 
-        $data =[
+        $data = [
             'category_name' => $category_name,
-            'createdBy'=> $session->get('user_id'),
+            'createdBy' => $session->get('user_id'),
         ];
-        
+
         $category->save($data);
-        if($category != false)
-        {
-            $logDesc = "Category (".$category_name.") added to the system by ".$session->get('user_name')." on ".$Date." ".$Time;
-            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Create",$logDesc);
+        if ($category != false) {
+            $logDesc = "Category (" . $category_name . ") added to the system by " . $session->get('user_name') . " on " . $Date . " " . $Time;
+            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
             $data = $category->where('category_name', $category_name)->first();
-            echo json_encode(array("status" => true , 'data' => $data));
-        }
-        else{
-            echo json_encode(array("status" => false , 'data' => $data));
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function findProduct($sku){
+    public function findProduct($sku)
+    {
         $product = new ProductModel();
         $data = $product->where('product_sku', $sku)->first();
-        echo json_encode(array("status" => true , 'data' => $data));
+        echo json_encode(array("status" => true, 'data' => $data));
     }
 
-    public function deleteProduct($sku){
+    public function deleteProduct($sku)
+    {
         $session = session();
         $product = new ProductModel();
 
@@ -104,14 +103,15 @@ class Product extends BaseController
         $Date = $getTime['date'];
         $Time = $getTime['time'];
 
-        $product->where('product_sku',$sku);
+        $product->where('product_sku', $sku);
         $product->delete();
-        $logDesc = "Product with sku number (".$sku.") deleted from the system by ".$session->get('user_name')." on ".$Date." ".$Time;
-        $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Delete",$logDesc);
+        $logDesc = "Product with sku number (" . $sku . ") deleted from the system by " . $session->get('user_name') . " on " . $Date . " " . $Time;
+        $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Delete", $logDesc);
         echo json_encode(array("status" => true));
     }
 
-    public function updateProduct(){
+    public function updateProduct()
+    {
         $session = session();
         $Sys = new Sys();
         $getTime = $Sys->getTime();
@@ -120,33 +120,32 @@ class Product extends BaseController
 
         $updateproduct = new ProductModel();
 
-        $sku =  $this->request->getVar('txtProductSku');       
-          
+        $sku =  $this->request->getVar('txtProductSku');
+
         $setdata = [
-            'product_name'=> $this->request->getVar('txtProductName'),
-            'regular_price'=> $this->request->getVar('txtRPrice'),
-            'sale_price'=> $this->request->getVar('txtSPrice'),
-            'stock'=> $this->request->getVar('txtStock'),
-            'category'=> $this->request->getVar('txtCategory')
+            'product_name' => $this->request->getVar('txtProductName'),
+            'regular_price' => $this->request->getVar('txtRPrice'),
+            'sale_price' => $this->request->getVar('txtSPrice'),
+            'stock' => $this->request->getVar('txtStock'),
+            'category' => $this->request->getVar('txtCategory')
         ];
 
-        $updateproduct->where('product_sku',$sku);
+        $updateproduct->where('product_sku', $sku);
         $updateproduct->set($setdata);
         $updateproduct->update();
 
-        if($updateproduct != false)
-        {
+        if ($updateproduct != false) {
             $data = $updateproduct->where('product_sku', $sku)->first();
-            $logDesc = "Product with sku number (".$sku.") updated by ".$session->get('user_name')." on ".$Date." ".$Time;
-            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Update",$logDesc);
-            echo json_encode(array("status" => true , 'data' => $data));
-        }
-        else{
-            echo json_encode(array("status" => false , 'data' => $data));
+            $logDesc = "Product with sku number (" . $sku . ") updated by " . $session->get('user_name') . " on " . $Date . " " . $Time;
+            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Update", $logDesc);
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function addStock(){
+    public function addStock()
+    {
         $session = session();
         $Sys = new Sys();
         $getTime = $Sys->getTime();
@@ -158,26 +157,23 @@ class Product extends BaseController
         $sku =  $this->request->getVar('txtProductSku');
         $oldStock = $this->request->getVar('txtStock');
         $addedStock =  $this->request->getVar('txtAddStock');
-        $newStock = $oldStock + $addedStock;     
-          
+        $newStock = $oldStock + $addedStock;
+
         $setdata = [
-            'stock'=> $newStock,
+            'stock' => $newStock,
         ];
 
-        $updateproduct->where('product_sku',$sku);
+        $updateproduct->where('product_sku', $sku);
         $updateproduct->set($setdata);
         $updateproduct->update();
 
-        if($updateproduct != false)
-        {
+        if ($updateproduct != false) {
             $data = $updateproduct->where('product_sku', $sku)->first();
-            $logDesc = "A stock of ".$addedStock." added to Product with sku number (".$sku.") by ".$session->get('user_name')." on ".$Date." ".$Time;
-            $Sys->addLog($session->get('session_iddata'),$session->get('user_id'),"Update",$logDesc);
-            echo json_encode(array("status" => true , 'data' => $data));
-        }
-        else{
-            echo json_encode(array("status" => false , 'data' => $data));
+            $logDesc = "A stock of " . $addedStock . " added to Product with sku number (" . $sku . ") by " . $session->get('user_name') . " on " . $Date . " " . $Time;
+            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Update", $logDesc);
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
-    
 }

@@ -26,19 +26,19 @@ class Email extends BaseConfig
     public string $mailPath = '/usr/sbin/sendmail';
 
     /**
-     * SMTP Server Address
+     * SMTP Server Hostname
      */
-    public string $SMTPHost = 'mail.camera20production.co.ke';
+    public string $SMTPHost = 'mail.eelam.co.ke';
 
     /**
      * SMTP Username
      */
-    public string $SMTPUser = 'send.email@camera20production.co.ke';
+    public string $SMTPUser = 'portal@eelam.co.ke';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = 'Camera20send';
+    public string $SMTPPass = 'w-Y2Ne%;bKCM';
 
     /**
      * SMTP Port
@@ -56,9 +56,13 @@ class Email extends BaseConfig
     public bool $SMTPKeepAlive = false;
 
     /**
-     * SMTP Encryption. Either tls or ssl
+     * SMTP Encryption.
+     *
+     * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
+     *             to the server. 'ssl' means implicit SSL. Connection on port
+     *             465 should set this to ''.
      */
-    public string $SMTPCrypto = 'ssl';
+    public string $SMTPCrypto = 'tls';
 
     /**
      * Enable word-wrap

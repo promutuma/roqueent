@@ -20,92 +20,92 @@ class Dashboard extends BaseController
 
         $data['currentTime'] =  $getTime['ts'];
 
-        $date=date_create($getTime['date']." ".$getTime['time']);
+        $date = date_create($getTime['date'] . " " . $getTime['time']);
 
-        $currentMonth = date_format($date,"n");
-        $currentWeek = date_format($date,"W");
-    
+        $currentMonth = date_format($date, "n");
+        $currentWeek = date_format($date, "W");
+
         $product = new ProductModel();
-        $data['stock']=$product->orderBy('stock','ASD')->findAll(3);
-        
-        
+        $data['stock'] = $product->orderBy('stock', 'ASD')->findAll(3);
+
+
         $expense = new ExpenseModel();
         $expense->join('user as user', 'user.user_id=expense.createdBy');
-        $data['expense']=$expense->orderBy('expense_ID','DESC')->findAll(20);
-        $totalExpenseThisMonth = $expense->WHERE('MONTH(date)',$currentMonth)->select('sum(expense_amount) as TotalAmount')->first();
+        $data['expense'] = $expense->orderBy('expense_ID', 'DESC')->findAll(20);
+        $totalExpenseThisMonth = $expense->WHERE('MONTH(date)', $currentMonth)->select('sum(expense_amount) as TotalAmount')->first();
         if (empty($totalExpenseThisMonth)) {
             # code...
-            $data['expenseThisMonth']=0;
+            $data['expenseThisMonth'] = 0;
         } else {
             # code...
-            $data['expenseThisMonth']=$totalExpenseThisMonth['TotalAmount'];
+            $data['expenseThisMonth'] = $totalExpenseThisMonth['TotalAmount'];
         }
 
-        $totalExpenseThisWeek = $expense->WHERE('WEEK(date)',$currentWeek)->select('sum(expense_amount) as TotalAmount')->first();
+        $totalExpenseThisWeek = $expense->WHERE('WEEK(date)', $currentWeek)->select('sum(expense_amount) as TotalAmount')->first();
         if (empty($totalExpenseThisWeek)) {
             # code...
-            $data['expenseThisWeek']=0;
+            $data['expenseThisWeek'] = 0;
         } else {
             # code...
-            $data['expenseThisWeek']=$totalExpenseThisWeek['TotalAmount'];
+            $data['expenseThisWeek'] = $totalExpenseThisWeek['TotalAmount'];
         }
 
-        $totalExpenseToday = $expense->WHERE('date',$getTime['date'])->select('sum(expense_amount) as TotalAmount')->first();
+        $totalExpenseToday = $expense->WHERE('date', $getTime['date'])->select('sum(expense_amount) as TotalAmount')->first();
         if (empty($totalExpenseThisWeek)) {
             # code...
-            $data['expenseToday']=0;
+            $data['expenseToday'] = 0;
         } else {
             # code...
-            $data['expenseToday']=$totalExpenseToday['TotalAmount'];
+            $data['expenseToday'] = $totalExpenseToday['TotalAmount'];
         }
 
         $totalExpense = $expense->select('sum(expense_amount) as TotalAmount')->first();
         if (empty($totalExpense)) {
             # code...
-            $data['expenseTotal']=0;
+            $data['expenseTotal'] = 0;
         } else {
             # code...
-            $data['expenseTotal']=$totalExpense['TotalAmount'];
+            $data['expenseTotal'] = $totalExpense['TotalAmount'];
         }
-        
+
 
         $sale = new SaleModel();
         $sale->join('user as user', 'user.user_id=sale.createdBy');
-        $data['sales']=$sale->orderBy('sale_id','DESC')->findAll(20);
-        
+        $data['sales'] = $sale->orderBy('sale_id', 'DESC')->findAll(20);
+
         # Sales
-        $totalASalesthisMonth=$sale->WHERE('MONTH(sale_date)',$currentMonth)->select('sum(amount) as TotalAmount')->first();
+        $totalASalesthisMonth = $sale->WHERE('MONTH(sale_date)', $currentMonth)->select('sum(amount) as TotalAmount')->first();
         if (empty($totalASalesthisMonth)) {
             # code...
-            $data['salesThisMonth']=0;
+            $data['salesThisMonth'] = 0;
         } else {
             # code...
-            $data['salesThisMonth']=$totalASalesthisMonth['TotalAmount'];
+            $data['salesThisMonth'] = $totalASalesthisMonth['TotalAmount'];
         }
-        $totalASalesthisWeek=$sale->WHERE('WEEK(sale_date)',$currentWeek)->select('sum(amount) as TotalAmount')->first();
+        $totalASalesthisWeek = $sale->WHERE('WEEK(sale_date)', $currentWeek)->select('sum(amount) as TotalAmount')->first();
         if (empty($totalASalesthisWeek)) {
             # code...
-            $data['salesThisWeek']=0;
+            $data['salesThisWeek'] = 0;
         } else {
             # code...
-            $data['salesThisWeek']=$totalASalesthisWeek['TotalAmount'];
+            $data['salesThisWeek'] = $totalASalesthisWeek['TotalAmount'];
         }
-        $totalASalesToday=$sale->WHERE('sale_date',$getTime['date'])->select('sum(amount) as TotalAmount')->first();
+        $totalASalesToday = $sale->WHERE('sale_date', $getTime['date'])->select('sum(amount) as TotalAmount')->first();
         if (empty($totalASalesToday)) {
             # code...
-            $data['salesThisToday']="0";
+            $data['salesThisToday'] = "0";
         } else {
             # code...
-            $data['salesThisToday']=$totalASalesToday['TotalAmount'];
+            $data['salesThisToday'] = $totalASalesToday['TotalAmount'];
         }
-        $totalASales=$sale->select('sum(amount) as TotalAmount')->first();
-        
+        $totalASales = $sale->select('sum(amount) as TotalAmount')->first();
+
         if (empty($totalASales)) {
             # code...
-            $data['salesToday']="0";
+            $data['salesToday'] = "0";
         } else {
             # code...
-            $data['salesToday']=$totalASales['TotalAmount'];
+            $data['salesToday'] = $totalASales['TotalAmount'];
         }
 
 
@@ -115,57 +115,61 @@ class Dashboard extends BaseController
 
         if (empty($totalProfit)) {
             # code...
-            $data['totalProfit']=0;
+            $data['totalProfit'] = 0;
         } else {
             # code...
-            $data['totalProfit']=$totalProfit['TotalAmount'];
+            $data['totalProfit'] = $totalProfit['TotalAmount'];
         }
-        
+
         #Logs
         $getLog = new LogModel();
         $getLog->join('user as user', 'user.user_id=log.user_id');
-        $data['logs']=$getLog->orderBy('log_id','DESC')->findAll(10);
+        $data['logs'] = $getLog->orderBy('log_id', 'DESC')->findAll(10);
 
-        
-        echo view('maintemp/header',$data);
-        echo view('home/dashboard',$data);
-        echo view('maintemp/footer');
+
+        return view('home/dashboard', $data);
     }
+
+
     public function myAccount()
     {
-        echo view('maintemp/header');
-        echo view('home/myaccount');
-        echo view('home/#/profilesidenav');
-        echo view('maintemp/footer');
+        $data['title'] = "Personal Information";
+
+        return view('home/myaccount', $data);
     }
+
+
     public function myAccountNotification()
     {
-        echo view('maintemp/header');
-        echo view('home/myAccountNotification');
-        echo view('home/#/profilesidenav');
-        echo view('maintemp/footer');
+        $data['title'] = "Notification Settings";
+
+        echo view('home/myAccountNotification', $data);
     }
+
+
     public function myAccountSettings()
     {
-        echo view('maintemp/header');
-        echo view('home/myaccountsettings');
-        echo view('home/#/profilesidenav');
-        echo view('maintemp/footer');
+        $data['title'] = "Security Settings";
+
+
+        return view('home/myaccountsettings', $data);
     }
+
     public function myAccountActivity()
     {
+        $data['title'] = "Login Activity";
         $activity = new SessionModel();
-        $data['logs'] = $activity->where('user_id',$_SESSION['user_id'])->orderBy('session_iddata', 'DESC')->findAll();
-        echo view('maintemp/header');
-        echo view('home/myaccountactivity',$data);
-        echo view('home/#/profilesidenav');
-        echo view('maintemp/footer');
+        $data['logs'] = $activity->where('user_id', $_SESSION['user_id'])->orderBy('session_iddata', 'DESC')->findAll();
+
+        return view('home/myaccountactivity', $data);
     }
+
+
     public function myAccountSocial()
     {
-        echo view('maintemp/header');
-        echo view('home/myaccountsocial');
-        echo view('home/#/profilesidenav');
-        echo view('maintemp/footer');
+        $data['title'] = "Connected with Social Account";
+
+
+        return view('home/myaccountsocial', $data);
     }
 }
