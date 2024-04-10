@@ -16,12 +16,7 @@ $reply-body-gap-x-dsk :2.5rem;
         }
         
         > div:not(.nk-reply-header){
-            @if($rtl==false){
-                margin-left: 48px;
-            }
-            @if($rtl==true){
-                margin-right: 48px;
-            }
+            margin-left: 48px;
         }
     }
     &-header{
@@ -30,12 +25,7 @@ $reply-body-gap-x-dsk :2.5rem;
         justify-content: space-between;
         margin-bottom: 0.5rem;
         .user-name{
-            @if($rtl==false){
-                margin-left: 1rem;
-            }
-            @if($rtl==true){
-                margin-right: 1rem;
-            }
+            margin-left: 1rem;
             font-size: .875rem;
             span{
                 color: $base-light;
@@ -99,14 +89,8 @@ $reply-body-gap-x-dsk :2.5rem;
     &-form {
         border-top: 1px solid $border-light;
         &-dropdown{
-            @if($rtl==false){
-                margin-left: -0.5rem;
-                margin-right: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-right: -0.5rem;
-                margin-left: 0.75rem;
-            }
+            margin-left: -0.5rem;
+            margin-right: 0.75rem;
         }
         &-header{
             display: flex;
@@ -120,12 +104,7 @@ $reply-body-gap-x-dsk :2.5rem;
             align-items: center;
             .title{
                 color:$base-light;
-                @if($rtl==false){
-                    margin-right: .75rem;
-                }
-                @if($rtl==true){
-                    margin-left: .75rem;
-                }
+                margin-right: .75rem;
             }
         }
         &-field{
@@ -162,12 +141,7 @@ $reply-body-gap-x-dsk :2.5rem;
         &-input {
             display: flex;
             .label{
-                @if($rtl==false){
-                    margin:.3rem .5rem .3rem 0;
-                }
-                @if($rtl==true){
-                    margin:.3rem 0 .3rem .5rem;
-                }
+                margin:.3rem .5rem .3rem 0;
                 width: 1.25rem;
                 color: $base-light;
             }
@@ -196,18 +170,16 @@ $reply-body-gap-x-dsk :2.5rem;
             display: flex;
             align-items: flex-start;
         }
+        &-input-to{
+            padding-right: 3.5rem;
+        }
         &-nav{
             position: absolute;
             display: flex;
             align-items: center;
             align-self: flex-start;
             padding: 1.0625rem 0 0;
-            @if($rtl==false){
-                right: 0;
-            }
-            @if($rtl==true){
-                left: 0;
-            }
+            right: 0;
             top: 0;
             margin: 0 -.375rem;
             li{
@@ -250,14 +222,8 @@ $reply-body-gap-x-dsk :2.5rem;
                     width: 75px;
                     color: $base-light;
                     font-size: $fx-sz-12;
-                    @if($rtl==false){
-                        text-align: right;
-                        margin-right: 0.75rem;
-                    }
-                    @if($rtl==true){
-                        text-align: left;
-                        margin-left: 0.75rem;
-                    }
+                    text-align: right;
+                    margin-right: 0.75rem;
                 }
                 .info{
                     font-size: $fx-sz-13;
@@ -274,23 +240,13 @@ $reply-body-gap-x-dsk :2.5rem;
         flex-shrink: 0; 
         cursor: default;
         .date{
-            @if($rtl==false){
-                margin-right: 1rem;
-            }
-            @if($rtl==true){
-                margin-left: 1rem;
-            }
+            margin-right: 1rem;
             line-height: 2.25rem;
             color: $base-text;
         }
         .attach-msg {
             font-size: 1.25rem;
-            @if($rtl==false){
-                margin-right: 0.375rem;
-            }
-            @if($rtl==true){
-                margin-left: 0.375rem;
-            }
+            margin-right: 0.375rem;
         }
     }
     &-desc{
@@ -304,12 +260,7 @@ $reply-body-gap-x-dsk :2.5rem;
         }
     }
     &-info{
-        @if($rtl==false){
-            margin-left: 1rem;
-        }
-        @if($rtl==true){
-            margin-right: 1rem;
-        }
+        margin-left: 1rem;
         max-width: calc(100% - 4.5rem);
     }
     &-header {
@@ -342,27 +293,17 @@ $reply-body-gap-x-dsk :2.5rem;
     width: 100%;
     border: none;
 }
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .nk-reply{
         &-tools{
             flex-wrap: wrap;
             .date{
-                @if($rtl==false){
-                    margin-right: .5rem;
-                }
-                @if($rtl==true){
-                    margin-left: .5rem;
-                }
+                margin-right: .5rem;
                 font-size: $fx-sz-13;
             }
             .attach-msg {
                 font-size: 1.25rem;
-                @if($rtl==false){
-                    margin-right: 0.375rem;
-                }
-                @if($rtl==true){
-                    margin-left: 0.375rem;
-                }
+                margin-right: 0.375rem;
             }
         }
     }
@@ -370,12 +311,7 @@ $reply-body-gap-x-dsk :2.5rem;
 @include media-breakpoint-down(mb){
     .nk-reply{
         &-info{
-            @if($rtl==false){
-                margin-left: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-right: 0.75rem;
-            }
+            margin-left: 0.75rem;
             max-width: calc(100% - 2.5rem);
             .is-collapsed &{
                 max-width: calc(100% - 4.5rem);
@@ -383,12 +319,7 @@ $reply-body-gap-x-dsk :2.5rem;
             .date{
                 font-size: $fx-sz-11;
                 color: $base-light;
-                @if($rtl==false){
-                    margin-left: .375rem;
-                }
-                @if($rtl==true){
-                    margin-right: .375rem;
-                }
+                margin-left: .375rem;
             }
             .lead-text{
                 font-size: $fx-sz-13;
@@ -396,12 +327,7 @@ $reply-body-gap-x-dsk :2.5rem;
         }
         &-form{
             &-dropdown{
-                @if($rtl==false){
-                    margin-right: 0.5rem;
-                }
-                @if($rtl==true){
-                    margin-left: 0.5rem;
-                }
+                margin-right: 0.5rem;
             }
             &-group{
                 flex-wrap: wrap;
@@ -430,12 +356,7 @@ $reply-body-gap-x-dsk :2.5rem;
                     font-size: $fx-sz-12;
                 }
                 .dropdown-menu{
-                    @if($rtl==false){
-                        margin-right: 16px !important;
-                    }
-                    @if($rtl==true){
-                        margin-left: 16px !important;
-                    }
+                    margin-right: 16px !important;
                 }
             }
         }

@@ -13,8 +13,13 @@
             padding: 0.625rem .25rem;
         }
         th {
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
+            border-radius:0;
+            &:first-child {
+                border-top-left-radius: 4px;
+            }
+            &:last-child {
+                border-top-right-radius: 4px;
+            }
         }
     }
     &-item {
@@ -43,12 +48,7 @@
         }
     }
     &-desc {
-        @if($rtl==false){
-            padding-right: .5rem;
-        }
-        @if($rtl==true){
-            padding-left: .5rem;
-        }
+        padding-right: .5rem;
         .tb-tnx-item & {
             @extend .ellipsis;
         }
@@ -63,12 +63,7 @@
     }
     &-action{
         width: 60px;
-        @if($rtl==false){
-            text-align: right;
-        }
-        @if($rtl==true){
-            text-align: left;
-        }
+        text-align: right;
         .dropdown {
             margin-top: -0.25rem;
             margin-bottom: -0.25rem;
@@ -76,20 +71,10 @@
     }
     &-btns {
     	.btn + .btn {
-            @if($rtl==false){
-                margin-left: .5rem;
-            }
-            @if($rtl==true){
-                margin-right: .5rem;
-            }
+            margin-left: .5rem;
     	}
     	& + .dropdown {
-            @if($rtl==false){
-                margin-left: 1rem;
-            }
-            @if($rtl==true){
-                margin-right: 1rem;
-            }
+            margin-left: 1rem;
     	}
     }
 }
@@ -121,21 +106,11 @@
         }
         &-amount{
             width: 110px;
-            @if($rtl==false){
-                text-align: right;
-            }
-            @if($rtl==true){
-                text-align: left;
-            }
+            text-align: right;
         }
         &-id, &-head th:first-child {
             min-width: 85px;
-            @if($rtl==false){
-                padding-right: .25rem !important;
-            }
-            @if($rtl==true){
-                padding-left: .25rem !important;
-            }
+            padding-right: .25rem !important;
             flex-grow: 0 !important;
         }
         &-info{
@@ -145,12 +120,7 @@
             .date {
                 font-size: $fx-sz-12;
                 & + .date {
-                    @if($rtl==false){
-                        padding-left: .5rem;
-                    }
-                    @if($rtl==true){
-                        padding-right: .5rem;
-                    }
+                    padding-left: .5rem;
                 }
             }
         }
@@ -158,12 +128,7 @@
         &-action{
             &:last-child{
                 flex-grow: 0;
-                @if($rtl==false){
-                    padding-left: .5rem;
-                }
-                @if($rtl==true){
-                    padding-right: .5rem;
-                }
+                padding-left: .5rem;
                 display: inline-flex;
                 align-items: center;
             }
@@ -179,12 +144,7 @@
         &-id {
             width: 100%;
             + td {
-                @if($rtl==false){
-                    padding-left: 1.25rem;
-                }
-                @if($rtl==true){
-                    padding-right: 1.25rem;
-                }
+                padding-left: 1.25rem;
             }
         }
         &-info{
@@ -200,21 +160,11 @@
             &.is-alt{
                 position: absolute;
                 display: inline-flex;
-                @if($rtl==false){
-                    right: 1.25rem;
-                }
-                @if($rtl==true){
-                    left: 1.25rem;
-                }
+                right: 1.25rem;
                 width: auto;
                 .tb-tnx-total {
                     order: 5;
-                    @if($rtl==false){
-                        padding-left: 1.25rem;
-                    }
-                    @if($rtl==true){
-                        padding-right: 1.25rem;
-                    }
+                    padding-left: 1.25rem;
                 }
             }
         }
@@ -246,12 +196,7 @@
                 display: inline-block;
             }
             .date + .date, > span > span + span {
-                @if($rtl==false){
-                    padding-left: 0.75rem;
-                }
-                @if($rtl==true){
-                    padding-right: 0.75rem;
-                }
+                padding-left: 0.75rem;
             }
         }
     }

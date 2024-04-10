@@ -29,20 +29,10 @@
             padding: 0;
             margin: 0 1px;
             &:last-child {
-                @if($rtl==false){
-                    margin-right: 0;
-                }
-                @if($rtl==true){
-                    margin-left: 0;
-                }
+                margin-right: 0;
             }
             &:first-child {
-                @if($rtl==false){
-                    margin-left: 0;
-                }
-                @if($rtl==true){
-                    margin-right: 0;
-                }
+                margin-left: 0;
             }
         }
     }
@@ -92,44 +82,19 @@
             padding: 0;
             margin: 0;
             &:last-child {
-                @if($rtl==false){
-                    margin-right: 0;
-                }
-                @if($rtl==true){
-                    margin-left: 0;
-                }
+                margin-right: 0;
                 .nav-link{
-                    @if($rtl==false){
-                        border-radius: 0 $border-radius $border-radius 0;
-                    }
-                    @if($rtl==true){
-                        border-radius: $border-radius 0 0 $border-radius;
-                    }
+                    border-radius: 0 $border-radius $border-radius 0;
                 }
             }
             &:first-child {
-                @if($rtl==false){
-                    margin-left: 0;
-                }
-                @if($rtl==true){
-                    margin-right: 0;
-                }
+                margin-left: 0;
                 .nav-link{
-                    @if($rtl==false){
-                        border-radius: $border-radius 0 0 $border-radius;
-                    }
-                    @if($rtl==true){
-                        border-radius: 0 $border-radius $border-radius 0;
-                    }
+                    border-radius: $border-radius 0 0 $border-radius;
                 }
             }
             &:not(:first-child){
-                @if($rtl==false){
-                    margin-left: -1px;
-                }
-                @if($rtl==true){
-                    margin-right: -1px;
-                }
+                margin-left: -1px;
             }
         }
     }

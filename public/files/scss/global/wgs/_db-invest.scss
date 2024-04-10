@@ -13,12 +13,7 @@
         display: flex; 
         align-items: baseline;
         .change{
-            @if($rtl==false){
-                margin-left: .5rem;
-            }
-            @if($rtl==true){
-                margin-right: .5rem;
-            }
+            margin-left: .5rem;
         }
         .amount{
             font-size: 1.5rem;
@@ -75,12 +70,7 @@
     .nav-tabs{
         &-xs{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
     }
@@ -89,12 +79,7 @@
     .nav-tabs{
         &-sm{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
     }
@@ -103,12 +88,7 @@
     .nav-tabs{
         &-sm{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
     }
@@ -120,12 +100,7 @@
         align-items: flex-end;
         justify-content: space-between;
         &-history{
-            @if($rtl==false){
-                margin-right: 20px;
-            }
-            @if($rtl==true){
-                margin-left: 20px;
-            }
+            margin-right: 20px;
             flex-grow: 1;
             .title{
                 font-size: $fx-sz-11;
@@ -226,12 +201,7 @@
             align-items: baseline;
         }
         .change{
-            @if($rtl==false){
-                margin-left: 0.25rem;
-            }
-            @if($rtl==true){
-                margin-right: 0.25rem;
-            }
+            margin-left: 0.25rem;
         }
     }
 }

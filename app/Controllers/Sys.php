@@ -24,6 +24,51 @@ class Sys extends BaseController
         return $ip;
     }
 
+    public function getCurrentTime()
+    {
+        return date("H:i:s");
+    }
+
+    public function getCurrentDate()
+    {
+        return date("Y-m-d");
+    }
+
+    public function getCurrentMonth()
+    {
+        return date("m/Y");
+    }
+
+    public function getTimestamp()
+    {
+        return date("YmdHis");
+    }
+
+    public function getCurrentDateTime()
+    {
+        return $this->getCurrentDate() . ' ' . $this->getCurrentTime();
+    }
+
+    public function returnUnixTime()
+    {
+        return strtotime($this->getCurrentDateTime());
+    }
+
+    public function generateString()
+    {
+        $base36Characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $base36String = '';
+        $integerValue = $this->returnUnixTime();
+
+        while ($integerValue > 0) {
+            $remainder = $integerValue % 36;
+            $base36String = $base36Characters[$remainder] . $base36String;
+            $integerValue = (int)($integerValue / 36);
+        }
+
+        return $base36String;
+    }
+
     public function getTime()
     {
         $ndate = date("Y-m-d");

@@ -15,12 +15,7 @@
 .jqvmap-zoomin, .jqvmap-zoomout
 {
 	position: absolute;
-	@if($rtl==false){
-		left: 10px;
-	}
-	@if($rtl==true){
-		right: 10px;
-	}
+	left: 10px;
 	border-radius: $border-radius-sm;
 	background: rgba($dark,.9);
 	padding: .125rem;

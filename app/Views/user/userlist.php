@@ -40,7 +40,7 @@
                         <div class="card-tools">
                             <div class="form-inline flex-nowrap gx-3">
                                 <div class="form-wrap w-150px">
-                                    <select class="form-select" data-search="off" data-placeholder="Bulk Action">
+                                    <select class="form-select js-select2" data-search="off" data-placeholder="Bulk Action">
                                         <option value="">Bulk Action</option>
                                         <option value="email">Send Email</option>
                                         <option value="group">Change Group</option>
@@ -70,7 +70,7 @@
                                                 </li><!-- li -->
                                                 <li>
                                                     <div class="dropdown">
-                                                        <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                                                        <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-bs-toggle="dropdown">
                                                             <div class="dot dot-primary"></div>
                                                             <em class="icon ni ni-filter-alt"></em>
                                                         </a>
@@ -136,7 +136,7 @@
                                                 </li><!-- li -->
                                                 <li>
                                                     <div class="dropdown">
-                                                        <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                                                        <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon dropdown-toggle" data-bs-toggle="dropdown">
                                                             <em class="icon ni ni-setting"></em>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
@@ -188,7 +188,7 @@
                             <div class="nk-tb-col tb-col-md"><span class="sub-text">Account Type</span></div>
                             <div class="nk-tb-col nk-tb-col-tools text-right">
                                 <div class="dropdown">
-                                    <a href="/html/user-list-regular.html" class="btn btn-xs btn-outline-light btn-icon dropdown-toggle" data-toggle="dropdown" data-offset="0,5"><em class="icon ni ni-plus"></em></a>
+                                    <a href="/html/user-list-regular.html" class="btn btn-xs btn-outline-light btn-icon dropdown-toggle" data-bs-toggle="dropdown" data-offset="0,5"><em class="icon ni ni-plus"></em></a>
                                     <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
                                         <ul class="link-tidy sm no-bdr">
                                             <li>
@@ -226,8 +226,8 @@
                             <div class="nk-tb-item">
                                 <div class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">
-                                        <input type="checkbox" class="custom-control-input" id="uid10">
-                                        <label class="custom-control-label" for="uid10"></label>
+                                        <input type="checkbox" class="custom-control-input" id="uid<?php echo $row['user_id'] ?>">
+                                        <label class="custom-control-label" for="uid<?php echo $row['user_id'] ?>"></label>
                                     </div>
                                 </div>
                                 <div class="nk-tb-col">
@@ -262,23 +262,23 @@
                                 <div class="nk-tb-col nk-tb-col-tools">
                                     <ul class="nk-tb-actions gx-1">
                                         <li class="nk-tb-action-hidden">
-                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Wallet">
+                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-placement="top" title="Wallet">
                                                 <em class="icon ni ni-wallet-fill"></em>
                                             </a>
                                         </li>
                                         <li class="nk-tb-action-hidden">
-                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Send Email">
+                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-placement="top" title="Send Email">
                                                 <em class="icon ni ni-mail-fill"></em>
                                             </a>
                                         </li>
                                         <li class="nk-tb-action-hidden">
-                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Suspend">
+                                            <a href="/html/user-list-regular.html" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-placement="top" title="Suspend">
                                                 <em class="icon ni ni-user-cross-fill"></em>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="drodown">
-                                                <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li><a href="/html/user-list-regular.html"><em class="icon ni ni-focus"></em><span>Quick View</span></a></li>

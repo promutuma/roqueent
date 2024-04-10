@@ -34,12 +34,7 @@
   padding: 12px 15px;
   tab-size: 4;
   -moz-tab-size: 4;
-  @if($rtl==false){
-    text-align: left;
-  }
-  @if($rtl==true){
-    text-align: right;
-  }
+  text-align: left;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -63,12 +58,7 @@
 }
 .ql-editor ol,
 .ql-editor ul {
-  @if($rtl==false){
-    padding-left: 1.5em;
-  }
-  @if($rtl==true){
-    padding-right: 1.5em;
-  }
+  padding-left: 1.5em;
 }
 .ql-editor ol > li,
 .ql-editor ul > li {
@@ -103,44 +93,21 @@
   width: 1.2em;
 }
 .ql-editor li:not(.ql-direction-rtl)::before {
-  @if($rtl==false){
-    margin-left: -1.5em;
-    margin-right: 0.3em;
-    text-align: right;
-  }
-  @if($rtl==true){
-    margin-right: -1.5em;
-    margin-left: 0.3em;
-    text-align: left;
-  }
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
 }
 .ql-editor li.ql-direction-rtl::before {
-  @if($rtl==false){
-    margin-left: 0.3em;
-    margin-right: -1.5em;
-  }
-  @if($rtl==true){
-    margin-right: 0.3em;
-    margin-left: -1.5em;
-  }
+  margin-left: 0.3em;
+  margin-right: -1.5em;
 }
 .ql-editor ol li:not(.ql-direction-rtl),
 .ql-editor ul li:not(.ql-direction-rtl) {
-  @if($rtl==false){
-    padding-left: 1.5em;
-  }
-  @if($rtl==true){
-    padding-right: 1.5em;
-  }
+  padding-left: 1.5em;
 }
 .ql-editor ol li.ql-direction-rtl,
 .ql-editor ul li.ql-direction-rtl {
-  @if($rtl==false){
-    padding-right: 1.5em;
-  }
-  @if($rtl==true){
-    padding-left: 1.5em;
-  }
+  padding-right: 1.5em;
 }
 .ql-editor ol li {
   counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
@@ -343,12 +310,7 @@
   margin: 0 auto;
 }
 .ql-editor .ql-video.ql-align-right {
-  @if($rtl==false){
-    margin: 0 0 0 auto;
-  }
-  @if($rtl==true){
-    margin: 0 auto 0 0;
-  }
+  margin: 0 0 0 auto;
 }
 .ql-editor .ql-bg-black {
   background-color: #000;
@@ -439,12 +401,7 @@
   border: none;
   cursor: pointer;
   display: inline-block;
-  @if($rtl==false){
-    float: left;
-  }
-  @if($rtl==true){
-    float: right;
-  }
+  float: left;
   height: 24px;
   padding: 3px 5px;
   width: 28px;
@@ -604,14 +561,8 @@
 .ql-editor blockquote {
   margin-bottom: 5px;
   margin-top: 5px;
-  @if($rtl==false){
-    border-left: 4px solid $border-color;
-    padding-left: 16px;
-  }
-  @if($rtl==true){
-    border-right: 4px solid $border-color;
-    padding-right: 16px;
-  }
+  border-left: 4px solid $border-color;
+  padding-left: 16px;
 }
 .ql-editor code,
 .ql-editor pre {
@@ -639,12 +590,7 @@
 .ql-picker {
   color: $base-text;
   display: inline-block;
-  @if($rtl==false){
-    float: left;
-  }
-  @if($rtl==true){
-    float: right;
-  }
+  float: left;
   font-size: 14px;
   font-weight: 500;
   height: 24px;
@@ -655,14 +601,8 @@
   cursor: pointer;
   display: inline-block;
   height: 100%;
-  @if($rtl==false){
-    padding-left: 8px;
-    padding-right: 2px;
-  }
-  @if($rtl==true){
-    padding-left: 2px;
-    padding-right: 8px;
-  }
+  padding-left: 8px;
+  padding-right: 2px;
   position: relative;
   width: 100%;
   &:focus{
@@ -716,12 +656,7 @@
 }
 .ql-color-picker .ql-picker-label svg,
 .ql-icon-picker .ql-picker-label svg {
-  @if($rtl==false){
-    right: 4px;
-  }
-  @if($rtl==true){
-    left: 4px;
-  }
+  right: 4px;
 }
 .ql-icon-picker .ql-picker-options {
   padding: 4px 0px;
@@ -737,12 +672,7 @@
 }
 .ql-color-picker .ql-picker-item {
   border: 1px solid transparent;
-  @if($rtl==false){
-    float: left;
-  }
-  @if($rtl==true){
-    float: right;
-  }
+  float: left;
   height: 16px;
   margin: 2px;
   padding: 0px;
@@ -751,12 +681,7 @@
 .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
   position: absolute;
   margin-top: -9px;
-  @if($rtl==false){
-    right: 0;
-  }
-  @if($rtl==true){
-    left: 0;
-  }
+  right: 0;
   top: 50%;
   width: 18px;
 }
@@ -880,12 +805,7 @@
   padding-bottom: 0;
 }
 .ql-toolbar .ql-formats {
-  @if($rtl==false){
-    margin-right: 15px;
-  }
-  @if($rtl==true){
-    margin-left: 15px;
-  }
+  margin-right: 15px;
   padding-bottom: 8px;
 }
 .ql-toolbar .ql-picker-label {
@@ -916,12 +836,7 @@
 .ql-tooltip::before {
   content: "Visit URL:";
   line-height: 26px;
-  @if($rtl==false){
-    margin-right: 8px;
-  }
-  @if($rtl==true){
-    margin-left: 8px;
-  }
+  margin-right: 8px;
 }
 .ql-tooltip input[type=text] {
   display: none;
@@ -941,25 +856,13 @@
 }
 .ql-tooltip a.ql-action::after {
   content: 'Edit';
-  @if($rtl==false){
-    border-right: 1px solid $border-light;
-    margin-left: 16px;
-    padding-right: 8px;
-  }
-  @if($rtl==true){
-    border-left: 1px solid $border-light;
-    margin-right: 16px;
-    padding-left: 8px;
-  }
+  border-right: 1px solid $border-light;
+  margin-left: 16px;
+  padding-right: 8px;
 }
 .ql-tooltip a.ql-remove::before {
   content: 'Remove';
-  @if($rtl==false){
-    margin-left: 8px;
-  }
-  @if($rtl==true){
-    margin-right: 8px;
-  }
+  margin-left: 8px;
 }
 .ql-tooltip a {
   line-height: 26px;

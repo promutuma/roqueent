@@ -6,12 +6,7 @@
         > .close{
             position: absolute;
             top: .75rem;
-            @if($rtl==false){
-                right: .75rem;
-            }
-            @if($rtl==true){
-                left: .75rem;
-            }
+            right: .75rem;
             height: 2.25rem;
             width: 2.25rem;
             display: inline-flex;
@@ -32,12 +27,7 @@
             &.alert{
                 border: none;
                 &-icon{
-                    @if($rtl==false){
-                        padding-left: $modal-inner-padding + $alert-icon-width;
-                    }
-                    @if($rtl==true){
-                        padding-right: $modal-inner-padding + $alert-icon-width;
-                    }
+                    padding-left: $modal-inner-padding + $alert-icon-width;
                 }
             }
         }
@@ -50,12 +40,7 @@
                 padding-left: $modal-body-custom-padding-x-sm;
                 padding-right: $modal-body-custom-padding-x-sm;
                 &.alert-icon{
-                    @if($rtl==false){
-                        padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
-                    }
-                    @if($rtl==true){
-                        padding-right: $modal-body-custom-padding-x-md + $alert-icon-width;
-                    }
+                    padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
                 }
             }
         }
@@ -68,12 +53,7 @@
                 padding-left: $modal-body-custom-padding-x-sm;
                 padding-right: $modal-body-custom-padding-x-sm;
                 &.alert-icon{
-                    @if($rtl==false){
-                        padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
-                    }
-                    @if($rtl==true){
-                        padding-right: $modal-body-custom-padding-x-md + $alert-icon-width;
-                    }
+                    padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
                 }
             }
         }
@@ -118,6 +98,15 @@
             align-items: flex-end;
         }
     }
+    .close {
+        float: right;
+        font-size: $close-font-size;
+        font-weight: $close-font-weight;
+        line-height: 1;
+        color: $close-color;
+        text-shadow: $close-text-shadow;
+        opacity: .5;
+    }
 }
 
 @include media-breakpoint-up(sm){
@@ -136,12 +125,7 @@
                 padding-left: $modal-body-custom-padding-x;
                 padding-right: $modal-body-custom-padding-x;
                 &.alert-icon{
-                    @if($rtl==false){
-                        padding-left: $modal-body-custom-padding-x + $alert-icon-width;
-                    }
-                    @if($rtl==true){
-                        padding-right: $modal-body-custom-padding-x + $alert-icon-width;
-                    }
+                    padding-left: $modal-body-custom-padding-x + $alert-icon-width;
                 }
             }
             &-sm{
@@ -152,12 +136,7 @@
                     padding-left: $modal-body-custom-padding-x-sm;
                     padding-right: $modal-body-custom-padding-x-sm;
                     &.alert-icon{
-                        @if($rtl==false){
-                            padding-left: $modal-body-custom-padding-x-sm + $alert-icon-width;
-                        }
-                        @if($rtl==true){
-                            padding-right: $modal-body-custom-padding-x-sm + $alert-icon-width;
-                        }
+                        padding-left: $modal-body-custom-padding-x-sm + $alert-icon-width;
                     }
                 }
             }
@@ -169,19 +148,9 @@
                     padding-left: $modal-body-custom-padding-x-md;
                     padding-right: $modal-body-custom-padding-x-md;
                     &.alert-icon{
-                        @if($rtl==false){
-                            padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
-                        }
-                        @if($rtl==true){
-                            padding-right: $modal-body-custom-padding-x-md + $alert-icon-width;
-                        }
+                        padding-left: $modal-body-custom-padding-x-md + $alert-icon-width;
                         > .icon{
-                            @if($rtl==false){
-                                left: $modal-body-custom-padding-x-md;
-                            }
-                            @if($rtl==true){
-                                right: $modal-body-custom-padding-x-md;
-                            }
+                            left: $modal-body-custom-padding-x-md;
                         }
                     }
                 }
@@ -194,12 +163,7 @@
                     padding-left: $modal-body-custom-padding-x-lg;
                     padding-right: $modal-body-custom-padding-x-lg;
                     &.alert-icon{
-                        @if($rtl==false){
-                            padding-left: $modal-body-custom-padding-x-lg + $alert-icon-width;
-                        }
-                        @if($rtl==true){
-                            padding-right: $modal-body-custom-padding-x-lg + $alert-icon-width;
-                        }
+                        padding-left: $modal-body-custom-padding-x-lg + $alert-icon-width;
                     }
                 }
             }

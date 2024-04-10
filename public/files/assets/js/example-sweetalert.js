@@ -1,8 +1,9 @@
 "use strict";
 
 (function (NioApp, $) {
-  'use strict'; // Basic Sweet Alerts
+  'use strict';
 
+  // Basic Sweet Alerts
   $('.eg-swal-default').on("click", function (e) {
     Swal.fire('A Simple sweet alert Content');
     e.preventDefault();
@@ -30,8 +31,9 @@
   $('.eg-swal-question').on("click", function (e) {
     Swal.fire("Good job!", "You clicked the button!", "question");
     e.preventDefault();
-  }); // Advanced Sweet Alerts
+  });
 
+  // Advanced Sweet Alerts
   $('.eg-swal-av1').on("click", function (e) {
     Swal.fire({
       icon: 'error',
@@ -108,12 +110,12 @@
         clearInterval(timerInterval);
       }
     }).then(function (result) {
-      if (
-      /* Read more about handling dismissals below */
+      if ( /* Read more about handling dismissals below */
       result.dismiss === Swal.DismissReason.timer) {
         console.log('I was closed by the timer'); // eslint-disable-line
       }
     });
+
     e.preventDefault();
   });
   $('.eg-swal-av6').on("click", function (e) {
@@ -131,7 +133,6 @@
           if (!response.ok) {
             throw new Error(response.statusText);
           }
-
           return response.json();
         })["catch"](function (error) {
           Swal.showValidationMessage("Request failed: ".concat(error));

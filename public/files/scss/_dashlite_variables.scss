@@ -4,6 +4,8 @@
 
 /////////    COLORS    ///////////
 //////////////////////////////////////
+@use "sass:math";
+
 $white:		#fff;
 $black: 	#000;
 
@@ -154,7 +156,7 @@ $fx-sz-15:			15px;
 $fx-sz-16:			16px; 
 
 $gutter-width:           28px;
-$stretch-gap-x:          (4px + ($gutter-width/2));
+$stretch-gap-x:          (4px + math.div($gutter-width , 2));
 
 /////////    TYPTOGRAPHY    //////////
 //////////////////////////////////////
@@ -206,7 +208,7 @@ $page-title-fs:         1.5rem;
 $page-title-fs-lg:      1.75rem;
 $page-title-fw:         $fw-bold;
 
-$h-margin-bottom:		$spacer / 2;
+$h-margin-bottom:		math.div($spacer , 2);
 $h-font-family:  		$alt-font-family;
 $h-font-weight:  		$fw-bold;
 $h-line-height:  		1.1;
@@ -396,8 +398,8 @@ $input-height-inner:                    $input-line-height + $input-padding-y * 
 $input-height-inner-sm:                 $input-line-height-sm + $input-padding-y-sm * 2;
 $input-height-inner-lg:                 $input-line-height-lg + $input-padding-y-lg * 2;
 $input-height-inner-xl:                 $input-line-height-xl + $input-padding-y-xl * 2;
-$input-height-inner-half:               add($input-line-height * .5, $input-padding-y);
-$input-height-inner-quarter:            add($input-line-height * .25, $input-padding-y / 2);
+$input-height-inner-half:               $input-line-height * .5 + $input-padding-y;
+$input-height-inner-quarter:            $input-line-height * .25 + math.div($input-padding-y , 2);
 
 $input-height:                          calc(#{$input-height-inner} + #{$input-height-border});
 $input-height-sm:                       calc(#{$input-height-inner-sm} + #{$input-height-border});
@@ -431,7 +433,7 @@ $card-bg:                           $white;
 
 $card-img-overlay-padding:          1.25rem;
 
-$card-group-margin:                 $gutter-width / 2;
+$card-group-margin:                 math.div($gutter-width , 2);
 $card-deck-margin:                  $card-group-margin;
 
 $card-columns-count:                3;
@@ -642,9 +644,9 @@ $switch-width:                          $checkbox-radio-switch-size * 2;
 $switch-width-sm:                       $checkbox-radio-switch-size-sm * 1.75;
 $switch-width-lg:                       $checkbox-radio-switch-size-lg * 2;
 
-$switch-indicator-border-radius:        $switch-width / 2;
-$switch-indicator-border-radius-sm:     $switch-width-sm / 2;
-$switch-indicator-border-radius-lg:     $switch-width-lg / 2;
+$switch-indicator-border-radius:        math.div($switch-width , 2);
+$switch-indicator-border-radius-sm:     math.div($switch-width-sm , 2);
+$switch-indicator-border-radius-lg:     math.div($switch-width-lg , 2);
 
 $switch-indicator-size:                 1rem;
 $switch-indicator-size-sm:              0.65rem;
@@ -756,8 +758,8 @@ $sidebar-border-light-color:        $light;
 $sidebar-toogle-btn-color:			$base-500;
 
 // Content
-$content-gap-x:                     20px - ($gutter-width/2);
-$content-gap-x-sm:                  28px - ($gutter-width/2);
+$content-gap-x:                     20px - math.div($gutter-width , 2);
+$content-gap-x-sm:                  28px - math.div($gutter-width , 2);
 $content-gap-y:                     24px;
 $content-sidebar-width:             280px;
 
@@ -788,7 +790,7 @@ $header-toogle-btn-lh:				$btn-line-height-sm;
 $header-toogle-btn-icon-width:		$btn-line-height-sm + $btn-padding-y-sm*2;
 
 $header-col-width-small:            120px;
-$header-col-width-safe:             $header-col-width-small/2;
+$header-col-width-safe:             math.div($header-col-width-small , 2);
 $header-col-width:                  calc(50% - #{$header-col-width-safe});
 
 //Footer

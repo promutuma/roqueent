@@ -38,19 +38,9 @@
     .breadcrumb{
         &-item{
             + .breadcrumb-item {
-                @if($rtl==false){
-                    padding-left: 0.25rem;
-                }
-                @if($rtl==true){
-                    padding-right: 0.25rem;
-                }
+                padding-left: 0.25rem;
                 &:before{
-                    @if($rtl==false){
-                        padding-right: 0.25rem;
-                    }
-                    @if($rtl==true){
-                        padding-left: 0.25rem;
-                    }
+                    padding-right: 0.25rem;
                     font-size: 0.8em;
                 }
             }

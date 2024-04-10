@@ -3,38 +3,48 @@
     border: 1px solid currentColor;
     line-height: $badge-line-height;
     font-family: $base-font-family;
+    font-size: $badge-font-size;
     letter-spacing: 0.01em;
     vertical-align: middle;
     display: inline-flex;
     .icon + span,span + .icon{
-        @if($rtl==false){
-            padding-left: 4px;
-        }
-        @if($rtl==true){
-            padding-right: 4px;
-        }
+        padding-left: 4px;
+    }
+    &.rounded-pill{
+        border-radius: $badge-pill-border-radius;
+        padding-right: .5rem;
+        padding-left: .5rem;
     }
     &-sm{
         padding: $badge-padding-y-sm $badge-padding-x-sm;
         font-size:$badge-font-size-sm;
-
-        &.badge-pill{
+        &.rounded-pill{
             padding: $badge-padding-y-sm $badge-pill-padding-x-sm;
         }
     }
     &-md{
         padding: $badge-padding-y-md $badge-padding-x-md;
         font-size:$badge-font-size-md !important;
+        &.rounded-pill{
+            padding: $badge-padding-y-md $badge-padding-x-md;
+        }
     }
     &-lg{
         padding: $badge-padding-y-lg $badge-padding-x-lg;
         font-size:$badge-font-size-lg !important;
+        &.rounded-pill{
+            padding: $badge-padding-y-lg $badge-padding-x-lg;
+        }
     }
     &-xl{
         padding: $badge-padding-y-xl $badge-padding-x-xl;
         font-size:$badge-font-size-xl !important;
+        &.rounded-pill{
+            padding: $badge-padding-y-xl $badge-padding-x-xl;
+        }
+
     }
-    &-light {
+    &.bg-light {
         color: $secondary;
     }
     &-lighter {
@@ -45,8 +55,9 @@
     }
 }
 @each $name, $value in $theme-colors {
-    .badge-#{$name} {
+    .bg-#{$name} {
         border-color: $value;
+        background: $value;
     }
 }
 
@@ -59,7 +70,7 @@ $outline-badges: map-merge(
 );
 
 @each $name, $value in $outline-badges {
-    .badge-outline-#{$name} {
+    .bg-outline-#{$name} {
         color: $value;
         border-color: mix($value, $white, 60%);
     }
@@ -74,12 +85,12 @@ $dim-badge: map-merge(
 );
 
 @each $name, $color in $dim-badge {
-    .badge-dim.badge-#{$name} {
+    .badge-dim.bg-#{$name} {
         color: $color;
-        background-color: mix($color, $dim-mix, 11%);
+        background-color: mix($color, $dim-mix, 11%) !important;
         border-color: mix($color, $dim-mix, 11%);
     }
-    .badge-dim.badge-outline-#{$name} {
+    .badge-dim.bg-outline-#{$name} {
         color: $color;
         background-color: mix($color, $dim-mix, 11%);
         border-color: mix($color, $dim-mix, 40%);
@@ -89,26 +100,15 @@ $dim-badge: map-merge(
 .badge-dot{
     display: inline-flex;
     align-items: center;
-    background-color: transparent;
+    background-color: transparent !important;
     border:none;
-    @if($rtl==false){
-        padding-left: $badge-dot-width + $badge-dot-gap;
-        padding-right: 0;
-    }
-    @if($rtl==true){
-        padding-right: $badge-dot-width + $badge-dot-gap;
-        padding-left: 0;
-    }
+    padding-left: $badge-dot-width + $badge-dot-gap;
+    padding-right: 0;
     font-size: $fx-sz-12;
     &:before{
         position: absolute;
         content: "";
-        @if($rtl==false){
-            left: 0;
-        }
-        @if($rtl==true){
-            right: 0;
-        }
+        left: 0;
         top: 50%;
         transform: translateY(-50%);
         display: inline-block; 
@@ -119,12 +119,7 @@ $dim-badge: map-merge(
         background: currentColor;
     }
     &.badge-sm, &.badge-md {
-        @if($rtl==false){
-            padding-left: $badge-dot-width-sm + $badge-dot-gap-sm;
-        }
-        @if($rtl==true){
-            padding-right: $badge-dot-width-sm + $badge-dot-gap-sm;
-        }
+        padding-left: $badge-dot-width-sm + $badge-dot-gap-sm;
         &:before{
             height: $badge-dot-width-sm;
             width: $badge-dot-width-sm;
@@ -132,19 +127,13 @@ $dim-badge: map-merge(
         }
     }
     &.badge-lg, &.badge-xl{
-        @if($rtl==false){
-            padding-left: ($badge-dot-width * 2) + ($badge-dot-gap-sm + 4);
-        }
-        @if($rtl==true){
-            padding-right: ($badge-dot-width * 2) + ($badge-dot-gap-sm + 4);
-        }
+        padding-left: ($badge-dot-width * 2) + ($badge-dot-gap-sm + 4);
         &:before{
             height: ($badge-dot-width * 2);
             width: ($badge-dot-width * 2);
             margin-top: 0;
         }
     }
-    &-mb {}
 }
 
 $dot-badge: map-merge(
@@ -155,12 +144,12 @@ $dot-badge: map-merge(
     )
 );
 @each $name, $color in $dot-badge {
-    .badge-dot.badge-#{$name} {
+    .badge-dot.bg-#{$name} {
         color: $color;
     }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .badge-dot-sm {
         width: 0;
         overflow: hidden;

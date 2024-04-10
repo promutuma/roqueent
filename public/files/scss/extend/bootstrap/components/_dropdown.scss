@@ -1,3 +1,4 @@
+@use "sass:math";
 .dropup, .dropright, .dropdown, .dropleft{
     display: inline-flex;
 }
@@ -72,12 +73,7 @@
         font-family: $nk-dashlite-font;
         vertical-align: middle;
         content: $ni-chevron-down;
-        @if($rtl==false){
-            margin-left: 0.25rem;
-        }
-        @if($rtl==true){
-            margin-right: 0.25rem;
-        }
+        margin-left: 0.25rem;
         line-height: 1;
         display: inline-flex;
         align-items: center;
@@ -152,42 +148,42 @@
         min-width: $dropdown-width-xxs;
         max-width: $dropdown-width-xxs;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-xxs/2);
+            margin-left: math.div($dropdown-width-xxs , 2);
         }
     }
     &-xs{
         min-width: $dropdown-width-xs;
         max-width: $dropdown-width-xs;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-xs/2);
+            margin-left: math.div($dropdown-width-xs , 2);
         }
     }
     &-md{
         min-width: $dropdown-width-md;
         max-width: $dropdown-width-md;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-md/2);
+            margin-left: math.div($dropdown-width-md , 2);
         }
     }
     &-sm{
         min-width: $dropdown-width-sm;
         max-width: $dropdown-width-sm;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-sm/2);
+            margin-left: math.div($dropdown-width-sm , 2);
         }
     }
     &-lg{
         min-width: $dropdown-width-lg;
         max-width: $dropdown-width-lg;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-lg/2);
+            margin-left: math.div($dropdown-width-lg , 2);
         }
     }
     &-xl{
         min-width: $dropdown-width-xl;
         max-width: $dropdown-width-xl;
         &.dropdown-menu-center{
-            margin-left: - ($dropdown-width-xl/2);
+            margin-left: math.div($dropdown-width-xl , 2);
         }
     }
     &-auto{
@@ -199,49 +195,34 @@
         overflow: auto;
     }
 }
-
+@media (max-width:420px){
+    .dropdown-menu-sm{
+        margin-left: 14px !important;
+    }
+}
 // Header Dropdown
 .nk-quick-nav{
     .dropdown-menu{
-        margin-top: 11px;
-        @if($rtl==false){
-            margin-right: -6px;
-        }
-        @if($rtl==true){
-            margin-left: -6px;
-        }
+        margin-top: 9px !important;
+        margin-right: -6px !important;
     }
-}
-@media (max-width:420px){
+  }
+  @media (max-width:420px){
     .dropdown-menu-xl,.dropdown-menu-lg,.dropdown-menu-md{
         min-width: calc(100vw - 40px);
         max-width: calc(100vw - 40px);
     }
     .nk-quick-nav{
         .dropdown-menu-xl,.dropdown-menu-lg,.dropdown-menu-md{
-            @if($rtl==false){
-                margin-right: 0;
-                margin-left: 16px;
-            }
-            @if($rtl==true){
-                margin-left: 0;
-                margin-right: 16px;
-            }
+            margin-right: -21px !important;
         }
         li:last-child {
             .dropdown-menu-xl,.dropdown-menu-lg,.dropdown-menu-md{
-                @if($rtl==false){
-                    margin-left: 0;
-                    margin-right: 3px;
-                }
-                @if($rtl==true){
-                    margin-right: 0;
-                    margin-left: 3px;
-                }
+                margin-right: 3px !important;
             }
         }
     }
-}
+  } 
 
 
 

@@ -12,12 +12,7 @@
     }
     &-icon{
         flex-shrink: 0;
-        @if($rtl==false){
-            margin-right: .75rem;
-        }
-        @if($rtl==true){
-            margin-left: .75rem;
-        }
+        margin-right: .75rem;
     }
     &-text{
         font-size: $fx-sz-13;

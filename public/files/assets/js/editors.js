@@ -1,11 +1,11 @@
 "use strict";
 
 !function (NioApp, $) {
-  "use strict"; // SummerNote Init @v1.0
+  "use strict";
 
+  // SummerNote Init @v1.0
   NioApp.SummerNote = function () {
     var _basic = '.summernote-basic';
-
     if ($(_basic).exists()) {
       $(_basic).each(function () {
         $(this).summernote({
@@ -16,9 +16,7 @@
         });
       });
     }
-
     var _minimal = '.summernote-minimal';
-
     if ($(_minimal).exists()) {
       $(_minimal).each(function () {
         $(this).summernote({
@@ -29,12 +27,11 @@
         });
       });
     }
-  }; // Tinymce Init @v1.0
+  };
 
-
+  // Tinymce Init @v1.0
   NioApp.Tinymce = function () {
     var _tinymce_basic = '.tinymce-basic';
-
     if ($(_tinymce_basic).exists()) {
       tinymce.init({
         selector: _tinymce_basic,
@@ -43,9 +40,7 @@
         branding: false
       });
     }
-
     var _tinymce_menubar = '.tinymce-menubar';
-
     if ($(_tinymce_menubar).exists()) {
       tinymce.init({
         selector: _tinymce_menubar,
@@ -55,9 +50,7 @@
         toolbar: false
       });
     }
-
     var _tinymce_toolbar = '.tinymce-toolbar';
-
     if ($(_tinymce_toolbar).exists()) {
       tinymce.init({
         selector: _tinymce_toolbar,
@@ -67,9 +60,7 @@
         menubar: false
       });
     }
-
     var _tinymce_inline = '.tinymce-inline';
-
     if ($(_tinymce_inline).exists()) {
       tinymce.init({
         selector: _tinymce_inline,
@@ -81,15 +72,15 @@
         toolbar: ['undo redo | bold italic underline | fontselect fontsizeselect', 'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent']
       });
     }
-  }; // Quill Init @v1.0
+  };
 
-
+  // Quill Init @v1.0
   NioApp.Quill = function () {
     var _basic = '.quill-basic';
-
     if ($(_basic).exists()) {
       $(_basic).each(function () {
-        var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        var toolbarOptions = [['bold', 'italic', 'underline', 'strike'],
+        // toggled buttons
         ['blockquote', 'code-block'], [{
           'list': 'ordered'
         }, {
@@ -98,25 +89,30 @@
           'script': 'sub'
         }, {
           'script': 'super'
-        }], // superscript/subscript
+        }],
+        // superscript/subscript
         [{
           'indent': '-1'
         }, {
           'indent': '+1'
-        }], // outdent/indent
+        }],
+        // outdent/indent
+
         [{
           'header': [1, 2, 3, 4, 5, 6]
         }], [{
           'color': []
         }, {
           'background': []
-        }], // dropdown with defaults from theme
+        }],
+        // dropdown with defaults from theme
         [{
           'font': []
         }], [{
           'align': []
         }], ['clean'] // remove formatting button
         ];
+
         var quill = new Quill(this, {
           modules: {
             toolbar: toolbarOptions
@@ -125,12 +121,12 @@
         });
       });
     }
-
     var _minimal = '.quill-minimal';
-
     if ($(_minimal).exists()) {
       $(_minimal).each(function () {
-        var toolbarOptions = [['bold', 'italic', 'underline'], // toggled buttons
+        var toolbarOptions = [['bold', 'italic', 'underline'],
+        // toggled buttons
+
         ['blockquote', {
           'list': 'bullet'
         }], [{
@@ -143,6 +139,7 @@
           'align': []
         }], ['clean'] // remove formatting button
         ];
+
         var quill = new Quill(this, {
           modules: {
             toolbar: toolbarOptions
@@ -151,14 +148,13 @@
         });
       });
     }
-  }; // Editor Init @v1
+  };
 
-
+  // Editor Init @v1
   NioApp.EditorInit = function () {
     NioApp.SummerNote();
     NioApp.Tinymce();
     NioApp.Quill();
   };
-
   NioApp.coms.docReady.push(NioApp.EditorInit);
 }(NioApp, jQuery);

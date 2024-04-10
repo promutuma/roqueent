@@ -34,12 +34,7 @@
 }
 .tb-col{
     &-end, &-action{
-        @if($rtl==false){
-            text-align: right;
-        }
-        @if($rtl==true){
-            text-align: left;
-        }
+        text-align: right;
     }
     &-middle {
         vertical-align: middle;
@@ -56,12 +51,7 @@
             vertical-align: middle;
             border-radius: 12px;
             .icon {
-                @if($rtl==false){
-                    padding-left: 1px;
-                }
-                @if($rtl==true){
-                    padding-right: 1px;
-                }
+                padding-left: 1px;
             }
         }
         .link-cross {
@@ -79,7 +69,7 @@
     }
 }
 
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .table-ulogs{
         th.tb-col-ip {
             display: none;
@@ -118,12 +108,7 @@
             }
             .tb-col-action {
                 position: absolute;
-                @if($rtl==false){
-                    right: 10px;
-                }
-                @if($rtl==true){
-                    left: 10px;
-                }
+                right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
                 padding: 0;

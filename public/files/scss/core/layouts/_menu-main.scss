@@ -107,20 +107,10 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
         }
     }
     > .nk-menu-item.menu-without-icon > .nk-menu-sub .nk-menu-link{
-        @if($rtl==false){
-            padding-left: 0;
-        }
-        @if($rtl==true){
-            padding-right: 0;
-        }
+        padding-left: 0;
     }
     &-link{
-        @if($rtl==false){
-            padding: $menu-link-gap-y ($menu-link-gap-x + 16) $menu-link-gap-y $menu-link-gap-x;
-        }
-        @if($rtl==true){
-            padding: $menu-link-gap-y $menu-link-gap-x $menu-link-gap-y ($menu-link-gap-x + 16);
-        }
+        padding: $menu-link-gap-y ($menu-link-gap-x + 16) $menu-link-gap-y $menu-link-gap-x;
         color: $menu-link-color-base;
         font-family: $menu-link-ff;
         font-weight: $menu-link-fw;
@@ -136,12 +126,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
         }
         @if($menu-sub-diff==true) {
             .nk-menu-sub & {
-                @if($rtl==false){
-                    padding: $menu-sub-link-gap-y ($menu-sub-link-gap-x + 16) $menu-sub-link-gap-y ($menu-icon-width-base);
-                }
-                @if($rtl==true){
-                    padding: $menu-sub-link-gap-y ($menu-icon-width-base) $menu-sub-link-gap-y ($menu-sub-link-gap-x + 16);
-                }
+                padding: $menu-sub-link-gap-y ($menu-sub-link-gap-x + 16) $menu-sub-link-gap-y ($menu-icon-width-base);
                 font-family: $menu-sub-link-ff;
                 font-weight: $menu-sub-link-fw;
                 font-size: $menu-sub-link-fs;
@@ -182,12 +167,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
         }
         span.small {
             color: $base-light;
-            @if($rtl==false){
-                margin-left: .5rem;
-            }
-            @if($rtl==true){
-                margin-right: .5rem;
-            }
+            margin-left: .5rem;
         }
     }
     &-icon{
@@ -241,17 +221,9 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
         background: $accent-100;
         position: absolute;
         top: 50%;
-        @if($rtl==false){
-            right: $sidebar-gap-x;
-            .has-sub &{
-                right: $sidebar-gap-x + 20px;
-            }
-        }
-        @if($rtl==true){
-            left: $sidebar-gap-x;
-            .has-sub &{
-                left: $sidebar-gap-x + 20px;
-            }
+        right: $sidebar-gap-x !important;
+        .nk-menu-toggle > &{
+            right: $sidebar-gap-x + 20px !important;
         }
         transform: translateY(-50%);
         @if($menu_dark_option==true) {
@@ -348,14 +320,8 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
             position: absolute;
             font-family: $nk-dashlite-font;
             top: 50%;
-            @if($rtl==false){
-                right: 1.25rem;
-                content: $menu-toggle-icon-ltr;
-            }
-            @if($rtl==true){
-                left: 1.25rem;
-                content: $menu-toggle-icon-rtl;
-            }
+            right: 1.25rem;
+            content: $menu-toggle-icon-ltr;
             transform: translateY(-50%);
             font-size: 1rem;
             color: $base-light;
@@ -375,12 +341,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
     .count{
         display: inline-block;
         font-size: $menu-link-count-fs;
-        @if($rtl==false){
-            margin-left: $menu-link-count-gap;
-        }
-        @if($rtl==true){
-            margin-right: $menu-link-count-gap;
-        }
+        margin-left: $menu-link-count-gap;
         color: $menu-link-count-color;
         line-height: 1;
     }
@@ -406,12 +367,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
     .nk-menu{
         &-link {
             color: $menu-main-link-color-base;
-            @if($rtl==false){
-                padding-left: $menu-link-gap-x;
-            }
-            @if($rtl==true){
-                padding-right: $menu-link-gap-x;
-            }
+            padding-left: $menu-link-gap-x;
         }
         &-sub{
             padding: 0;
@@ -421,22 +377,11 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
                 color: $menu-main-link-color-base;
             }
             .nk-menu-sub{
-                @if($rtl==false){
-                    border-left: 1px solid $menu-border-color;
-                    margin:.25rem 0 .25rem $menu-link-gap-x;
-                }
-                @if($rtl==true){
-                    border-right: 1px solid $menu-border-color;
-                    margin:.25rem $menu-link-gap-x 0 .25rem;
-                }
+                border-left: 1px solid $menu-border-color;
+                margin:.25rem 0 .25rem $menu-link-gap-x;
                 padding-bottom: 0;
                 .nk-menu-link{
-                    @if($rtl==false){
-                        padding-left: .875rem;
-                    }
-                    @if($rtl==true){
-                        padding-right: .875rem;
-                    }
+                    padding-left: .875rem;
                 }
             }
         }
@@ -461,7 +406,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
         }
     }
 }
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .nk-menu{
         max-height: calc(100vh - #{$header-height});
         overflow: auto;
@@ -469,12 +414,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
 }
 @include media-breakpoint-up(lg){
     .nk-menu{
-        @if($rtl==false){
-            padding: 0 1.5rem 0 2rem;
-        }
-        @if($rtl==true){
-            padding: 0 2rem 0 1.5rem;
-        }
+        padding: 0 1.5rem 0 2rem;
         > li {
             padding: 0;
             display: inline-block;
@@ -533,14 +473,8 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
                         content: $menu-main-toggle-icon;
                         vertical-align: middle;
                         color: rgba($base-light,.7);
-                        @if($rtl==false){
-                            margin-left: 0.5rem;
-                            margin-right: -2px;
-                        }
-                        @if($rtl==true){
-                            margin-right: 0.5rem;
-                            margin-left: -2px;
-                        }
+                        margin-left: 0.5rem;
+                        margin-right: -2px;
                         margin-top: -1px;
                         transition: color .1s;
                     }
@@ -555,12 +489,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
             }
             &-sub{
                 position: absolute;
-                @if($rtl==false){
-                    left: 0;
-                }
-                @if($rtl==true){
-                    right: 0;
-                }
+                left: 0;
                 top: 100%;
                 width: $menu-main-ddm-width;
                 background: $white;
@@ -580,24 +509,13 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
                 .nk-menu-sub{
                     margin: 0;
                     margin-top: 6px;
-                    @if($rtl==false){
-                        margin-left: -0.75rem;
-                        left: 100%;
-                    }
-                    @if($rtl==true){
-                        margin-right: -0.75rem;
-                        right: 100%;
-                    }
+                    margin-left: -0.75rem;
+                    left: 100%;
                     top: - 9px;
                     padding: .5rem 0;
                     border:1px solid $border-light;
                     .nk-menu-link{
-                        @if($rtl==false){
-                            padding-left: 1.5rem;
-                        }
-                        @if($rtl==true){
-                            padding-right: 1.5rem;
-                        }
+                        padding-left: 1.5rem;
                     }
                 }
                 .nk-menu-item {
@@ -607,12 +525,7 @@ $menu-main-sub-toggle-icon-rtl: $ni-chevron-left !default;
                 }
                 .nk-menu-toggle{
                     &:after {
-                        @if($rtl==false){
-                            content: $menu-main-sub-toggle-icon-ltr;
-                        }
-                        @if($rtl==true){
-                            content: $menu-main-sub-toggle-icon-rtl;
-                        }
+                        content: $menu-main-sub-toggle-icon-ltr;
                     }
                 }
             }

@@ -20,12 +20,7 @@
     }
     &-status{
         position: absolute;
-        @if($rtl==false){
-            left: 0;
-        }
-        @if($rtl==true){
-            right: 0;
-        }
+        left: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -36,12 +31,7 @@
     &-options{
         position: absolute;
         top: -.25rem;
-        @if($rtl==false){
-            right: -.25rem;
-        }
-        @if($rtl==true){
-            left: -.25rem;
-        }
+        right: -.25rem;
     }
     &-details{
         padding-top: .5rem;

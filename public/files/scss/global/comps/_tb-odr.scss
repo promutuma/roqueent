@@ -49,24 +49,13 @@
     		vertical-align: middle;
     	}
         &:last-child {
-            @if($rtl==false){
-                padding-left: 1.25rem;
-                text-align: right;
-            }
-            @if($rtl==true){
-                padding-right: 1.25rem;
-                text-align: left;
-            }
+            padding-left: 1.25rem;
+            text-align: right;
         }
     }
     &-btns {
     	.btn + .btn {
-            @if($rtl==false){
-                margin-left: .5rem;
-            }
-            @if($rtl==true){
-                margin-right: .5rem;
-            }
+            margin-left: .5rem;
     	}
     }
     &-id {
@@ -93,12 +82,7 @@
             }
         }
         &-amount {
-            @if($rtl==false){
-                text-align: right;
-            }
-            @if($rtl==true){
-                text-align: left;
-            }
+            text-align: right;
         }
     } 
 }
@@ -117,12 +101,7 @@
             width: 2rem;
             min-width: auto;
             .tb-odr-item & {
-                @if($rtl==false){
-                    padding-left: .5rem;
-                }
-                @if($rtl==true){
-                    padding-right: .5rem;
-                }
+                padding-left: .5rem;
             }
         }
     }
@@ -141,22 +120,12 @@
         &-id, &-total {
             display: inline-block;
             + span {
-                @if($rtl==false){
-                    padding-left: 1rem;
-                }
-                @if($rtl==true){
-                    padding-right: 1rem;
-                }
+                padding-left: 1rem;
             }
         }
         &-btns {
 	    	& + .dropdown, & + .btn {
-                @if($rtl==false){
-                    margin-left: .75rem;
-                }
-                @if($rtl==true){
-                    margin-right: .75rem;
-                }
+                margin-left: .75rem;
 	    	}
 	    }
     }

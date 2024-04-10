@@ -22,7 +22,7 @@ $shady_shadow: 0 4px 20px -5px rgba($dark, .1);
     .accordion:not(.accordion-s2):not(.accordion-s3){
         border: none;
     }
-    .table .thead-light th {
+    .table .table-light th {
         background: rgba($lighter, .5);
         box-shadow: 0 -1px 5px -5px rgba($dark, 0.7);
     }
@@ -105,12 +105,7 @@ $shady_shadow: 0 4px 20px -5px rgba($dark, .1);
         &:after {
             position: absolute;
             content: "";
-            @if($rtl==false){
-                left: 0;
-            }
-            @if($rtl==true){
-                right: 0;
-            }
+            left: 0;
             top: 0;
             height: 100%;
             width: 2px;
@@ -168,7 +163,7 @@ $shady_shadow: 0 4px 20px -5px rgba($dark, .1);
 }
 
 .ui-rounder{
-    .card,.embed-responsive{
+    .card,.ratio{
         border-radius: $border-radius-xxl;
     }
 }

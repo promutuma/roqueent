@@ -37,66 +37,26 @@
     }
 
     .select2-results__option {
-      @if($rtl==false){
-        padding-left: 1em;
-      }
-      @if($rtl==true){
-        padding-right: 1em;
-      }
+      padding-left: 1em;
       .select2-results__group {
-        @if($rtl==false){
-          padding-left: 0;
-        }
-        @if($rtl==true){
-          padding-right: 0;
-        }
+        padding-left: 0;
       }
 
       .select2-results__option {
-        @if($rtl==false){
-          margin-left: -1em;
-          padding-left: 2em;
-        }
-        @if($rtl==true){
-          margin-right: -1em;
-          padding-right: 2em;
-        }
+        margin-left: -1em;
+        padding-left: 2em;
         .select2-results__option {
-          @if($rtl==false){
-            margin-left: -2em;
-            padding-left: 3em;
-          }
-          @if($rtl==true){
-            margin-right: -2em;
-            padding-right: 3em;
-          }
+          margin-left: -2em;
+          padding-left: 3em;
           .select2-results__option {
-            @if($rtl==false){
-              margin-left: -3em;
-              padding-left: 4em;
-            }
-            @if($rtl==true){
-              margin-right: -3em;
-              padding-right: 4em;
-            }
+            margin-left: -3em;
+            padding-left: 4em;
             .select2-results__option {
-              @if($rtl==false){
-                margin-left: -4em;
-                padding-left: 5em;
-              }
-              @if($rtl==true){
-                margin-right: -4em;
-                padding-right: 5em;
-              }
+              margin-left: -4em;
+              padding-left: 5em;
               .select2-results__option {
-                @if($rtl==false){
-                  margin-left: -5em;
-                  padding-left: 6em;
-                }
-                @if($rtl==true){
-                  margin-right: -5em;
-                  padding-right: 6em;
-                }
+                margin-left: -5em;
+                padding-left: 6em;
               }
             }
           }

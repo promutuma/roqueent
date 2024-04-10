@@ -6,10 +6,12 @@
     display: inline-flex;
     align-items: center;
     &-xl {
-        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+        line-height: $btn-line-height-lg;
     }
     &-xs{
-        @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-line-height-xs, $btn-border-radius-xs);
+        @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-border-radius-xs);
+        line-height: $btn-line-height-xs;
     }
     // With Icon
     .icon{
@@ -24,37 +26,20 @@
         }
     }
     .icon + span,span + .icon{
-        @if($rtl==false){
-            padding-left: 8px;
-        }
-        @if($rtl==true){
-            padding-right: 8px;
-        }
+        padding-left: 8px;
     }
     .dd-indc{
-        @if($rtl==false){
-            transform: translateX(-8px);
-        }
-        @if($rtl==true){
-            transform: translateX(8px);
-        }
+        transform: translateX(-8px);
     }
     span + .dd-indc{
-        @if($rtl==false){
-            transform: translateX(8px);
-        }
-        @if($rtl==true){
-            transform: translateX(-8px);
-        }
+        transform: translateX(8px);
+    }
+    &:active,&.active{
+        border-color: transparent !important;
     }
     &-lg{
         .icon + span,span + .icon{
-            @if($rtl==false){
-                padding-left: 12px;
-            }
-            @if($rtl==true){
-                padding-right: 12px;
-            }
+            padding-left: 12px;
         }
     }
     &-round{
@@ -62,6 +47,7 @@
     }
     &-block{
         justify-content: center;
+        width: 100%;
     }
     &-ucap,&.ucap{
         text-transform: uppercase;
@@ -101,26 +87,14 @@
         .dot{
             position: absolute;
             top: .35rem;
-            @if($rtl==false){
-                right: .35rem;
-                transform: translate(50%, -50%);
-            }
-            @if($rtl==true){
-                left: .35rem;
-                transform: translate(-50%, -50%);
-            }
+            right: .35rem;
+            transform: translate(50%, -50%);
         }
         .badge{
             position: absolute;
             top: .25rem;
-            @if($rtl==false){
-                right: .25rem;
-                transform: translate(50%, -50%);
-            }
-            @if($rtl==true){
-                left: .25rem;
-                transform: translate(-50%, -50%);
-            }
+            right: .25rem;
+            transform: translate(50%, -50%);
             &-circle{
                 border-radius: 50%;
                 height: 1.125rem;
@@ -152,12 +126,7 @@
     &-wider{
         display: flex;
         .icon + span,span + .icon{
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
         }
     }
     &-auto{
@@ -170,12 +139,7 @@
     .spinner-border,.spinner-grow{
         margin: .125rem;
         + span{
-            @if($rtl==false){
-                margin-left: 0.25rem;
-            }
-            @if($rtl==true){
-                margin-right: 0.25rem;
-            }
+            margin-left: 0.25rem;
         }
     }
     &-indc{
@@ -185,31 +149,20 @@
         }
         .indc{
             opacity: .6;
-            @if($rtl==false){
-                margin-left: -8px;
-                margin-right: auto;
-            }
-            @if($rtl==true){
-                margin-right: -8px;
-                margin-left: auto;
-            }
+            margin-left: -8px;
+            margin-right: auto;
         }
         span + .indc{
-            @if($rtl==false){
-                margin-left: auto;
-                margin-right: -8px;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-                margin-left: -8px;
-            }
+            margin-left: auto;
+            margin-right: -8px;
         }
     }
 }
 
 @include media-breakpoint-up(md){
     .btn-xl {
-        @include button-size($btn-padding-y-xl, $btn-padding-x-xl, $btn-font-size-xl, $btn-line-height-xl, $btn-border-radius-lg);
+        @include button-size($btn-padding-y-xl, $btn-padding-x-xl, $btn-font-size-xl, $btn-border-radius-lg);
+        line-height: $btn-line-height-xl;
         &.btn-round{
             border-radius: add($btn-line-height-xl, + $btn-padding-y-xl*2, + $btn-border-width*2);
         }
@@ -232,6 +185,9 @@
     position: relative;
     z-index: 1;
     color: $base-text;
+    &:active,&.show{
+        border-color: transparent !important;
+    }
     &:focus{
         box-shadow: none;
     }
@@ -290,7 +246,7 @@ $dim-outline-btns:
         background-color: $background;
         border-color: $border;
         &:not(:disabled):not(.disabled):hover {
-            color: color-yiq($color);
+            color: color-contrast($color);
             background-color: $color;
             border-color: $color;
         }
@@ -322,7 +278,7 @@ $dim-btns:
         background-color: $background;
         border-color: transparent;
         &:not(:disabled):not(.disabled):hover {
-            color: color-yiq($color);
+            color: color-contrast($color);
             background-color: $color;
             border-color: $color;
         }
@@ -353,5 +309,9 @@ $dim-btns:
             background: $base-text;
             border-color: $base-text;
         }
+    }
+    &-light:focus{
+        color: $darker;
+        background: $light-400;
     }
 }

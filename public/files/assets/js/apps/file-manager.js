@@ -4,11 +4,11 @@
   "use strict";
 
   var $win = $(window),
-      $body = $('body'),
-      breaks = NioApp.Break; // Variable
+    $body = $('body'),
+    breaks = NioApp.Break;
 
+  // Variable
   var $file_dload = $('.file-dl-toast');
-
   NioApp.FileManager = function () {
     $file_dload.on("click", function (e) {
       e.preventDefault();
@@ -19,6 +19,5 @@
       });
     });
   };
-
   NioApp.coms.docReady.push(NioApp.FileManager);
 }(NioApp, jQuery);

@@ -20,12 +20,7 @@
     }
     &-info{
         .coin-icon + &{
-            @if($rtl==false){
-                margin-left: 12px;
-            }
-            @if($rtl==true){
-                margin-right: 12px;
-            }
+            margin-left: 12px;
         }
     }
     &-name{

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $slick-bg-lighter: $light-400 !default;
 $slick-bg-light: $base-300 !default;
 $slick-tc-color: $light-600 !default;
@@ -50,12 +52,7 @@ $slick-dots-bg-active:      $base-light;
 
 .slick-track {
     position: relative;
-    @if($rtl==false){
-        left: 0;
-    }
-    @if($rtl==true){
-        right: 0;
-    }
+    left: 0;
     top: 0;
     display: block;
     margin-left: auto;
@@ -76,12 +73,7 @@ $slick-dots-bg-active:      $base-light;
     }
 }
 .slick-slide {
-    @if($rtl==false){
-        float: left;
-    }
-    @if($rtl==true){
-        float: right;
-    }
+    float: left;
     height: 100%;
     min-height: 1px;
     img {
@@ -113,6 +105,10 @@ $slick-dots-bg-active:      $base-light;
     &:focus{
         outline: none;
         border: none;
+    }
+    &.col{
+        padding-left: math.div($gutter-width,2);
+        padding-right: math.div($gutter-width,2);
     }
 }
 .slick-arrow.slick-hidden {
@@ -181,37 +177,17 @@ $slick-dots-bg-active:      $base-light;
     }
 }
 .slick-next{
-    @if($rtl==false){
-        right: 5px;
-    }
-    @if($rtl==true){
-        left: 5px;
-    }
+    right: 5px;
 }
 .slick-prev{
-    @if($rtl==false){
-        left: 5px;
-    }
-    @if($rtl==true){
-        right: 5px;
-    }
+    left: 5px;
 }
 
 @include media-breakpoint-up(sm){
     .slick-next{
-        @if($rtl==false){
-            right: -10px;
-        }
-        @if($rtl==true){
-            left: -10px;
-        }
+        right: -10px;
     }
     .slick-prev{
-        @if($rtl==false){
-            left: -10px;
-        }
-        @if($rtl==true){
-            right: -10px;
-        }
+        left: -10px;
     }
 }

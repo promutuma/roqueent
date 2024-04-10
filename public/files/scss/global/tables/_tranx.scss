@@ -13,16 +13,11 @@
         align-items: center;
         justify-content: center;
         background: $light;
-        @if($rtl==false){
-            margin-right: 1rem;
-        }
-        @if($rtl==true){
-            margin-left: 1rem;
-        }
+        margin-right: 1rem;
     }
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .nk-tb-tnx{
         font-size: $fx-sz-12;
         letter-spacing: -0.01em;
@@ -32,16 +27,11 @@
             font-size: 0.875rem;
             height: 1.75rem;
             width: 1.75rem;
-            @if($rtl==false){
-                margin-right: .75rem;
-            }
-            @if($rtl==true){
-                margin-left: .75rem;
-            }
+            margin-right: .75rem;
         }
     }
 }
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .nk-tb-tnx{
         .nk-tb{
             &-head{
@@ -51,23 +41,12 @@
             }
             &-col{
                 &-status{
-                    @if($rtl==false){
-                        text-align: right;
-                        padding-right: 1.25rem !important;
-                    }
-                    @if($rtl==true){
-                        text-align: left;
-                        padding-left: 1.25rem !important;
-                    }
+                    text-align: right;
+                    padding-right: 1.25rem !important;
                 }
                 &-tools{
                     position: absolute;
-                    @if($rtl==false){
-                        right: 0;
-                    }
-                    @if($rtl==true){
-                        left: 0;
-                    }
+                    right: 0;
                     opacity: 0;
                     transition: .3s ease;
                 }
@@ -81,24 +60,14 @@
     }
     .nk-tnx-type{
         &-icon{
-            @if($rtl==false){
-                margin-right: .5rem;
-            }
-            @if($rtl==true){
-                margin-left: .5rem;
-            }
+            margin-right: .5rem;
         }
     }
 }
 @include media-breakpoint-up(md){
     .nk-tb-tnx{
         .nk-tb-col-status{
-            @if($rtl==false){
-                padding-left: 2.5rem;
-            }
-            @if($rtl==true){
-                padding-right: 2.5rem;
-            }
+            padding-left: 2.5rem;
         }
     }
 }
@@ -107,12 +76,7 @@
 @media (min-width: 1800px) {
     .nk-tb-tnx{
         .nk-tb-col-status{
-            @if($rtl==false){
-                padding-left: 6rem;
-            }
-            @if($rtl==true){
-                padding-right: 6rem;
-            }
+            padding-left: 6rem;
         }
     }
 }

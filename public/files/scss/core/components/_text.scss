@@ -44,14 +44,8 @@
     position: relative;
     display: inline-block;
     margin-bottom: 0;
-    @if($rtl==false){
-      padding-left: .35rem;
-      padding-right: .25rem;
-    }
-    @if($rtl==true){
-      padding-right: .35rem;
-      padding-left: .25rem;
-    }
+    padding-left: .35rem;
+    padding-right: .25rem;
     color: $base-300;
     &:before,&:after{
       position: absolute;
@@ -137,12 +131,7 @@
   font-size: $fx-sz-13;
   color: $base-light;
   span + .dot,.dot + span{
-    @if($rtl==false){
-      margin-left: 0.25rem;
-    }
-    @if($rtl==true){
-      margin-right: 0.25rem;
-    }
+    margin-left: 0.25rem;
   }
   &-sm,+ .sub-text{
     font-size: $fx-sz-12;
@@ -191,55 +180,50 @@
 }
 h6{
   .badge{
-    @if($rtl==false){
-      margin-left: 0.5rem;
-    }
-    @if($rtl==true){
-      margin-right: 0.5rem;
-    }
+    margin-left: 0.5rem;
   }
 }
 .fs-9px{
-  font-size: $fx-sz-9;
+  font-size: $fx-sz-9 !important;
 }
 .fs-10px{
-  font-size: $fx-sz-10;
+  font-size: $fx-sz-10 !important;
 }
 .fs-11px{
-  font-size: $fx-sz-11;
+  font-size: $fx-sz-11 !important;
 }
 .fs-12px{
-  font-size: $fx-sz-12;
+  font-size: $fx-sz-12 !important;
 }
 .fs-13px{
-  font-size: $fx-sz-13;
+  font-size: $fx-sz-13 !important;
 }
 .fs-14px{
-  font-size: $fx-sz-14;
+  font-size: $fx-sz-14 !important;
 }
 .fs-15px{
-  font-size: $fx-sz-15;
+  font-size: $fx-sz-15 !important;
 }
 .fs-16px{
-  font-size: $fx-sz-16;
+  font-size: $fx-sz-16 !important;
 }
 .fs-17px{
-  font-size: 17px;
+  font-size: 17px !important;
 }
 .fs-18px{
-  font-size: 18px;
+  font-size: 18px !important;
 }
 .fs-19px{
-  font-size: 19px;
+  font-size: 19px !important;
 }
 .fs-20px{
-  font-size: 20px;
+  font-size: 20px !important;
 }
 .fs-21px{
-  font-size: 21px;
+  font-size: 21px !important;
 }
 .fs-22px{
-  font-size: 22px;
+  font-size: 22px !important;
 }
 .note-text{
   font-size: $fx-sz-12;

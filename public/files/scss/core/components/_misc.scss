@@ -56,14 +56,8 @@ $change-down-icon: $ni-arrow-long-down !default;
     font-weight: $fw-normal !important;
     font-family: $base-font-family !important;
     color: $base-color !important;
-    @if($rtl==false){
-        left: 0;
-        margin-left: 0 !important;
-    }
-    @if($rtl==true){
-        right: 0;
-        margin-right: 0 !important;
-    }
+    left: 0;
+    margin-left: 0 !important;
     border: none;
     &:focus{
         outline: none;
@@ -178,12 +172,7 @@ $change-down-icon: $ni-arrow-long-down !default;
         }
         .icon{
             color: $base-light;
-            @if($rtl==false){
-                margin-left: .25rem;
-            }
-            @if($rtl==true){
-                margin-right: .25rem;
-            }
+            margin-left: .25rem;
             @if($dark_option==true) {
                 .is-dark &{
                     color: $base-light;
@@ -229,12 +218,7 @@ $change-down-icon: $ni-arrow-long-down !default;
     }
     &-flag{
         width: 24px;
-        @if($rtl==false){
-            margin-right: 12px;
-        }
-        @if($rtl==true){
-            margin-left: 12px;
-        }
+        margin-right: 12px;
     }
 }
 
@@ -263,36 +247,23 @@ p > span > .icon.ni {
 
 // DD fix with Button Trigger
 /////////////////////////////////
-.btn-trigger + .dropdown-menu-right, .btn-trigger + .dropdown-menu-left {
-    margin: -.75rem 0;
+.btn-trigger + .dropdown-menu-end, .btn-trigger + .dropdown-menu-start {
+    margin: -.75rem 0 !important;
 }
 
-.btn-trigger + .dropdown-menu-right {
-    @if($rtl==false){
-        margin-right: 16px;
-    }
-    @if($rtl==true){
-        margin-left: 16px;
-    }
+.btn-trigger + .dropdown-menu-end {
+    margin-right: 16px !important;
 }
-.btn-trigger + .dropdown-menu-left {
-    @if($rtl==false){
-        margin-left: 16px;
-    }
-    @if($rtl==true){
-        margin-right: 16px;
-    }
+.btn-trigger + .dropdown-menu-start {
+    margin-left: 16px;
 }
+
+// DD fix with Button Trigger
 
 @media (max-width:420px){
     .btn-trigger + .dropdown-menu-xl, .btn-trigger + .dropdown-menu-lg, .btn-trigger + .dropdown-menu-md {
-        @if($rtl==false){
-            margin-left: 16px;
-        }
-        @if($rtl==true){
-            margin-right: 16px;
-        }
-        margin-top: .25rem;
+        margin-right: -16px !important;
+        margin-top: 0 !important;
     }
 }
 
@@ -318,12 +289,7 @@ p > span > .icon.ni {
             color: $base-text;
         }
         .link {
-            @if($rtl==false){
-                margin-left: .75rem;
-            }
-            @if($rtl==true){
-                margin-right: .75rem;
-            }
+            margin-left: .75rem;
         }
     }
     &-sep {
@@ -358,7 +324,7 @@ p > span > .icon.ni {
         }
     }
 }
-.embed-responsive{
+.ration{
     border-radius: $border-radius;
 }
 
@@ -379,12 +345,7 @@ p > span > .icon.ni {
         display: flex;
         align-items: center;
         position: absolute;
-        @if($rtl==false){
-            left: 2rem;
-        }
-        @if($rtl==true){
-            right: 2rem;
-        }
+        left: 2rem;
         bottom: 2rem;
         color: $white;
         font-size: 1.25rem;

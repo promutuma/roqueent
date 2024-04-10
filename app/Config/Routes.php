@@ -48,6 +48,7 @@ $routes->get('/html/sales-get-payment.html/(:any)', 'Sales::getPayment/$1', ['fi
 $routes->post('/html/sales-add-item-cart.html', 'Sales::addCart', ['filter' => 'auth']);
 $routes->post('/html/sales-quantity-change.html', 'Sales::quantityChange', ['filter' => 'auth']);
 $routes->post('/html/sales-add-payment.html', 'Sales::addPayment', ['filter' => 'auth']);
+$routes->post('/html/sale-save-new-order.html', 'Sales::saveNewSale', ['filter' => 'auth']);
 
 
 //Expense

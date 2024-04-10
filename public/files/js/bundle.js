@@ -12,7 +12,7 @@
 @@include('@@nodeRoot/node_modules/slick-carousel/slick/slick.min.js')
 @@include('@@nodeRoot/node_modules/clipboard/dist/clipboard.min.js')
 
-@@include('@@nodeRoot/node_modules/chart.js/dist/Chart.min.js')
+@@include('@@nodeRoot/node_modules/chart.js/dist/chart.umd.js')
 
 @@include('@@nodeRoot/node_modules/nouislider/distribute/nouislider.min.js')
 

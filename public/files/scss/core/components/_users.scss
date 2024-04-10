@@ -15,40 +15,20 @@
     flex-shrink: 0;
     position: relative;
     + .user-info{
-        @if($rtl==false){
-            margin-left: 1rem;
-        }
-        @if($rtl==true){
-            margin-right: 1rem;
-        }
+        margin-left: 1rem;
     }
     + .user-name{
-        @if($rtl==false){
-            margin-left: 0.75rem;
-        }
-        @if($rtl==true){
-            margin-right: 0.75rem;
-        }
+        margin-left: 0.75rem;
     }
     img{
         border-radius: 50%;
     }
     &.md{
         + .user-info{
-            @if($rtl==false){
-                margin-left: 1.5rem;
-            }
-            @if($rtl==true){
-                margin-right: 1.5rem;
-            }
+            margin-left: 1.5rem;
         }
         + .user-name{
-            @if($rtl==false){
-                margin-left: 1.25rem;
-            }
-            @if($rtl==true){
-                margin-right: 1.25rem;
-            }
+            margin-left: 1.25rem;
         }
     }
     .edit{
@@ -75,12 +55,7 @@
         border: 2px solid $white;
         position: absolute;
         bottom: 0;
-        @if($rtl==false){
-            right: 0;
-        }
-        @if($rtl==true){
-            left: 0;
-        }
+        right: 0;
     }
     &.sq{
         border-radius: $border-radius;
@@ -89,12 +64,7 @@
         }
         .status{
             bottom: -6px;
-            @if($rtl==false){
-                right: -6px;
-            }
-            @if($rtl==true){
-                left: -6px;
-            }
+            right: -6px;
         }
     }
 }
@@ -110,39 +80,19 @@
         border: 2px solid $white;
         &:nth-child(1){
             top: 0;
-            @if($rtl==false){
-                right: 0;
-            }
-            @if($rtl==true){
-                left: 0;
-            }
+            right: 0;
         }
         &:nth-child(2){
             bottom: 0;
-            @if($rtl==false){
-                left: 0;
-            }
-            @if($rtl==true){
-                right: 0;
-            }
+            left: 0;
         }
     }
 }
 
 .user-card .user-avatar.d-none{
-    @if($rtl==false){
-        margin-right: 1rem;
-    }
-    @if($rtl==true){
-        margin-left: 1rem;
-    }
+    margin-right: 1rem;
     + .user-info, + .user-name{
-        @if($rtl==false){
-            margin-left: 0;
-        }
-        @if($rtl==true){
-            margin-right: 0;
-        }
+        margin-left: 0;
     }
 }
 
@@ -155,12 +105,7 @@
         font-weight: 400;
         .status{
             bottom: 9px;
-            @if($rtl==false){
-                right: 9px;
-            }
-            @if($rtl==true){
-                left: 9px;
-            }
+            right: 9px;
         }
     }
     &-lg, &.lg {
@@ -170,12 +115,7 @@
         font-weight: 400;
         .status{
             bottom: 5px;
-            @if($rtl==false){
-                right: 5px;
-            }
-            @if($rtl==true){
-                left: 5px;
-            }
+            right: 5px;
         }
     }
     &-md, &.md {
@@ -184,12 +124,7 @@
         font-size: 18px;
         .status{
             bottom: 2px;
-            @if($rtl==false){
-                right: 2px;
-            }
-            @if($rtl==true){
-                left: 2px;
-            }
+            right: 2px;
         }
     }
     &-sm, &.sm{
@@ -198,12 +133,7 @@
         font-size: 12px;
         .status{
             bottom: -2px;
-            @if($rtl==false){
-                right: -2px;
-            }
-            @if($rtl==true){
-                left: -2px;
-            }
+            right: -2px;
         }
     }
     &-xs, &.xs{
@@ -213,12 +143,7 @@
         font-weight: $fw-bold;
         .status{
             bottom: -2px;
-            @if($rtl==false){
-                right: -2px;
-            }
-            @if($rtl==true){
-                left: -2px;
-            }
+            right: -2px;
         }
     }
 }
@@ -266,12 +191,7 @@ $avatar-adj-colors: (
         }
         &-menu{
             position: absolute;
-            @if($rtl==false){
-                right: 1rem;
-            }
-            @if($rtl==true){
-                left: 1rem;
-            }
+            right: 1rem;
             top: 1rem;
         }
     }
@@ -310,12 +230,7 @@ $avatar-adj-colors: (
         }
     }
     &-action{
-        @if($rtl==false){
-            margin-left:auto;
-        }
-        @if($rtl==true){
-            margin-right:auto;
-        }
+        margin-left:auto;
         font-size: 20px;
         color: $base-light;
     }
@@ -473,12 +388,7 @@ $avatar-adj-colors: (
     .gfx{
         align-self: flex-end;
         width: 50px;
-        @if($rtl==false){
-            margin-left: 1rem;
-        }
-        @if($rtl==true){
-            margin-right: 1rem;
-        }
+        margin-left: 1rem;
         margin-bottom: 0.25rem;
     }
 }
@@ -509,28 +419,13 @@ $avatar-adj-colors: (
     .user-avatar{
         border:2px solid $white;
         &:not(:first-child){
-            @if($rtl==false){
-                margin-left: -20%;
-            }
-            @if($rtl==true){
-                margin-right: -20%;
-            }
+            margin-left: -20%;
         }
         &.sm:not(:first-child) {
-            @if($rtl==false){
-                margin-left: -1rem;
-            }
-            @if($rtl==true){
-                margin-right: -1rem;
-            }
+            margin-left: -1rem;
         }
         &.xs:not(:first-child) {
-            @if($rtl==false){
-                margin-left: -0.5rem;
-            }
-            @if($rtl==true){
-                margin-right: -0.5rem;
-            }
+            margin-left: -0.5rem;
         }
     }
 }
@@ -544,12 +439,7 @@ $avatar-adj-colors: (
     .edit{
         font-size: 1.25rem;
         color: $base-light;
-        @if($rtl==false){
-            margin-left: 0.5rem;
-        }
-        @if($rtl==true){
-            margin-right: 0.5rem;
-        }
+        margin-left: 0.5rem;
         display: inline-flex;
         &:hover{
             color: $accent-color;
@@ -572,12 +462,7 @@ $avatar-adj-colors: (
         font-size: 1rem;
         .icon{
             font-size: 1.5rem;
-            @if($rtl==false){
-                margin-right: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-left: 0.75rem;
-            }
+            margin-right: 0.75rem;
             color: $accent-color;
         }
     }

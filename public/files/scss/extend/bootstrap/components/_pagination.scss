@@ -13,6 +13,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        line-height: $pagination-line-height;
         min-width: calc(#{$pagination-line-height} + #{$pagination-padding-y*2} + #{$pagination-border-width*2});
         .pagination-sm &{
             line-height: $pagination-line-height-sm;
@@ -59,22 +60,12 @@
             }
             &-prev{
                 .icon{
-                    @if($rtl==false){
-                        padding-right: 0.25rem;
-                    }
-                    @if($rtl==true){
-                        padding-left: 0.25rem;
-                    }
+                    padding-right: 0.25rem;
                 }
             }
             &-next{
                 .icon{
-                    @if($rtl==false){
-                        padding-left: 0.25rem;
-                    }
-                    @if($rtl==true){
-                        padding-right: 0.25rem;
-                    }
+                    padding-left: 0.25rem;
                 }
             }
         }

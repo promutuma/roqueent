@@ -1,3 +1,4 @@
+@use "sass:math";
 .nk-kanban{
   overflow: auto;
   padding-bottom: 1rem;
@@ -7,9 +8,12 @@
     box-sizing: border-box;
     width: auto;
     display: flex;
-    margin-left: -$grid-gutter-width/2;
-    margin-right: -$grid-gutter-width/2;
+    margin-left: math.div(-$grid-gutter-width , 2);
+    margin-right: math.div(-$grid-gutter-width , 2);
     overflow: auto;
+    > *{
+      touch-action: pan-y;
+    }
   }
   
   .kanban-container * {
@@ -18,7 +22,7 @@
 
 
   .kanban-board {
-    padding: $grid-gutter-width/2;
+    padding: math.div($grid-gutter-width , 2);
     position: relative;
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     flex-shrink: 0;
@@ -33,12 +37,7 @@
   
   .kanban-board.is-moving.gu-mirror .kanban-drag {
     overflow: hidden;
-    @if($rtl==false){
-      padding-right: 50px;
-    }
-    @if($rtl==true){
-      padding-left: 50px;
-    }
+    padding-right: 50px;
   }
   
   .kanban-board-header {
@@ -70,12 +69,7 @@
     .title{
         font-size: 0.9375rem;
         margin-bottom: 0;
-        @if($rtl==false){
-          margin-right: 0.75rem;
-        }
-        @if($rtl==true){
-          margin-left: 0.75rem;
-        }
+        margin-right: 0.75rem;
         color: $base-text;
     }
 }
@@ -86,12 +80,7 @@
 }
   
   .kanban-board header .kanban-title-button {
-    @if($rtl==false){
-      float: right;
-    }
-    @if($rtl==true){
-      float: left;
-    }
+    float: right;
   }
   
   .kanban-board .kanban-drag {
@@ -126,12 +115,7 @@
       .title{
         font-size: 0.9375rem;
         margin-bottom: 0;
-        @if($rtl==false){
-          margin-right: 0.75rem;
-        }
-        @if($rtl==true){
-          margin-left: 0.75rem;
-        }
+        margin-right: 0.75rem;
       }
     }
     &-tags{
@@ -166,12 +150,7 @@
             white-space: nowrap;
           }
           .icon + span{
-            @if($rtl==false){
-              margin-left: 0.25rem;
-            }
-            @if($rtl==true){
-              margin-right: 0.25rem;
-            }
+            margin-left: 0.25rem;
           }
         }
       }
@@ -221,14 +200,8 @@
       height: 24px;
       position: relative;
       top: -3px;
-      @if($rtl==false){
-        float: left;
-        margin-right: 4px;
-      }
-      @if($rtl==true){
-        float: right;
-        margin-left: 4px;
-      }
+      float: left;
+      margin-right: 4px;
   }
   
   .drag_handler:hover {

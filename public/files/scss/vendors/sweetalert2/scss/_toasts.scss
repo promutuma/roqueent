@@ -67,21 +67,11 @@
           width: 1.375em;
 
           &[class$='left'] {
-            @if($rtl==false){
-              left: .3125em;
-            }
-            @if($rtl==true){
-              right: .3125em;
-            }
+            left: .3125em;
           }
 
           &[class$='right'] {
-            @if($rtl==false){
-              right: .3125em;
-            }
-            @if($rtl==true){
-              left: .3125em;
-            }
+            right: .3125em;
           }
         }
       }
@@ -119,28 +109,16 @@
 
         &[class$='left'] {
           top: -.8em;
-          @if($rtl==false){
-            left: -.5em;
-            border-radius: 4em 0 0 4em;
-          }
-          @if($rtl==true){
-            right: -.5em;
-            border-radius: 0 4em 4em 0;
-          }
+          left: -.5em;
+          border-radius: 4em 0 0 4em;
           transform: rotate(-45deg);
           transform-origin: 2em 2em;
         }
         
         &[class$='right'] {
           top: -.25em;
-          @if($rtl==false){
-            left: .9375em;
-            border-radius: 0 4em 4em 0;
-          }
-          @if($rtl==true){
-            right: .9375em;
-            border-radius: 4em 0 0 4em;
-          }
+          left: .9375em;
+          border-radius: 0 4em 4em 0;
           transform-origin: 0 1.5em;
         }
       }
@@ -152,12 +130,7 @@
 
       .swal2-success-fix {
         top: 0;
-        @if($rtl==false){
-          left: .4375em;
-        }
-        @if($rtl==true){
-          right: .4375em;
-        }
+        left: .4375em;
         width: .4375em;
         height: 2.6875em;
       }
@@ -167,23 +140,13 @@
 
         &[class$='tip'] {
           top: 1.125em;
-          @if($rtl==false){
-            left: .1875em;
-          }
-          @if($rtl==true){
-            right: .1875em;
-          }
+          left: .1875em;
           width: .75em;
         }
 
         &[class$='long'] {
           top: .9375em;
-          @if($rtl==false){
-            right: .1875em;
-          }
-          @if($rtl==true){
-            left: .1875em;
-          }
+          right: .1875em;
           width: 1.375em;
         }
       }

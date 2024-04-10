@@ -33,7 +33,7 @@
                                 <li class="btn-toolbar-sep"></li><!-- li -->
                                 <li>
                                     <div class="dropdown">
-                                        <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                                        <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-bs-toggle="dropdown">
                                             <em class="icon ni ni-setting"></em>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
@@ -67,11 +67,11 @@
                         </div><!-- card-search -->
                     </div><!-- .card-title-group -->
                 </div><!-- .card-inner -->
-                <div class="card-inner p-0">
+                <div class="card-inner">
+                    <div class="card-inner p-0">
 
-
-                    <div class="table-responsive">
                         <table class="table datatable-init-export table-orders" id="saleslist">
+                            <caption>All Sales by <?= date('D, jS M Y \a\t H:i:s \h\r\s'); ?></caption>
                             <thead class="tb-odr-head">
                                 <tr class="tb-odr-item">
                                     <th class="tb-odr-info">
@@ -80,6 +80,8 @@
                                     </th>
                                     <th class="tb-odr-amount">
                                         <span class="tb-odr-total">Amount</span>
+                                    </th>
+                                    <th class="tb-odr-amount">
                                         <span class="tb-odr-status d-none d-md-inline-block">Status</span>
                                     </th>
                                     <th class="tb-odr-action">&nbsp;</th>
@@ -96,19 +98,26 @@
                                             <span class="tb-odr-total">
                                                 <span class="amount">Ksh <?php echo $row['amount'] ?></span>
                                             </span>
+                                        </td>
+                                        <td class="tb-odr-amount">
                                             <span class="tb-odr-status">
-                                                <span class="badge badge-dot <?php if ($row['sale_status'] == 'Complete') {
-                                                                                    echo "badge-success";
-                                                                                } elseif ($row['sale_status'] == 'Created') {
-                                                                                    echo "badge-danger";
-                                                                                } else {
-                                                                                    echo "badge-warning";
-                                                                                } ?>"><?php echo $row['sale_status'] ?></span>
+                                                <?php
+                                                if ($row['sale_status'] == 'Complete') {
+                                                    $c = "bg-success";
+                                                } elseif ($row['sale_status'] == 'Created') {
+                                                    $c = "bg-danger";
+                                                } else {
+                                                    $c = "bg-warning";
+                                                }
+                                                ?>
+                                                <span class="tb-odr-status">
+                                                    <span class="badge badge-dot <?= $c ?>"><?= $row['sale_status'] ?></span>
+                                                </span>
                                             </span>
                                         </td>
                                         <td class="tb-odr-action">
                                             <div class="tb-odr-btns d-none d-sm-inline">
-                                                <a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>" target="_blank" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
+                                                <a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
                                                 <a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>" class="btn btn-dim btn-sm btn-primary">View</a>
                                             </div>
                                             <a href="/html/sales-new.html/" class="btn btn-pd-auto d-sm-none"><em class="icon ni ni-chevron-right"></em></a>
@@ -117,11 +126,10 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                    </div>
 
 
-                </div><!-- .card-inner -->
-
+                    </div><!-- .card-inner -->
+                </div>
             </div><!-- .card-inner-group -->
         </div><!-- .card -->
     </div><!-- .nk-block -->

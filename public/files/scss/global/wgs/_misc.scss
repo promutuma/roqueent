@@ -36,12 +36,7 @@
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				@if($rtl==false){
-					margin-right: 0.5rem;
-                }
-                @if($rtl==true){
-					margin-left: 0.5rem;
-                }
+				margin-right: 0.5rem;
             }
         }
         &.buy{
@@ -73,22 +68,11 @@
 	justify-content: space-between;
 	&-content{
 		position: relative;
-		@if($rtl==false){
-			padding-left: 2rem;
-			padding-right: 1rem;
-		}
-		@if($rtl==true){
-			padding-left: 1rem;
-			padding-right: 2rem;
-		}
+		padding-left: 2rem;
+		padding-right: 1rem;
 		.icon{
 			font-size: 1.5rem;
-			@if($rtl==false){
-				left:0;
-			}
-			@if($rtl==true){
-				right:0;
-			}
+			left:0;
 			position: absolute;
 			color: $base-light;
 		}
@@ -126,12 +110,7 @@
 			padding: .25rem 0;
 			color: $base-light;
 			.dot{
-				@if($rtl==false){
-					margin-right: 0.5rem;
-                }
-                @if($rtl==true){
-					margin-left: 0.5rem;
-                }
+				margin-right: 0.5rem;
 			}
 		}
 	}
@@ -165,12 +144,7 @@
 		color: $base-light;
 		font-size: $fx-sz-12;
 		.change{
-			@if($rtl==false){
-				margin-right: 0.5rem;
-			}
-			@if($rtl==true){
-				margin-left: 0.5rem;
-			}
+			margin-right: 0.5rem;
 		}
 	}
 }
@@ -183,7 +157,7 @@
 	}
 }
 
-@include media-breakpoint-between(lg,xl){
+@include media-breakpoint-between(lg,xxl){
 	.nk-sales-ck{
 		&.sales-revenue{
 			height: 164px;
@@ -203,12 +177,7 @@
 		}
 	}
 	&-data{
-		@if($rtl==false){
-			margin-left: 1rem;
-		}
-		@if($rtl==true){
-			margin-right: 1rem;
-		}
+		margin-left: 1rem;
 		.time{
 			display: block;
 			font-size: $fx-sz-12;
@@ -237,12 +206,7 @@
 	}
 	&-content{
 		flex-grow: 1;
-		@if($rtl==false){
-			margin-left: 1rem;
-		}
-		@if($rtl==true){
-			margin-right: 1rem;
-		}
+		margin-left: 1rem;
 		.title{
 			font-size: 0.875rem;
 			font-weight: $fw-bold;

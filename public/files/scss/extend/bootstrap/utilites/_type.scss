@@ -14,12 +14,7 @@ h5, .h5, h6, .h6 {letter-spacing: -0.01em;}
     li{
         display: inline-block;
         &:not(:last-child){
-            @if($rtl==false){
-                margin-right: 1rem;
-            }
-            @if($rtl==true){
-                margin-left: 1rem;
-            }
+            margin-right: 1rem;
         }
     }
 }
@@ -42,7 +37,7 @@ h5, .h5, h6, .h6 {letter-spacing: -0.01em;}
 }
 .ff {
     &-mono {
-        @extend .text-monospace
+        @extend .font-monospace
     }
     &-base {
         font-family: $base-font-family !important;
@@ -51,26 +46,26 @@ h5, .h5, h6, .h6 {letter-spacing: -0.01em;}
         font-family: $alt-font-family !important;
     }
     &-italic {
-        @extend .font-italic;
+        @extend .fst-italic;
     }
 }
 .fw{
     &-light{
-        @extend .font-weight-light;
+        @extend .fw-light;
         &er{
-            @extend .font-weight-lighter;
+            @extend .fw-lighter;
         }
     }
     &-normal{
-        @extend .font-weight-normal;
+        @extend .fw-normal;
     }
     &-medium{
         font-weight: $fw-medium !important;
     }
     &-bold{
-        @extend .font-weight-bold;
+        @extend .fw-bold;
         &er{
-            @extend .font-weight-bolder;
+            @extend .fw-bolder;
         }
     }
 }
@@ -86,4 +81,9 @@ h1, h2, h3, h4, h5, h6,
             font-size: $lead-fs-dsk;
         }
     }
+}
+// bs5
+small,
+.small {
+  font-weight: $font-weight-normal !important;
 }

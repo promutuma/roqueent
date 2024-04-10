@@ -1,7 +1,7 @@
 /*!
  * Theme: Blue 
- * Package: DashLite v2.9.1
- * Updated: 01.16.2022
+ * Package: DashLite v3.2.3
+ * Updated: 09.27.2023
  * Author: Softnio
  * Author URI: http://themeforest.net/user/softnio
 **/
@@ -194,7 +194,7 @@ $skin_menu_active_color:        $skin_accent;
 .accordion-s3 .accordion-head .title,
 .badge-outline-primary,
 .badge-dim.badge-primary,
-.badge-dot.badge-primary,
+.badge-dot.bg-primary,
 .badge-dim.badge-outline-primary,
 .alert-primary,
 .form-clip,
@@ -260,7 +260,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .plan-control:checked + .plan-item-card,
 .form-control:focus,
 .form-control.focus,
-.custom-file-input:focus ~ .custom-file-label,
+.form-file-input:focus ~ .form-file-label,
 .custom-control-input:focus:not(:checked) ~ .custom-control-label::before,
 .select2-container--default .select2-selection--single:focus,
 .select2-container--default.select2-container--focus .select2-selection--multiple
@@ -294,7 +294,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     background-color: mix($skin_accent, $white, 10%);
     border-color: mix($skin_accent, $white, 10%);
 }
-.badge-primary.badge-dot {
+.bg-primary.badge-dot {
     background: transparent;
 }
 .nk-error-head {
@@ -393,7 +393,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 }
 .form-control:focus, .form-control.focus,
 .custom-control-input:focus ~ .custom-control-label::before,
-.custom-file-input:focus ~ .custom-file-label,
+.form-file-input:focus ~ .form-file-label,
 .select2-container--default .select2-selection--single:focus,
 .select2-container--default.select2-container--focus .select2-selection--multiple
 {

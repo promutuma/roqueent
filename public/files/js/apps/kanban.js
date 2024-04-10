@@ -10,12 +10,12 @@
             return (`
                 <div class="kanban-title-content">
                     <h6 class="title">${title}</h6>
-                    <span class="badge badge-pill badge-outline-light text-dark">${count}</span>
+                    <span class="badge rounded-pill bg-outline-light text-dark">${count}</span>
                 </div>
                 <div class="kanban-title-content">
                     <div class="drodown">
-                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mr-n1" data-toggle="dropdown"><em class="icon ni ni-${optionicon}"></em></a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger me-n1" data-bs-toggle="dropdown"><em class="icon ni ni-${optionicon}"></em></a>
+                        <div class="dropdown-menu dropdown-menu-end">
                             <ul class="link-list-opt no-bdr">
                                 <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Board</span></a></li>
                                 <li><a href="#"><em class="icon ni ni-plus-sm"></em><span>Add Task</span></a></li>
@@ -42,12 +42,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Dashlite Design Kit Update</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-primary"><span>A</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -67,8 +67,8 @@
                                 <p>Update the new UI design for @dashlite template with based on feedback.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-info">Dashlite</span></li>
-                                <li><span class="badge badge-warning">UI Design</span></li>
+                                <li><span class="badge bg-info">Dashlite</span></li>
+                                <li><span class="badge bg-warning">UI Design</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -86,12 +86,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Implement Design into Template</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-dark"><span>S</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -111,8 +111,8 @@
                                 <p>Start implementing new design in Coding @dashlite.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-info">Dashlite</span></li>
-                                <li><span class="badge badge-danger">HTML</span></li>
+                                <li><span class="badge bg-info">Dashlite</span></li>
+                                <li><span class="badge bg-danger">HTML</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -129,12 +129,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Dashlite React Version</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-blue"><span>C</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -154,8 +154,8 @@
                                 <p>Implement new UI design in react version @dashlite template as soon as possible.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-info">Dashlite</span></li>
-                                <li><span class="badge badge-secondary">React</span></li>
+                                <li><span class="badge bg-info">Dashlite</span></li>
+                                <li><span class="badge bg-secondary">React</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -179,12 +179,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Techyspec Keyword Research</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-danger"><span>V</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -204,8 +204,8 @@
                                 <p>Keyword recarch for @techyspec business profile and there other websites, to improve ranking.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-dark">Techyspec</span></li>
-                                <li><span class="badge badge-success">SEO</span></li>
+                                <li><span class="badge bg-dark">Techyspec</span></li>
+                                <li><span class="badge bg-success">SEO</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -224,12 +224,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Fitness Next Website Design</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-pink"><span>P</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -249,8 +249,8 @@
                                 <p>Design a awesome website for @fitness_next new product launch.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-primary">Fitness Next</span></li>
-                                <li><span class="badge badge-warning">UI Design</span></li>
+                                <li><span class="badge bg-primary">Fitness Next</span></li>
+                                <li><span class="badge bg-warning">UI Design</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -268,7 +268,7 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Runnergy Website Redesign</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-purple">
                                                 <span>J</span>
@@ -278,7 +278,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -308,8 +308,8 @@
                                 <p>Redesign there old/backdated website new modern and clean look keeping minilisim in mind.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-gray">Redesign</span></li>
-                                <li><span class="badge badge-primary">Runnergy</span></li>
+                                <li><span class="badge bg-gray">Redesign</span></li>
+                                <li><span class="badge bg-primary">Runnergy</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -327,12 +327,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Wordlab Android App</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-primary"><span>J</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -352,8 +352,8 @@
                                 <p>Wordlab Android App with with react native.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-success">Wordlab</span></li>
-                                <li><span class="badge badge-light">Android</span></li>
+                                <li><span class="badge bg-success">Wordlab</span></li>
+                                <li><span class="badge bg-light">Android</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -377,7 +377,7 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">Oberlo Development</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-purple">
                                                 <span>A</span>
@@ -387,7 +387,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -417,8 +417,8 @@
                                 <p>Complete website development for Oberlo limited.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-info">Oberlo</span></li>
-                                <li><span class="badge badge-danger">Development</span></li>
+                                <li><span class="badge bg-info">Oberlo</span></li>
+                                <li><span class="badge bg-danger">Development</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">
@@ -436,12 +436,12 @@
                             <div class="kanban-item-title">
                                 <h6 class="title">IOS app for Getsocio</h6>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-avatar-group">
                                             <div class="user-avatar xs bg-pink"><span>P</span></div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu dropdown-menu-end">
                                         <ul class="link-list-opt no-bdr p-3 g-2">
                                             <li>
                                                 <div class="user-card">
@@ -461,8 +461,8 @@
                                 <p>Design and develop app for Getsocio IOS.</p>
                             </div>
                             <ul class="kanban-item-tags">
-                                <li><span class="badge badge-dark">Getsocio</span></li>
-                                <li><span class="badge badge-light">IOS</span></li>
+                                <li><span class="badge bg-dark">Getsocio</span></li>
+                                <li><span class="badge bg-light">IOS</span></li>
                             </ul>
                             <div class="kanban-item-meta">
                                 <ul class="kanban-item-meta-list">

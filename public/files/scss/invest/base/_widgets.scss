@@ -49,12 +49,7 @@
 			font-family: $base-font-family;
 			.icon {
 				font-size: $fx-sz-13;
-				@if($rtl==false){
-					margin-left: 0.2rem;
-                }
-                @if($rtl==true){
-					margin-right: 0.2rem;
-                }
+				margin-left: 0.2rem;
 			}
 			.is-dark & {
 				color: $accent-light;
@@ -69,12 +64,7 @@
 		justify-content: space-between;
 		align-items: baseline;
 		.change, .sub {
-			@if($rtl==false){
-				padding-left: 0.5rem;
-			}
-			@if($rtl==true){
-				padding-right: 0.5rem;
-			}
+			padding-left: 0.5rem;
 			line-height: 1;
 		}
 		.change, .sub > span {
@@ -86,12 +76,7 @@
 		.sub {
 			font-size: 0.875rem;
 			span {
-				@if($rtl==false){
-					padding-right: 2px;
-                }
-                @if($rtl==true){
-					padding-left: 2px;
-                }
+				padding-right: 2px;
 			}
 		}
 		&.ui-v2 {
@@ -127,12 +112,7 @@
 			font-weight: $fw-medium;
 			font-size: 0.8125rem;
 			color: $base-color;
-			@if($rtl==false){
-				float: right;
-			}
-			@if($rtl==true){
-				float: left;
-			}
+			float: right;
 		}
 		.total {
 			border-top: 1px solid $border-color;
@@ -189,12 +169,7 @@
 			line-height: 1.5rem;
 		}
 		~ *{
-			@if($rtl==false){
-				padding-left: 24px;
-			}
-			@if($rtl==true){
-				padding-right: 24px;
-			}
+			padding-left: 24px;
 		}
 	}
 	&-amount{
@@ -281,7 +256,7 @@
 	}
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
 	.nk-iv-wg3{ 
 		&-sub{
 			&:first-child{
@@ -306,12 +281,7 @@
 				line-height: 2.25rem;
 			}
 			~ *{
-				@if($rtl==false){
-					padding-left: 0;
-                }
-                @if($rtl==true){
-					padding-right: 0;
-                }
+				padding-left: 0;
 			}
 			+ *{
 				padding-top: 40px;
@@ -352,12 +322,7 @@
 	.nk-iv-wg3{
 		&-list{
 			width: 33.333333%;
-			@if($rtl==false){
-				float: left;
-			}
-			@if($rtl==true){
-				float: right;
-			}
+			float: left;
 			li:last-child{
 				border-bottom: none;
 			}
@@ -383,12 +348,7 @@
 				line-height: 2.25rem;
 			}
 			~ *{
-				@if($rtl==false){
-					padding-left: 32px;
-                }
-                @if($rtl==true){
-					padding-right: 32px;
-                }
+				padding-left: 32px;
 			}
 		}
 	}

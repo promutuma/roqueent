@@ -53,7 +53,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: 'UTC',
             initialView: mobileView ? 'listWeek' : 'dayGridMonth',
-            themeSystem: 'bootstrap',
+            themeSystem: 'bootstrap5',
             headerToolbar: {
                 left: 'title prev,next',
                 center: null,
@@ -74,20 +74,23 @@
 
             nowIndicator: true,
             now: TODAY + 'T09:25:00',
-            eventDragStart: function(info){
-                $('.popover').popover('hide');
-            },
             eventMouseEnter: function(info) {
-                $(info.el).popover({
-                    template: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-                    title: info.event._def.title,
-                    content: info.event._def.extendedProps.description,
-                    placement: 'top',
-                });
-                info.event._def.extendedProps.description ? $(info.el).popover('show') : $(info.el).popover('hide');
+                let elm = info.el, title = info.event._def.title, content = info.event._def.extendedProps.description;
+                if(content){
+                    const fcPopover = new bootstrap.Popover(elm, {
+                        template: '<div class="popover event-popover"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+                        title: title,
+                        content: content ? content : '',
+                        placement: 'top',
+                    })
+                    fcPopover.show();
+                }
             },
-            eventMouseLeave: function(info) {
-                $(info.el).popover('hide');
+            eventMouseLeave: function() {
+                removePopover();
+            },
+            eventDragStart: function(){
+                removePopover();
             },
             eventClick: function(info) {
                 // Get data
@@ -123,8 +126,13 @@
                 $('#preview-event-description').text(description);
                 !description ? $('#preview-event-description-check').css('display','none') : null ;
 
+                removePopover();
+
+                let fcMorePopover = document.querySelectorAll('.fc-more-popover');
+                fcMorePopover && fcMorePopover.forEach(elm => {
+                    elm.remove();
+                })
                 previewEventPopup.modal('show');
-                $('.popover').popover('hide');
             },
 
             events: [
@@ -242,8 +250,6 @@
             var eventStartTimeCheck = eventStartTime ? 'T' + eventStartTime + 'Z' : '';
             var eventEndTimeCheck = eventEndTime ? 'T' + eventEndTime + 'Z' : '';
 
-            console.log(eventStartTime);
-
             calendar.addEvent({
                 id: 'added-event-id-' + Math.floor(Math.random()*9999999),
                 title: eventTitle,
@@ -286,6 +292,13 @@
             selectEvent.remove();
         });
 
+        function removePopover() {
+            let fcPopover = document.querySelectorAll('.event-popover');
+            fcPopover.forEach(elm => {
+                elm.remove();
+            })
+        }
+        
         function to12 (time) {
             time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 

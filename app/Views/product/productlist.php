@@ -26,7 +26,7 @@
                             </li>
                             <li>
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-toggle="dropdown">Status</a>
+                                    <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown">Status</a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <ul class="link-list-opt no-bdr">
                                             <li><a href="#"><span>New Items</span></a></li>
@@ -52,198 +52,201 @@
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
     <div class="nk-block">
-        <div class="card card-bordered">
-            <div class="card-inner-group">
-                <div class="card-inner p-0">
+        <div class="card card-bordered card-preview">
+            <div class="card-inner">
+                <table class="datatable-init-export nowrap table" data-export-title="Export Products">
+                    <caption>Product Lists & Stock by <?= date('D, jS M Y \a\t H:i:s \h\r\s'); ?></caption>
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-
-
-
-                    <table class="table datatable-init-export" id="productlist">
-                        <thead>
+                    <tbody>
+                        <?php foreach ($product as $row) : ?>
                             <tr>
-                                <th scope="col">SKU</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php foreach ($product as $row) : ?>
-                                <tr>
-                                    <td scope="col"><?php echo $row['product_sku'] ?></th>
-                                    <td scope="col"><span class="tb-sub"><?php echo $row['product_name'] ?></span></td>
-                                    <td scope="col"><span class="tb-lead">Ksh <?php echo $row['sale_price'] ?></span></td>
-                                    <td scope="col"><?php echo $row['stock'] ?></td>
-                                    <td scope="col"><?php echo $row['category'] ?></td>
-                                    <td scope="col">
-                                        <div class="dropdown">
-                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <ul class="link-list-opt no-bdr">
-                                                    <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnEdit"><em class="icon ni ni-edit"></em><span>Edit Product</span></a></li>
-                                                    <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnAddStock"><em class="icon ni ni-eye"></em><span>Add Stock</span></a></li>
-                                                    <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnOrders"><em class="icon ni ni-activity-round"></em><span>Product Orders</span></a></li>
-                                                    <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnDelete"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>
-                                                </ul>
-                                            </div>
+                                <td><?php echo $row['product_sku'] ?></th>
+                                <td><span class="tb-sub"><?php echo $row['product_name'] ?></span></td>
+                                <td><span class="tb-lead">Ksh <?php echo $row['sale_price'] ?></span></td>
+                                <td><?php echo $row['stock'] ?></td>
+                                <td><?php echo $row['category'] ?></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <ul class="link-list-opt no-bdr">
+                                                <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnEdit"><em class="icon ni ni-edit"></em><span>Edit Product</span></a></li>
+                                                <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnAddStock"><em class="icon ni ni-eye"></em><span>Add Stock</span></a></li>
+                                                <li><a data-id="<?php echo $row['product_sku'] ?>" class="btn btnDelete"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>
+                                            </ul>
                                         </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-
-                        </tbody>
-                    </table>
-
-
-
-
-
-                </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
 
             </div><!-- .pagination-goto -->
         </div><!-- .nk-block-between -->
     </div>
 </div><!-- .nk-block -->
 
-<!-- content @e -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('body').on('click', '.btnDelete', function() {
+            var product_sku = $(this).attr('data-id');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning...',
+                text: 'Do you want to delete item with SKU Number ' + product_sku + ' Note this cannot be Undone',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                denyButtonText: `Don't Delete`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/html/product-delete.html/' + product_sku,
+                        type: "GET",
+                        dataType: 'json',
+                        beforeSend: function() {
+                            NioApp.Toast("Deleting...", 'info', {
+                                position: 'top-right',
+                                icon: 'auto',
+                                ui: 'is-dark'
+                            });
+                        },
+                        success: function(res) {
+                            $('#loading').modal('hide');
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Product Deleted Successfully'
+                            }).then(() => {
+                                window.location.href = "/html/product-list.html";
+                            });
+                        },
+                        error: function(data) {
+                            $('#loading').modal('hide');
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Failed',
+                                text: "An error: " + JSON.stringify(data.responseText) + " has occured",
+
+                            })
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Product Deletetion Canceled Successfully',
+                        showConfirmButton: false,
+                        timer: 3500
+                    })
+                }
+            })
+        });
+    });
+</script>
 
 
 <script>
-    $('body').on('click', '.btnDelete', function() {
-        var product_sku = $(this).attr('data-id');
-        Swal.fire({
-            icon: 'warning',
-            title: 'Warning...',
-            text: 'Do you want to delete item with SKU Number ' + product_sku + ' Note this cannot be Undone',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-            denyButtonText: `Don't Delete`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/html/product-delete.html/' + product_sku,
-                    type: "GET",
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $('#loading').modal('show');
-                    },
-                    complete: function() {
-                        $('#loading').modal('hide');
-                    },
-                    success: function(res) {
-                        $('#loading').modal('hide');
+    document.addEventListener("DOMContentLoaded", function() {
+        $('body').on('click', '.btnAddStock', function() {
+            var product_sku = $(this).attr('data-id');
+            $.ajax({
+                url: '/html/product-find.html/' + product_sku,
+                type: "GET",
+                dataType: 'json',
+                beforeSend: function() {
+                    NioApp.Toast("Loading...", 'info', {
+                        position: 'top-right',
+                        icon: 'auto',
+                        ui: 'is-dark'
+                    });
+                },
+                success: function(res) {
+                    if (res.status === 0) {
                         Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Product Deleted Successfully',
-                            showConfirmButton: false,
-                            timer: 2500
-                        }).then(() => {
-                            window.location.href = "/html/product-list.html";
-                        });
-                    },
-                    error: function(data) {
-                        $('#loading').modal('hide');
-                        Swal.fire({
-                            position: 'center',
                             icon: 'error',
-                            title: 'Failed',
-                            text: "An error: " + JSON.stringify(data.responseText) + " has occured",
-
+                            title: 'Ooops...',
+                            text: res.message
                         })
+                    } else {
+                        $('#loading').modal('hide');
+                        $('#addstockModal').modal('show');
+                        $('#addStock #txtProductSku').val(res.data.product_sku);
+                        $('#addStock #txtProductName').val(res.data.product_name);
+                        $('#addStock #txtStock').val(res.data.stock);
                     }
-                });
-            } else {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Product Deletetion Canceled Successfully',
-                    showConfirmButton: false,
-                    timer: 3500
-                })
-            }
-        })
+                },
+                error: function(data) {
+                    $('#loading').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ooops...',
+                        text: "An error: " + JSON.stringify(data.responseText) + " has occured"
+                    })
+                }
+            });
+
+        });
     });
 </script>
 
 
 <script>
-    $('body').on('click', '.btnAddStock', function() {
-        var product_sku = $(this).attr('data-id');
-        $.ajax({
-            url: '/html/product-find.html/' + product_sku,
-            type: "GET",
-            dataType: 'json',
-            beforeSend: function() {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Loading...',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-            },
-            success: function(res) {
-                $('#loading').modal('hide');
-                $('#addstockModal').modal('show');
-                $('#addStock #txtProductSku').val(res.data.product_sku);
-                $('#addStock #txtProductName').val(res.data.product_name);
-                $('#addStock #txtStock').val(res.data.stock);
-            },
-            error: function(data) {
-                $('#loading').modal('hide');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ooops...',
-                    text: "An error: " + JSON.stringify(data.responseText) + " has occured"
-                })
-            }
+    document.addEventListener("DOMContentLoaded", function() {
+        $('body').on('click', '.btnEdit', function() {
+            var product_sku = $(this).attr('data-id');
+            $.ajax({
+                url: '/html/product-find.html/' + product_sku,
+                type: "GET",
+                dataType: 'json',
+                beforeSend: function() {
+                    NioApp.Toast("Loading...", 'info', {
+                        position: 'top-right',
+                        icon: 'auto',
+                        ui: 'is-dark'
+                    });
+                },
+                success: function(res) {
+                    if (res.status === 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ooops...',
+                            text: res.message
+                        })
+                    } else {
+                        $('#loading').modal('hide');
+                        $('#updateModal').modal('show');
+                        $('#updateproduct #txtProductSku').val(res.data.product_sku);
+                        $('#updateproduct #txtProductName').val(res.data.product_name);
+                        $('#updateproduct #txtRPrice').val(res.data.regular_price);
+                        $('#updateproduct #txtSPrice').val(res.data.sale_price);
+                        $('#updateproduct #txtStock').val(res.data.stock);
+                        $('#updateproduct #txtECategory').val(res.data.category).change();
+                    }
+                },
+                error: function(data) {
+                    $('#loading').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ooops...',
+                        text: "An error: " + JSON.stringify(res.responseText) + " has occured"
+                    })
+                }
+            });
+
         });
-
-    });
-</script>
-
-
-<script>
-    $('body').on('click', '.btnEdit', function() {
-        var product_sku = $(this).attr('data-id');
-        $.ajax({
-            url: '/html/product-find.html/' + product_sku,
-            type: "GET",
-            dataType: 'json',
-            beforeSend: function() {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Loading...',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-            },
-            success: function(res) {
-                $('#loading').modal('hide');
-                $('#updateModal').modal('show');
-                $('#updateproduct #txtProductSku').val(res.data.product_sku);
-                $('#updateproduct #txtProductName').val(res.data.product_name);
-                $('#updateproduct #txtRPrice').val(res.data.regular_price);
-                $('#updateproduct #txtSPrice').val(res.data.sale_price);
-                $('#updateproduct #txtStock').val(res.data.stock);
-                $('#updateproduct #txtCategory').val(res.data.category);
-
-            },
-            error: function(data) {
-                $('#loading').modal('hide');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ooops...',
-                    text: "An error: " + JSON.stringify(res.responseText) + " has occured"
-                })
-            }
-        });
-
     });
 </script>
 

@@ -52,24 +52,12 @@
         }
     }
     &-back{
-        @if($rtl==false){
-            left: 0;
-            transform: translate(-0.25rem, -50%);
-        }
-        @if($rtl==true){
-            right: 0;
-            transform: translate(0.25rem, -50%);
-        }
+        left: 0;
+        transform: translate(-0.25rem, -50%);
     }
     &-submit{
-        @if($rtl==false){
-            right: 0;
-            transform: translate(0.5rem, -50%);
-        }
-        @if($rtl==true){
-            left: 0;
-            transform: translate(-0.5rem, -50%);
-        }
+        right: 0;
+        transform: translate(0.5rem, -50%);
         &:hover{
             color: $primary;
         }
@@ -88,14 +76,8 @@
         }
         &-control {
             border-radius: 1.5rem;
-            @if($rtl==false){
-                padding-left: 1.25rem;
-                padding-right: 1.5rem;
-            }
-            @if($rtl==true){
-                padding-right: 1.25rem;
-                padding-left: 1.5rem;
-            }
+            padding-left: 1.25rem;
+            padding-right: 1.5rem;
         }
     }
 }

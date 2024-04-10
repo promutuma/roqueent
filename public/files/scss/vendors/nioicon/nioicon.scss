@@ -25,6 +25,236 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ni-bugs-alt-fill {
+  &:before {
+    content: $ni-bugs-alt-fill; 
+  }
+}
+.ni-bugs-alt {
+  &:before {
+    content: $ni-bugs-alt; 
+  }
+}
+.ni-bulb-alt-fill {
+  &:before {
+    content: $ni-bulb-alt-fill; 
+  }
+}
+.ni-bulb-alt {
+  &:before {
+    content: $ni-bulb-alt; 
+  }
+}
+.ni-chat-msg-fill {
+  &:before {
+    content: $ni-chat-msg-fill; 
+  }
+}
+.ni-chat-msg {
+  &:before {
+    content: $ni-chat-msg; 
+  }
+}
+.ni-diamond-fill {
+  &:before {
+    content: $ni-diamond-fill; 
+  }
+}
+.ni-diamond {
+  &:before {
+    content: $ni-diamond; 
+  }
+}
+.ni-file-code-fill {
+  &:before {
+    content: $ni-file-code-fill; 
+  }
+}
+.ni-google-play-store-alt {
+  &:before {
+    content: $ni-google-play-store-alt; 
+  }
+}
+.ni-laptop-fill {
+  &:before {
+    content: $ni-laptop-fill; 
+  }
+}
+.ni-mail-alt {
+  &:before {
+    content: $ni-mail-alt; 
+  }
+}
+.ni-newspaper-fill {
+  &:before {
+    content: $ni-newspaper-fill; 
+  }
+}
+.ni-newspaper {
+  &:before {
+    content: $ni-newspaper; 
+  }
+}
+.ni-pie-2-fill {
+  &:before {
+    content: $ni-pie-2-fill; 
+  }
+}
+.ni-pie-2 {
+  &:before {
+    content: $ni-pie-2; 
+  }
+}
+.ni-presentation-fill {
+  &:before {
+    content: $ni-presentation-fill; 
+  }
+}
+.ni-presentation {
+  &:before {
+    content: $ni-presentation; 
+  }
+}
+.ni-projector-screen-fill {
+  &:before {
+    content: $ni-projector-screen-fill; 
+  }
+}
+.ni-projector-screen {
+  &:before {
+    content: $ni-projector-screen; 
+  }
+}
+.ni-quote-sq-left-fill {
+  &:before {
+    content: $ni-quote-sq-left-fill; 
+  }
+}
+.ni-quote-sq-left {
+  &:before {
+    content: $ni-quote-sq-left; 
+  }
+}
+.ni-quote-sq-right-fill {
+  &:before {
+    content: $ni-quote-sq-right-fill; 
+  }
+}
+.ni-quote-sq-right {
+  &:before {
+    content: $ni-quote-sq-right; 
+  }
+}
+.ni-send-fill {
+  &:before {
+    content: $ni-send-fill; 
+  }
+}
+.ni-setting-question-fill {
+  &:before {
+    content: $ni-setting-question-fill; 
+  }
+}
+.ni-setting-question {
+  &:before {
+    content: $ni-setting-question; 
+  }
+}
+.ni-support-fill {
+  &:before {
+    content: $ni-support-fill; 
+  }
+}
+.ni-support {
+  &:before {
+    content: $ni-support; 
+  }
+}
+.ni-traffic-signal-fill {
+  &:before {
+    content: $ni-traffic-signal-fill; 
+  }
+}
+.ni-traffic-signal {
+  &:before {
+    content: $ni-traffic-signal; 
+  }
+}
+.ni-tree-structure-fill {
+  &:before {
+    content: $ni-tree-structure-fill; 
+  }
+}
+.ni-tree-structure {
+  &:before {
+    content: $ni-tree-structure; 
+  }
+}
+.ni-trophy-fill {
+  &:before {
+    content: $ni-trophy-fill; 
+  }
+}
+.ni-trophy {
+  &:before {
+    content: $ni-trophy; 
+  }
+}
+.ni-user-group-fill {
+  &:before {
+    content: $ni-user-group-fill; 
+  }
+}
+.ni-user-group {
+  &:before {
+    content: $ni-user-group; 
+  }
+}
+.ni-user-switch-fill {
+  &:before {
+    content: $ni-user-switch-fill; 
+  }
+}
+.ni-user-switch {
+  &:before {
+    content: $ni-user-switch; 
+  }
+}
+.ni-nioboard {
+  &:before {
+    content: $ni-nioboard; 
+  }
+}
+.ni-graphql {
+  &:before {
+    content: $ni-graphql; 
+  }
+}
+.ni-node-js {
+  &:before {
+    content: $ni-node-js; 
+  }
+}
+.ni-node {
+  &:before {
+    content: $ni-node; 
+  }
+}
+.ni-svelte {
+  &:before {
+    content: $ni-svelte; 
+  }
+}
+.ni-typescript {
+  &:before {
+    content: $ni-typescript; 
+  }
+}
+.ni-vue {
+  &:before {
+    content: $ni-vue; 
+  }
+}
 .ni-centos {
   &:before {
     content: $ni-centos; 
@@ -258,11 +488,6 @@
 .ni-pen2 {
   &:before {
     content: $ni-pen2; 
-  }
-}
-.ni-property-blank {
-  &:before {
-    content: $ni-property-blank; 
   }
 }
 .ni-propert-blank {
@@ -2095,11 +2320,6 @@
     content: $ni-blank; 
   }
 }
-.ni-blank-fill {
-  &:before {
-    content: $ni-blank-fill; 
-  }
-}
 .ni-blankf-fill {
   &:before {
     content: $ni-blankf-fill; 
@@ -3200,11 +3420,6 @@
     content: $ni-meh; 
   }
 }
-.ni-happy-fill {
-  &:before {
-    content: $ni-happy-fill; 
-  }
-}
 .ni-happyf-fill {
   &:before {
     content: $ni-happyf-fill; 
@@ -3770,11 +3985,6 @@
     content: $ni-history; 
   }
 }
-.ni-histroy {
-  &:before {
-    content: $ni-histroy; 
-  }
-}
 .ni-update {
   &:before {
     content: $ni-update; 
@@ -4195,19 +4405,9 @@
     content: $ni-label-fill; 
   }
 }
-.ni-priority {
-  &:before {
-    content: $ni-priority; 
-  }
-}
 .ni-piority {
   &:before {
     content: $ni-piority; 
-  }
-}
-.ni-priority-fill {
-  &:before {
-    content: $ni-priority-fill; 
   }
 }
 .ni-piority-fill {

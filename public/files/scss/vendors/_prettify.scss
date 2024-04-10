@@ -20,20 +20,10 @@
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums {
-  @if($rtl==false){
-    margin: 0 0 0 33px;
-  }
-  @if($rtl==true){
-    margin: 0 33px 0 0;
-  }
+  margin: 0 0 0 33px;
 } 
 ol.linenums li {
-  @if($rtl==false){
-    padding-left: 12px;
-  }
-  @if($rtl==true){
-    padding-right: 12px;
-  }
+  padding-left: 12px;
   color: #bebec5;
   line-height: 18px;
   text-shadow: 0 1px 0 #fff;

@@ -33,12 +33,7 @@
 			font-weight: $fw-medium;
 		}
 		.change{
-			@if($rtl==false){
-				margin-left: -.125rem;
-			}
-			@if($rtl==true){
-				margin-right: -.125rem;
-			}
+			margin-left: -.125rem;
 		}
 	}
 }
@@ -73,23 +68,13 @@
 			color:$base-light;
 			font-size: $fx-sz-12;
 			.dot{
-				@if($rtl==false){
-					margin-right: 0.5rem;
-                }
-                @if($rtl==true){
-					margin-left: 0.5rem;
-                }
+				margin-right: 0.5rem;
 			}
 		}
 		.amount{
 			font-size: 1.125rem;
             color:$base-color;
-			@if($rtl==false){
-				margin-left: 1.25rem;
-			}
-			@if($rtl==true){
-				margin-right: 1.25rem;
-			}
+			margin-left: 1.25rem;
 			small{
 				font-size: $fx-sz-12;
 				color: $base-light;
@@ -98,7 +83,7 @@
 	}
 }
 
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .traffic-channel{
         &-ck{
             width: 100%;
@@ -129,12 +114,7 @@
             }
             .nk-tb-trend{
                 width: 100%;
-				@if($rtl==false){
-					padding-left: 1.25rem;
-                }
-                @if($rtl==true){
-					padding-right: 1.25rem;
-                }
+				padding-left: 1.25rem;
             }
         }
     }
@@ -174,12 +154,7 @@
 	}
 	.change{
 		font-size: $fx-sz-13;
-		@if($rtl==false){
-			margin-left: -0.125rem;
-		}
-		@if($rtl==true){
-			margin-right: -0.125rem;
-		}
+		margin-left: -0.125rem;
 	}
 	.subtitle{
 		font-size: $fx-sz-12;
@@ -248,14 +223,8 @@
 		}
 	}
 	&-text{
-		@if($rtl==false){
-			text-align: right;
-			margin-left: .5rem;
-		}
-		@if($rtl==true){
-			text-align: left;
-			margin-right: .5rem;
-		}
+		text-align: right;
+		margin-left: .5rem;
 	}
 }
 @media (min-width:420px) and (max-width:767px){
@@ -301,20 +270,10 @@
 		}
 		.amount{
 			color:$base-color;
-			@if($rtl==false){
-				text-align: right;
-			}
-			@if($rtl==true){
-				text-align: left;
-			}
+			text-align: right;
 		}
 		.percent{
-			@if($rtl==false){
-				text-align: right;
-			}
-			@if($rtl==true){
-				text-align: left;
-			}
+			text-align: right;
 			color:$base-light;
 		}
 		&-list{

@@ -39,7 +39,7 @@
         }
     }
 }
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .card{
         &-custom-s1{
             .card-inner-lg{
@@ -53,12 +53,7 @@
     .card{
         &-custom-s1{
             .card-inner-group{
-                @if($rtl==false){
-                    border-right: 1px solid $card-bordered-color;
-                }
-                @if($rtl==true){
-                    border-left: 1px solid $card-bordered-color;
-                }
+                border-right: 1px solid $card-bordered-color;
                 .card-inner{
                     &:last-child{
                         border-bottom: none;
@@ -85,21 +80,11 @@
     flex-shrink: 0;
     &-left{
         order: -1;
-        @if($rtl==false){
-            border-right: 1px solid $border-light;
-        }
-        @if($rtl==true){
-            border-left: 1px solid $border-light;
-        }
+        border-right: 1px solid $border-light;
     }
     &-right{
         order:100;
-        @if($rtl==false){
-            border-left: 1px solid $border-light;
-        }
-        @if($rtl==true){
-            border-right: 1px solid $border-light;
-        }
+        border-left: 1px solid $border-light;
     }
     &-wrap{
         display: flex;
@@ -109,7 +94,7 @@
     }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .toggle-break-md.card-aside{
         .card-inner-group{
             max-height: calc(100vh - #{$header-height});
@@ -118,7 +103,7 @@
     }
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .toggle-break-lg.card-aside{
         .card-inner-group{
             max-height: calc(100vh - #{$header-height});
@@ -127,7 +112,7 @@
     }
 }
 
-@include media-breakpoint-down(lg){
+@include media-breakpoint-down(xl){
     .toggle-break-xl.card-aside{
         .card-inner-group{
             max-height: calc(100vh - #{$header-height});
@@ -136,7 +121,7 @@
     }
 }
 
-@include media-breakpoint-down(xl){
+@include media-breakpoint-down(xxl){
     .toggle-break-xxl.card-aside{
         .card-inner-group{
             max-height: calc(100vh - #{$header-height});

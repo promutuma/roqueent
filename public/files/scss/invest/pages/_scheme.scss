@@ -37,12 +37,7 @@
         text-align: center;
         background: $lighter;
         border-radius: 50%;
-        @if($rtl==false){
-            margin-right: 1rem;
-        }
-        @if($rtl==true){
-            margin-left: 1rem;
-        }
+        margin-right: 1rem;
         flex-shrink: 0;
         flex-grow: 0 !important;
         color: $base-text;
@@ -68,12 +63,7 @@
         }
     }
     &-info {
-        @if($rtl==false){
-            padding-right: 0.75rem;
-        }
-        @if($rtl==true){
-            padding-left: 0.75rem;
-        }
+        padding-right: 0.75rem;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -112,16 +102,9 @@
             vertical-align: middle;
             position: absolute;
             top: 50%;
-            @if($rtl==false){
-                left: 100%;
-                margin-left: -0.7rem;
-                content: $ni-arrow-long-right;
-            }
-            @if($rtl==true){
-                right: 100%;
-                margin-right: -0.7rem;
-                content: $ni-arrow-long-left;
-            }
+            left: 100%;
+            margin-left: -0.7rem;
+            content: $ni-arrow-long-right;
             transform: translateY(-50%);
             font-size: 18px;
             color: $base-light;
@@ -135,14 +118,8 @@
         font-weight: $fw-medium;
     }
     &-more {
-        @if($rtl==false){
-            margin-left: auto;
-            margin-right: -1rem;
-        }
-        @if($rtl==true){
-            margin-right: auto;
-            margin-left: -1rem;
-        }
+        margin-left: auto;
+        margin-right: -1rem;
         flex-grow: 0 !important;
         border-radius: 50%;
         transition: background-color 0.4s;
@@ -150,12 +127,7 @@
             background-color: $lighter;
         }
         .btn{
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
             color: $base-light;
             width: 40px;
             height: 40px;
@@ -172,12 +144,7 @@
         .progress-bar {
             width: 0px;
             height: 3px;
-            @if($rtl==false){
-                border-radius: 0 $border-radius-sm $border-radius-sm $border-radius-sm;
-            }
-            @if($rtl==true){
-                border-radius: $border-radius-sm 0 $border-radius-sm $border-radius-sm;
-            }
+            border-radius: 0 $border-radius-sm $border-radius-sm $border-radius-sm;
             &[data-progress="100"] {
                 border-radius: 0 0 $border-radius-sm $border-radius-sm;
             }
@@ -256,12 +223,7 @@
             }
         } 
         &-info {
-            @if($rtl==false){
-                padding-right: 2rem;
-            }
-            @if($rtl==true){
-                padding-left: 2rem;
-            }
+            padding-right: 2rem;
         }
     }
 }

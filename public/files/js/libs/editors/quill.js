@@ -1,2 +1,2 @@
 /** Quill */
-@@include('@@nodeRoot/../../node_modules/quill/dist/quill.js')
+@@include('../../vendors/quill/quill.js')

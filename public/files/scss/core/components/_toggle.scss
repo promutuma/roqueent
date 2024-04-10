@@ -12,14 +12,8 @@
         box-shadow: $box-shadow;
         transform: translateY(10px);
         &-right{
-            @if($rtl==false){
-                left: auto;
-                right: 0;
-            }
-            @if($rtl==true){
-                right: auto;
-                left: 0;
-            }
+            left: auto;
+            right: 0;
         }
         &-bottom{
             top: auto;
@@ -40,24 +34,12 @@
         max-width: calc(100% - 40px);
         transition: transform 650ms ease;
         &-left{
-            @if($rtl==false){
-                left: 0;
-                transform: translateX(-100%);
-            }
-            @if($rtl==true){
-                right: 0;
-                transform: translateX(100%);
-            }
+            left: 0;
+            transform: translateX(-100%);
         }
         &-right{
-            @if($rtl==false){
-                right: 0;
-                transform: translateX(100%);
-            }
-            @if($rtl==true){
-                left: 0;
-                transform: translateX(-100%);
-            }
+            right: 0;
+            transform: translateX(100%);
         }
         &.content-active{
             transform: translate(0) !important;
@@ -117,7 +99,7 @@ body.toggle-shown{
         }
     }
 }
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .nk-block-tools-toggle{
         .toggle-expand-content{
             position: absolute;
@@ -125,23 +107,17 @@ body.toggle-shown{
             right: 0;
             top: 100%;
             z-index: 99;
-            width: 100vw;
             padding: 0 $card-stretch-gap-x !important;
             background: $white;
             margin-left: - $card-stretch-gap-x;
             margin-right: - $card-stretch-gap-x;
-            box-shadow: 0 20px 35px rgba(#000,.2);
+            box-shadow: 0 20px 35px rgba($black,.2);
         }
         .nk-block-tools{
             padding-top: 20px;
             padding-bottom: 20px;
             &-opt{
-                @if($rtl==false){
-                    margin-left: auto;
-                }
-                @if($rtl==true){
-                    margin-right: auto;
-                }
+                margin-left: auto;
             }
         }
     }
@@ -149,7 +125,7 @@ body.toggle-shown{
 
 // Toggle For Page card
 
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .card-tools-toggle{
         .card-title-group{
             position: static;
@@ -164,12 +140,7 @@ body.toggle-shown{
                 bottom: 0;
             }
             .toggle-close{
-                @if($rtl==false){
-                    margin-right: auto;
-                }
-                @if($rtl==true){
-                    margin-left: auto;
-                }
+                margin-right: auto;
                 .btn-trigger{
                     &:before{
                         opacity: 0;

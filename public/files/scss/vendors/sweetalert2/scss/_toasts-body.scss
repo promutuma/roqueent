@@ -15,42 +15,24 @@
       &.swal2-top-right {
         top: 0;
         bottom: auto;
-        @if($rtl==false){
-          right: 0;
-          left: auto;
-        }
-        @if($rtl==true){
-          left: 0;
-          right: auto;
-        }
+        right: 0;
+        left: auto;
       }
 
       &.swal2-top-start,
       &.swal2-top-left {
         top: 0;
         bottom: auto;
-        @if($rtl==false){
-          left: 0;
-          right: auto;
-        }
-        @if($rtl==true){
-          right: 0;
-          left: auto;
-        }
+        left: 0;
+        right: auto;
       }
 
       &.swal2-center-start,
       &.swal2-center-left {
         top: 50%;
         bottom: auto;
-        @if($rtl==false){
-          right: auto;
-          left: 0;
-        }
-        @if($rtl==true){
-          left: auto;
-          right: 0;
-        }
+        right: auto;
+        left: 0;
         transform: translateY(-50%);
       }
 
@@ -66,14 +48,8 @@
       &.swal2-center-right {
         top: 50%;
         bottom: auto;
-        @if($rtl==false){
-          right: 0;
-          left: auto;
-        }
-        @if($rtl==true){
-          left: 0;
-          right: auto;
-        }
+        right: 0;
+        left: auto;
         transform: translateY(-50%);
       }
 
@@ -81,14 +57,8 @@
       &.swal2-bottom-left {
         top: auto;
         bottom: 0;
-        @if($rtl==false){
-          right: auto;
-          left: 0;
-        }
-        @if($rtl==true){
-          left: auto;
-          right: 0;
-        }
+        right: auto;
+        left: 0;
       }
 
       &.swal2-bottom {
@@ -103,14 +73,8 @@
       &.swal2-bottom-right {
         top: auto;
         bottom: 0;
-        @if($rtl==false){
-          right: 0;
-          left: auto;
-        }
-        @if($rtl==true){
-          left: 0;
-          right: auto;
-        }
+        right: 0;
+        left: auto;
       }
     }
   }

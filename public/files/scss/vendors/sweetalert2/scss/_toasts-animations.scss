@@ -27,56 +27,31 @@
 @keyframes swal2-toast-animate-success-line-tip {
   0% {
     top: .5625em;
-    @if($rtl==false){
-      left: .0625em;
-    }
-    @if($rtl==true){
-      right: .0625em;
-    }
+    left: .0625em;
     width: 0;
   }
 
   54% {
     top: .125em;
-    @if($rtl==false){
-      left: .125em;
-    }
-    @if($rtl==true){
-      right: .125em;
-    }
+    left: .125em;
     width: 0;
   }
 
   70% {
     top: .625em;
-    @if($rtl==false){
-      left: -.25em;
-    }
-    @if($rtl==true){
-      right: -.25em;
-    }
+    left: -.25em;
     width: 1.625em;
   }
 
   84% {
     top: 1.0625em;
-    @if($rtl==false){
-      left: .75em;
-    }
-    @if($rtl==true){
-      right: .75em;
-    }
+    left: .75em;
     width: .5em;
   }
 
   100% {
     top: 1.125em;
-    @if($rtl==false){
-      left: .1875em;
-    }
-    @if($rtl==true){
-      right: .1875em;
-    }
+    left: .1875em;
     width: .75em;
   }
 }
@@ -84,45 +59,25 @@
 @keyframes swal2-toast-animate-success-line-long {
   0% {
     top: 1.625em;
-    @if($rtl==false){
-      right: 1.375em;
-    }
-    @if($rtl==true){
-      left: 1.375em;
-    }
+    right: 1.375em;
     width: 0;
   }
 
   65% {
     top: 1.25em;
-    @if($rtl==false){
-      right: .9375em;
-    }
-    @if($rtl==true){
-      left: .9375em;
-    }
+    right: .9375em;
     width: 0;
   }
 
   84% {
     top: .9375em;
-    @if($rtl==false){
-      right: 0;
-    }
-    @if($rtl==true){
-      left: 0;
-    }
+    right: 0;
     width: 1.125em;
   }
 
   100% {
     top: .9375em;
-    @if($rtl==false){
-      right: .1875em;
-    }
-    @if($rtl==true){
-      left: .1875em;
-    }
+    right: .1875em;
     width: 1.375em;
   }
 }

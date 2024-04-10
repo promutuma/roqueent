@@ -25,12 +25,7 @@
   .select2-selection__rendered {
     color: $select2-color;
     line-height: $select2-line-height;
-    @if($rtl==false){
-      padding: $select2-padding-y $select2-input-height $select2-padding-y $select2-padding-x;
-    }
-    @if($rtl==true){
-      padding: $select2-padding-y $select2-padding-x $select2-padding-y $select2-input-height;
-    }
+    padding: $select2-padding-y $select2-input-height $select2-padding-y $select2-padding-x;
     &:focus{
       outline: none;
     }
@@ -38,12 +33,7 @@
 
   .select2-selection__clear {
     cursor: pointer;
-    @if($rtl==false){
-      float: right;
-    }
-    @if($rtl==true){
-      float: left;
-    }
+    float: right;
     font-weight: bold;
   }
 
@@ -55,12 +45,7 @@
     height: $select2-input-height;
     position: absolute;
     top: 0;
-    @if($rtl==false){
-      right: 0;
-    }
-    @if($rtl==true){
-      left: 0;
-    }
+    right: 0;
     width: $select2-input-height;
     display: flex;
     align-items: center;
@@ -81,12 +66,7 @@
     font-size: $select2-font-size-sm;
     .select2-selection__rendered {
       line-height: $select2-line-height-sm;
-      @if($rtl==false){
-        padding: $select2-padding-y-sm $select2-input-height-sm $select2-padding-y-sm $select2-padding-x-sm;
-      }
-      @if($rtl==true){
-        padding: $select2-padding-y-sm $select2-padding-x-sm $select2-padding-y-sm $select2-input-height-sm;
-      }
+      padding: $select2-padding-y-sm $select2-input-height-sm $select2-padding-y-sm $select2-padding-x-sm;
     }
     .select2-selection__arrow {
       height: $select2-input-height-sm;
@@ -100,12 +80,7 @@
     font-size: $select2-font-size-lg;
     .select2-selection__rendered {
       line-height: $select2-line-height-lg;
-      @if($rtl==false){
-        padding: $select2-padding-y-lg $select2-input-height-lg $select2-padding-y-lg $select2-padding-x-lg;
-      }
-      @if($rtl==true){
-        padding: $select2-padding-y-lg $select2-padding-x-lg $select2-padding-y-lg $select2-input-height-lg;
-      }
+      padding: $select2-padding-y-lg $select2-input-height-lg $select2-padding-y-lg $select2-padding-x-lg;
     }
     .select2-selection__arrow {
       height: $select2-input-height-lg;
@@ -119,12 +94,7 @@
     font-size: $select2-font-size-xl;
     .select2-selection__rendered {
       line-height: $select2-line-height-xl;
-      @if($rtl==false){
-        padding: $select2-padding-y-xl $select2-input-height-xl $select2-padding-y-xl $select2-padding-x-xl;
-      }
-      @if($rtl==true){
-        padding: $select2-padding-y-xl $select2-padding-x-xl $select2-padding-y-xl $select2-input-height-xl;
-      }
+      padding: $select2-padding-y-xl $select2-input-height-xl $select2-padding-y-xl $select2-padding-x-xl;
     }
     .select2-selection__arrow {
       height: $select2-input-height-xl;

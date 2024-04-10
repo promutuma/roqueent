@@ -8,19 +8,9 @@
     &-title{
         display: flex;
         align-items: center;
-        @if($rtl==false){
-            margin-right: 0.75rem;
-        }
-        @if($rtl==true){
-            margin-left: 0.75rem;
-        }
+        margin-right: 0.75rem;
         .user-avatar{
-            @if($rtl==false){
-                margin-right: 1rem;
-            }
-            @if($rtl==true){
-                margin-left: 1rem;
-            }
+            margin-right: 1rem;
         }
         .title{
             font-size: 0.975rem;
@@ -46,12 +36,7 @@
             .icon{
                 font-size: 1rem;
                 line-height: 1.5rem;
-                @if($rtl==false){
-                    margin-right: 0.25rem;
-                }
-                @if($rtl==true){
-                    margin-left: 0.25rem;
-                }
+                margin-right: 0.25rem;
             }
         }
         &-percent{
@@ -74,12 +59,7 @@
             align-items: center;
             .progress{
                 width: 100px;
-                @if($rtl==false){
-                    margin-right: 0.5rem;
-                }
-                @if($rtl==true){
-                    margin-left: 0.5rem;
-                }
+                margin-right: 0.5rem;
             }
         }
     }
@@ -91,12 +71,7 @@
             &-progress{
                 .progress{
                     width: 140px;
-                    @if($rtl==false){
-                        margin-right: 1rem;
-                    }
-                    @if($rtl==true){
-                        margin-left: 1rem;
-                    }
+                    margin-right: 1rem;
                 }
             }
         }

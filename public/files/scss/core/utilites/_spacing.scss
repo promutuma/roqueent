@@ -1,24 +1,25 @@
+@use "sass:math";
 @each $size, $length in $spacers {
-    .g-#{$size} {
-        margin: - $length/2 !important;
+    .g-#{$size}:not(.row) {
+        margin: math.div(-$length, 2);
         > li,> div{
-            padding: $length/2 !important;
+            padding: math.div($length, 2);
         }
     }
-    .gx-#{$size} {
-        margin-left: - $length/2 !important;
-        margin-right: - $length/2 !important;
+    .gx-#{$size}:not(.row) {
+        margin-left: math.div(-$length, 2);
+        margin-right: math.div(-$length, 2);
         > li,> div{
-            padding-left: $length/2 !important;
-            padding-right: $length/2 !important;
+            padding-left: math.div($length, 2);
+            padding-right: math.div($length, 2);
         }
     }
-    .gy-#{$size} {
-        margin-top: - $length/2 !important;
-        margin-bottom: - $length/2 !important;
+    .gy-#{$size}:not(.row) {
+        margin-top: math.div(-$length, 2);
+        margin-bottom: math.div(-$length, 2);
         > li,> div{
-            padding-top: $length/2 !important;
-            padding-bottom: $length/2 !important;
+            padding-top: math.div($length, 2);
+            padding-bottom: math.div($length, 2);
         }
     }
 }

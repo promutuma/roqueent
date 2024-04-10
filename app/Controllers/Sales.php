@@ -9,6 +9,8 @@ use App\Models\PaymentModel;
 
 class Sales extends BaseController
 {
+    private string $errorText = 'Error: ';
+
     public function index()
     {
         $data['title'] = "Sales List";
@@ -19,32 +21,133 @@ class Sales extends BaseController
         return view('sales/saleslist', $data);
     }
 
+
     public function newSale()
     {
+        $product = new ProductModel();
+        $data['product'] = $product->getAllProducts();
         $session = session();
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
-        $saleId =  $getTime['ts'];
+        $sys = new Sys();
+        $getTime = $sys->getTime();
+        $saleId =  $sys->generateString();
         $saleDate =  $getTime['date'];
         $saleTime =  $getTime['time'];
 
-        $saleData = [
-            'sale_id' => $saleId,
-            'sale_date' => $saleDate,
-            'sale_time' => $saleTime,
-            'sale_status' => "Sale Initiated",
-            'createdBy' => $session->get('user_id')
-        ];
-
-        $sale = new SaleModel();
-
-        $sale->save($saleData);
-
         $logDesc = "New sale (" . $saleId . ") initiated by " . $session->get('user_name') . " on " . $saleDate . " " . $saleTime;
-        $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
+        $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
 
-        return redirect()->to('/html/sales-new.html/' . $saleId);
+        // redirect()->to('/html/sales-new.html/' . $saleId);
+
+        $data['saleId'] = $saleId;
+        $data['title'] = "Sale : " . $saleId;
+
+        return view('sales/place_order', $data);
     }
+
+    public function saveNewSale()
+    {
+        $data = [
+            'status' => 0,
+            'message' => '',
+            'tn' => csrf_hash(),
+            'data' => [],
+        ];
+        $sys = new Sys();
+        $getTime = $sys->getTime();
+        $saleDate =  $getTime['date'];
+        $saleTime =  $getTime['time'];
+        $product = new ProductModel();
+        $sale = new SaleModel();
+        $itmData = new ItemModel();
+
+        try {
+            $items = $this->request->getVar('items');
+            $quantities = $this->request->getVar('quantities');
+            $sale_id = $this->request->getVar('txtSaleId');
+            $sale_total = 0;
+
+            for ($i = 0; $i < count($items); $i++) {
+                $itemId = $items[$i];
+                $quantity = $quantities[$i];
+
+                $productdata = $product->getProductBySKU($itemId);
+
+
+                if (!empty($productdata)) {
+
+                    $stock = $productdata['stock'];
+                    $sale_price = $productdata['sale_price'];
+                    $total_price = $quantity * $sale_price;
+                    $remainingstock = $stock - $quantity;
+
+                    $totalBuyingP = $productdata['regular_price'] * $quantity;
+                    $profit = $total_price - $totalBuyingP;
+
+                    $saledata = [
+                        'item_sale_id' => $itemId . $sale_id . $i,
+                        'product_sku' => $itemId,
+                        'product_name' => $productdata['product_name'],
+                        'sale_id' => $sale_id,
+                        'quantity' => $quantity,
+                        'total_buying_price' => $totalBuyingP,
+                        'total_profit' => $profit,
+                        'price_per_unit' => $productdata['sale_price'],
+                        'total_price' => $total_price
+                    ];
+                    if ($quantity > $stock) {
+                        throw new \Exception($productdata['product_name'] . ' Stock is ' . $stock . ' below the selected quantity of ' . $quantity);
+                    }
+
+                    // outputs
+                    $sale_total += $total_price;
+                    $sproductdata = [
+                        'stock' => $remainingstock
+                    ];
+                    $pr_products[] = [
+                        'id' => $itemId,
+                        'data' => $sproductdata,
+                        'itms_data' => $saledata
+                    ];
+                }
+            }
+            $p = [
+                'pr' => $pr_products
+            ];
+
+            $data['data'] = $p;
+
+            // save sale data
+            $saleData = [
+                'sale_id' => $sale_id,
+                'sale_date' => $saleDate,
+                'sale_time' => $saleTime,
+                'sale_status' => "Payment Initiated",
+                'createdBy' => session()->get('user_id'),
+                'amount' => $sale_total
+            ];
+
+            $sale->addSale($saleData);
+
+            foreach ($pr_products as $p) {
+                // save the item data
+                $itmData->addItem($p['itms_data']);
+
+                // update the products table
+                $product->updateProduct($p['id'], $p['data']);
+            }
+
+            $data['status'] = 1;
+            $data['message'] = "Order saved and processed successfully. You will be directed to payment and procesing page";
+        } catch (\Throwable $th) {
+            $data['message'] = $this->errorText . $th->getMessage();
+            $this->logError('Expense::saveNewSale', $th->getMessage());
+        }
+
+        // Return JSON response
+        return $this->response->setJSON($data);
+    }
+
+
 
     public function sale($saleId)
     {
@@ -62,7 +165,10 @@ class Sales extends BaseController
 
         $checkpayment = new PaymentModel();
         $checkpayment->where('sale_id', $saleId);
+
         $data['payment'] = $checkpayment->findAll();
+        $s = new SaleModel();
+        $data['sale'] = $s->findSaleByID($saleId);
         $tPc = $checkpayment->where('sale_id', $saleId)->select('sum(amount) as total_payment')->first();
         if (empty($data['payment'])) {
             $data['Payment'] = 0;
@@ -82,10 +188,9 @@ class Sales extends BaseController
             $data['totalQuantity'] = $tQ['TotalQ'];
         }
 
-
-
-        return view('sales/sales_new', $data);
+        return view('sales/sales_details', $data);
     }
+
 
     public function addCart()
     {
@@ -94,8 +199,8 @@ class Sales extends BaseController
         $fitem = new ItemModel();
         $session = session();
 
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        $sys = new Sys();
+        $getTime = $sys->getTime();
 
         $Date =  $getTime['date'];
         $Time =  $getTime['time'];
@@ -135,6 +240,7 @@ class Sales extends BaseController
                     $sproductdata = [
                         'stock' => $remainingstock
                     ];
+
                     $item->save($saledata);
                     if ($item == false) {
                         echo json_encode(array("status" => 0, 'data' => 'An error occured when trying to add the Items'));
@@ -167,7 +273,7 @@ class Sales extends BaseController
                                 echo json_encode(array("status" => 0, 'data' => 'Error occured when trying to add total amount. Please do not re-add the item'));
                             } else {
                                 $logDesc = "Item " . $productdata['product_name'] . " added to cart " . $sale_id . " by " . $session->get('user_name') . " on " . $Date . " " . $Time;
-                                $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
+                                $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
                                 echo json_encode(array("status" => 1, 'data' => $productdata['product_name'] . ' added to Cart with a Total Price of ' . $total_price . '. With ultimate total price of Ksh' . $totalP));
                             }
                         }
@@ -204,8 +310,8 @@ class Sales extends BaseController
     {
         $session = session();
 
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        $sys = new Sys();
+        $getTime = $sys->getTime();
 
         $Date =  $getTime['date'];
         $Time =  $getTime['time'];
@@ -272,7 +378,7 @@ class Sales extends BaseController
                     echo json_encode(array("status" => 0, 'data' => 'An Error occured when trying to update the quantity'));
                 } else {
                     $logDesc = "Quantity of Item " . $IProduct['product_name'] . " updated on sale  " . $sale_id . " by " . $session->get('user_name') . " on " . $Date . " " . $Time;
-                    $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Update", $logDesc);
+                    $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Update", $logDesc);
                     echo json_encode(array("status" => 1, 'data' => 'Item Update successful'));
                 }
             }
@@ -285,8 +391,8 @@ class Sales extends BaseController
     {
         $session = session();
 
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        $sys = new Sys();
+        $getTime = $sys->getTime();
 
         $Date =  $getTime['date'];
         $Time =  $getTime['time'];
@@ -348,7 +454,7 @@ class Sales extends BaseController
         } else {
             # code...
             $logDesc = "Item " . $IProduct['product_name'] . " removed in sale  " . $sale_id . " by " . $session->get('user_name') . " on " . $Date . " " . $Time;
-            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Delete", $logDesc);
+            $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Delete", $logDesc);
             $status = 1;
             $data['message'] = "Item removed successfully";
         }
@@ -357,8 +463,6 @@ class Sales extends BaseController
 
     public function getPayment($saleId)
     {
-
-
         $checkpayment = new PaymentModel();
         $checkpayment->where('sale_id', $saleId);
         $data['payment'] = $checkpayment->findAll();
@@ -388,13 +492,13 @@ class Sales extends BaseController
 
         $session = session();
 
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        $sys = new Sys();
+        $getTime = $sys->getTime();
 
         $Date =  $getTime['date'];
         $Time =  $getTime['time'];
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        $sys = new Sys();
+        $getTime = $sys->getTime();
         $transactionId =  $getTime['ts'];
         $transactionDate =  $getTime['date'];
         $transactionTime =  $getTime['time'];
@@ -468,8 +572,16 @@ class Sales extends BaseController
             $sale->update();
 
             $logDesc = "Payment " . $ntransactionID . " of Ksh " . $amount . " by " . $transactionType . " payment mode added to sale  " . $saleId . " by " . $session->get('user_name') . " on " . $Date . " " . $Time;
-            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
+            $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
         }
         echo json_encode(array("status" => $status, 'data' => $data));
+    }
+
+
+    // logs all throwables and exeptions in this class
+    private function logError($method, $message)
+    {
+        $logMessage = "Error in $method method: $message";
+        log_message('error', $logMessage);
     }
 }

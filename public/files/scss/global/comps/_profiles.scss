@@ -20,12 +20,7 @@
     &-value {
         color: $base-text;
         .wider & {
-            @if($rtl==false){
-                text-align: right;
-            }
-            @if($rtl==true){
-                text-align: left;
-            }
+            text-align: right;
             font-weight: $fw-medium;
             width: 100%;
         }
@@ -103,12 +98,7 @@
             line-height: 1.5rem;
         }
         ~ *{
-            @if($rtl==false){
-                padding-left: 24px;
-            }
-            @if($rtl==true){
-                padding-right: 24px;
-            }
+            padding-left: 24px;
         }
     }
     &-amount{

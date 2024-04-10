@@ -45,60 +45,101 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add New</span></button>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span class="submitText">
+                            <em class="icon ni ni-plus"></em>
+                            <span>Submit</span>
+                        </span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        <span class="loadingText d-none">Loading...</span>
+                    </button>
                 </div>
             </div>
         </div>
     </form>
 
     <script>
-        $("#addExpense").validate({
-            rules: {
-                txtDesc: "required",
-                txtAmount: "required",
-                txtRemarks: "required",
-            },
-            messages: {
-                txtDesc: "Please enter expense discription",
-                txtAmount: "Please enter Expense Amount in Kenya Shillings",
-                txtRemarks: "Please enter you remarks and any other infomation",
-            },
-            submitHandler: function(form) {
-                var form_action = $("#addExpense").attr("action");
-                $.ajax({
-                    data: $('#addExpense').serialize(),
-                    url: form_action,
-                    type: "POST",
-                    dataType: 'json',
-                    success: function(res) {
-                        var $status = JSON.stringify(res.status);
-                        var $sts = 'false';
-                        if ($status < "1") {
+        document.addEventListener("DOMContentLoaded", function() {
+            var submitButton = $("#addExpense button[type='submit']");
+            $("#addExpense").validate({
+                rules: {
+                    txtDesc: "required",
+                    txtAmount: "required",
+                    txtRemarks: "required",
+                },
+                messages: {
+                    txtDesc: "Please enter expense discription",
+                    txtAmount: "Please enter Expense Amount in Kenya Shillings",
+                    txtRemarks: "Please enter you remarks and any other infomation",
+                },
+                submitHandler: function(form) {
+                    var form_action = $("#addExpense").attr("action");
+
+                    submitButton.find(".spinner-border").removeClass("d-none");
+                    submitButton.find(".submitText").addClass("d-none");
+                    submitButton.find(".loadingText").removeClass("d-none");
+                    submitButton.prop("disabled", true);
+
+
+                    $.ajax({
+                        data: $('#addExpense').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        beforeSend: function() {
+                            NioApp.Toast("Updating...", 'info', {
+                                position: 'top-right',
+                                icon: 'auto',
+                                ui: 'is-dark'
+                            });
+                        },
+                        success: function(res) {
+                            var $status = +JSON.stringify(res.status);
+                            var $sts = 'false';
+                            if ($status < 1) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ooops...',
+                                    text: res.message
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: res.message
+                                }).then(() => {
+                                    window.location.href = "/html/expense-list.html";
+                                });
+                            }
+
+                        },
+                        error: function(data) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Ooops...',
-                                text: JSON.stringify(res.data)
+                                text: "An error: " + JSON.stringify(data.responseText) + " has occured"
                             })
-                        } else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: JSON.stringify(res.data)
-                            }).then(() => {
-                                window.location.href = "/html/expense-list.html";
-                            });
+                        },
+                        complete: function(r) {
+                            if (r.responseJSON && r.responseJSON.data && r.responseJSON.tn) {
+                                updateToken(r.responseJSON.tn);
+                            } else {
+                                console.error('Invalid response format or missing CSRF token');
+                                NioApp.Toast("<h5> Error: Invalid Server Response </h5> PLease reflesh the page and try again", 'error', {
+                                    position: 'top-right',
+                                    icon: 'auto',
+                                    ui: 'is-dark'
+                                });
+                            }
+                            // Hide loading spinner and enable submit button
+                            submitButton.find(".spinner-border").addClass('d-none');
+                            submitButton.find(".submitText").removeClass('d-none');
+                            submitButton.find(".loadingText").addClass('d-none');
+                            submitButton.prop("disabled", false);
                         }
-
-                    },
-                    error: function(data) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Ooops...',
-                            text: "An error: " + JSON.stringify(data.responseText) + " has occured"
-                        })
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     </script>
 
@@ -114,25 +155,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Expense</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
 
                 <form id="ee" name="ee" action="/html/expense-edit-item.html" method="post">
 
                     <div class="row g-3">
 
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label class="form-label" for="sale-price">Expense ID</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="txtExpID" name="txtExpID" readonly>
-                                </div>
-                            </div>
-                        </div>
-
+                        <input type="hidden" id="txtExpID" name="txtExpID">
 
                         <div class="col-12">
                             <div class="form-group">
@@ -170,59 +204,102 @@
 
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="submitText">
+                                <em class="icon ni ni-plus"></em>
+                                <span>Submit</span>
+                            </span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            <span class="loadingText d-none">Loading...</span>
+                        </button>
                     </div>
                 </form>
 
                 <script>
-                    $("#ee").validate({
-                        rules: {
-                            txtAmount: "required",
-                            txtDesc: "required",
-                        },
-                        messages: {
-                            txtAmount: "Amount required",
-                            txtDesc: "Description required",
-                        },
-                        submitHandler: function(form) {
-                            var form_action = $("#ee").attr("action");
-                            $.ajax({
-                                data: $('#ee').serialize(),
-                                url: form_action,
-                                type: "POST",
-                                dataType: 'json',
-                                success: function(res) {
-                                    var $status = +JSON.stringify(res.status);
-                                    var $sts = 'false';
-                                    if ($status < 1) {
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var submitButton = $("#ee button[type='submit']");
+                        $("#ee").validate({
+                            rules: {
+                                txtAmount: "required",
+                                txtDesc: "required",
+                            },
+                            messages: {
+                                txtAmount: "Amount required",
+                                txtDesc: "Description required",
+                            },
+                            submitHandler: function(form) {
+
+                                var form_action = $("#ee").attr("action");
+
+                                submitButton.find(".spinner-border").removeClass("d-none");
+                                submitButton.find(".submitText").addClass("d-none");
+                                submitButton.find(".loadingText").removeClass("d-none");
+                                submitButton.prop("disabled", true);
+
+
+                                $.ajax({
+                                    data: $('#ee').serialize(),
+                                    url: form_action,
+                                    type: "POST",
+                                    dataType: 'json',
+                                    beforeSend: function() {
+                                        NioApp.Toast("Updating...", 'info', {
+                                            position: 'top-right',
+                                            icon: 'auto',
+                                            ui: 'is-dark'
+                                        });
+                                    },
+                                    success: function(res) {
+                                        var $status = +JSON.stringify(res.status);
+                                        var $sts = 'false';
+                                        if ($status < 1) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Ooops...',
+                                                text: res.message
+                                            })
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Success',
+                                                text: res.message
+                                            }).then(() => {
+                                                window.location.href = "/html/expense-list.html";
+                                            });
+                                        }
+
+                                    },
+                                    error: function(data) {
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Ooops...',
-                                            text: JSON.stringify(res.data.message)
+                                            text: "An error: " + JSON.stringify(data.responseText) + " has occured"
                                         })
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Success',
-                                            text: JSON.stringify(res.data.message)
-                                        }).then(() => {
-                                            window.location.href = "/html/expense-list.html";
-                                        });
+                                    },
+                                    complete: function(r) {
+                                        if (r.responseJSON && r.responseJSON.data && r.responseJSON.tn) {
+                                            updateToken(r.responseJSON.tn);
+                                        } else {
+                                            console.error('Invalid response format or missing CSRF token');
+                                            NioApp.Toast("<h5> Error: Invalid Server Response </h5> PLease reflesh the page and try again", 'error', {
+                                                position: 'top-right',
+                                                icon: 'auto',
+                                                ui: 'is-dark'
+                                            });
+                                        }
+                                        // Hide loading spinner and enable submit button
+                                        submitButton.find(".spinner-border").addClass('d-none');
+                                        submitButton.find(".submitText").removeClass('d-none');
+                                        submitButton.find(".loadingText").addClass('d-none');
+                                        submitButton.prop("disabled", false);
                                     }
-
-                                },
-                                error: function(data) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Ooops...',
-                                        text: "An error: " + JSON.stringify(data.responseText) + " has occured"
-                                    })
-                                }
-                            });
-                        }
+                                });
+                            }
+                        });
                     });
                 </script>
             </div>
+
         </div>
     </div>
 </div>

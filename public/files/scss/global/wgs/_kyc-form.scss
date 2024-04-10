@@ -45,12 +45,7 @@
         border-radius: 50%;
         color: $base-text;
         border: 2px solid $border-color;
-        @if($rtl==false){
-            margin-right: 1rem;
-        }
-        @if($rtl==true){
-            margin-left: 1rem;
-        }
+        margin-right: 1rem;
         flex-shrink: 0;
     }
     &-title{
@@ -70,12 +65,7 @@
             margin-bottom: 1rem;
         }
         .icon{
-            @if($rtl==false){
-                margin-right: 0.5rem;
-            }
-            @if($rtl==true){
-                margin-left: 0.5rem;
-            }
+            margin-right: 0.5rem;
             font-size: 0.875rem;
             line-height: $line-height-base;
         }
@@ -85,12 +75,7 @@
         align-items: center;
         border:2px solid $border-light;
         border-radius: $border-radius;
-        @if($rtl==false){
-            padding: .5rem 2.875rem .5rem 1rem;
-        }
-        @if($rtl==true){
-            padding: .5rem 1rem .5rem 2.875rem;
-        }
+        padding: .5rem 2.875rem .5rem 1rem;
         font-size: 13px;
         line-height: 1.3;
         letter-spacing: -0.01rem;
@@ -100,12 +85,7 @@
         margin-bottom: 0;
         &::after{
             position: absolute;
-            @if($rtl==false){
-                right: 1.375rem;
-            }
-            @if($rtl==true){
-                left: 1.375rem;
-            }
+            right: 1.375rem;
             top: 50%;
             height: 20px;
             width: 20px;
@@ -129,12 +109,7 @@
             display: flex;
             align-items: center;
             flex-shrink: 0;
-            @if($rtl==false){
-                margin-right: 12px;
-            }
-            @if($rtl==true){
-                margin-left: 12px;
-            }
+            margin-right: 12px;
             .label-icon{
                 transition: all .3s;
                 color: $base-light;

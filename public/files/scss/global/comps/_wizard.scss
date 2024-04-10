@@ -28,7 +28,8 @@
                 transition: all .4s ease;
                 border-color: $accent-color;
                 background: $accent-color;
-                @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+                @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+                line-height: $btn-line-height;
             }
             &.disabled{
                 display: none;
@@ -68,12 +69,7 @@
                         position: absolute;
                         height: 1px;
                         width: 100%;
-                        @if($rtl==false){
-                            left: 0;
-                        }
-                        @if($rtl==true){
-                            right: 0;
-                        }
+                        left: 0;
                         bottom: 0;
                         content: '';
                         transition: all .4s;

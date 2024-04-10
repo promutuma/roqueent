@@ -1,3 +1,4 @@
+@use "sass:math";
 .tagify{
     // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
     $self: &;
@@ -108,7 +109,11 @@
     ///////////////////////////////////////////
     // Hides originals
     + input,
-    + textarea{ display:none !important; }
+    + textarea{ 
+        visibility: hidden !important;
+        position: absolute !important;
+        pointer-events: none;
+    }
 
     &__tag{
         display    : inline-flex;
@@ -170,7 +175,7 @@
         &:hover:not([readonly]){
             div{ 
                 &::before{
-                    $size: -$tagMargin/2;
+                    $size: math.div(-$tagMargin , 2);
                     $size: 0;
                     top:$size; 
                     right:$size; 
@@ -244,7 +249,7 @@
     }
 
     &__tag__removeBtn{
-        $size: 14px;
+        $size: 11px;
 
         order          : 5;
         display        : inline-flex;
@@ -252,22 +257,23 @@
         justify-content: center;
         border-radius  : 50px;
         cursor         : pointer;
-        font           : #{$size} Serif;
+        font           : #{$size} $nk-dashlite-font;
         background     : $tag-remove-btn-bg;
         color          : $base-color;
 
-        width          : $size;
-        height         : $size;
-        margin-right   : $size/3;
-        margin-left    : -$size/3;
+        width          : $size + 3;
+        height         : $size + 3;
+        margin-right   : math.div($size , 3);
+        margin-left    : math.div(-$size , 3);
 
         transition     : .2s ease-out;
 
         &::after{
             position: relative;
-            content: "\00D7";
-            top:1px;
+            content: $ni-cross;
+            top:0;
         }
+
 
         &:hover{
             color:white;
@@ -401,8 +407,8 @@
             right: 0;
             bottom: 0;
             font: $size monospace;
-            line-height: $size/2;
-            height: $size/2;
+            line-height: math.div($size , 2);
+            height: math.div($size , 2);
             pointer-events: none;
             transform: translate(-150%, -50%) scaleX(1.2) rotate(90deg);
             transition: .2s ease-in-out;

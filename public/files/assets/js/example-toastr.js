@@ -1,7 +1,9 @@
 "use strict";
 
 (function (NioApp, $) {
-  'use strict'; // Uses
+  'use strict';
+
+  // Uses
   // NioApp.Toast(message, type, {attr});
   // 
   // @message     = 'Your message' 
@@ -11,8 +13,8 @@
   // attr.ui used for additonal class as is-dark
   // attr.icon used for custom icon
   // attr.position used for position of the msg.
-  // Example Trigger
 
+  // Example Trigger
   $('.eg-toastr-default').on("click", function (e) {
     e.preventDefault();
     toastr.clear();

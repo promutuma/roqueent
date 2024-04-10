@@ -12,23 +12,13 @@
     }
     &[class*="-left"] {
         .toastr{
-            @if($rtl==false){
-                margin-right: auto;
-            }
-            @if($rtl==true){
-                margin-left: auto;
-            }
+            margin-right: auto;
 
         }
     }
     &[class*="-right"] {
         .toastr{
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
         }
     }
     &[class*="-full"] {
@@ -50,14 +40,8 @@
     box-shadow: $box-shadow;
     border-radius: $border-radius;
     opacity: 1;
-    @if($rtl==false){
-        border-left: 4px solid transparent;
-        padding: 1.25rem 4.5rem 1.25rem 1.25rem;
-    }
-    @if($rtl==true){
-        border-right: 4px solid transparent;
-        padding: 1.25rem 1.25rem 1.25rem 4.5rem;
-    }
+    border-left: 4px solid transparent;
+    padding: 1.25rem 4.5rem 1.25rem 1.25rem;
     width: 430px;
     max-width: 100%;
     font-size: 0.875rem;
@@ -95,23 +79,13 @@
     }
     &-icon{
         position: absolute;
-        @if($rtl==false){
-            left: 1.25rem;
-        }
-        @if($rtl==true){
-            right: 1.25rem;
-        }
+        left: 1.25rem;
         top: 50%;
         transform: translateY(-50%);
         font-size: 24px;
         line-height: 1;
         + .toastr-text{
-            @if($rtl==false){
-                padding-left: 2.35rem;
-            }
-            @if($rtl==true){
-                padding-right: 2.35rem;
-            }
+            padding-left: 2.35rem;
         }
     }
     h4, h5, h6{
@@ -125,12 +99,7 @@
 
 .toast-close-button{
     position: absolute;
-    @if($rtl==false){
-        right: 12px;
-    }
-    @if($rtl==true){
-        left: 12px;
-    }
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     display: inline-block;
@@ -158,12 +127,7 @@
 
 .toast-progress {
     position: absolute;
-    @if($rtl==false){
-        left: 0;
-    }
-    @if($rtl==true){
-        right: 0;
-    }
+    left: 0;
     bottom: 0;
     height: 4px;
     background-color: #000000;

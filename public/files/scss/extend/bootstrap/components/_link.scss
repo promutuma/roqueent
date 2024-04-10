@@ -23,12 +23,7 @@
         display: inline-flex;
     }
     .icon + span, span + .icon{
-        @if($rtl==false){
-            padding-left: 10px;
-        }
-        @if($rtl==true){
-            padding-right: 10px;
-        }
+        padding-left: 10px;
     }
     &-md{
         font-size: 1.25rem;
@@ -53,6 +48,7 @@
 $link-colors: map-merge(
     $theme-colors,
     (
+        "white":       $white,
         "light":       $base-light,
         "lighter":     $light-400,
         "text":        $base-text

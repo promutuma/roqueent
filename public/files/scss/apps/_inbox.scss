@@ -24,28 +24,14 @@ $ibx-aside-width :      260px;
         border-style: solid;
     }
     &:before{
-        @if($rtl==false){
-            right: -8px;
-            border-color: transparent transparent transparent $border-light;
-            border-width: 4px 0 4px 7px;
-        }
-        @if($rtl==true){
-            left: -8px;
-            border-color: transparent $border-light transparent transparent;
-            border-width: 4px 7px 4px 0;
-        }
+        right: -8px;
+        border-color: transparent transparent transparent $border-light;
+        border-width: 4px 0 4px 7px;
     }
     &:after{
-        @if($rtl==false){
-            right: -6px;
-            border-width: 3px 0 3px 6px;
-            border-color: transparent transparent transparent $white;
-        }
-        @if($rtl==true){
-            left: -6px;
-            border-width: 3px 6px 3px 0;
-            border-color: transparent $white transparent transparent;
-        }
+        right: -6px;
+        border-width: 3px 0 3px 6px;
+        border-color: transparent transparent transparent $white;
     }
 }
 
@@ -58,12 +44,7 @@ $ibx-aside-width :      260px;
         align-items: center;
     }
     &-badges{
-        @if($rtl==false){
-            margin-right: 0.75rem;
-        }
-        @if($rtl==true){
-            margin-left: 0.75rem;
-        }
+        margin-right: 0.75rem;
     }
     &-text{
         display: inline;
@@ -87,12 +68,7 @@ $ibx-aside-width :      260px;
     &-hidden{
         position: absolute;
         display: flex;
-        @if($rtl==false){
-            right: calc(100% + 8px);
-        }
-        @if($rtl==true){
-            left: calc(100% + 8px);
-        }
+        right: calc(100% + 8px);
         opacity: 0;
         transition: background-color .3s;
         .nk-ibx-item:hover &{
@@ -123,14 +99,8 @@ $ibx-aside-width :      260px;
         flex-direction: column;
         align-items: stretch;
         flex-shrink: 0;
-        @if($rtl==false){
-            border-right: 1px solid $border-light;
-            transform: translateX(-100%);
-        }
-        @if($rtl==true){
-            border-left: 1px solid $border-light;
-            transform: translateX(100%);
-        }
+        border-right: 1px solid $border-light;
+        transform: translateX(-100%);
         z-index: 99;
         transition: transform .4s linear;
         + .toggle-overlay{
@@ -189,33 +159,18 @@ $ibx-aside-width :      260px;
         }
         .search{
             &-wrap{
-                @if($rtl==false){
-                    padding: 0 1.365rem 0 1rem;
-                }
-                @if($rtl==true){
-                    padding: 0 1rem 0 1.365rem;
-                }
+                padding: 0 1.365rem 0 1rem;
                 .icon{
                     font-size: 1.25rem;
                 }
             }
             &-back{
-                @if($rtl==false){
-                    transform: translate(-0.5rem, -50%);
-                }
-                @if($rtl==true){
-                    transform: translate(0.5rem, -50%);
-                }
+                transform: translate(-0.5rem, -50%);
             }
         }
         &-check{
             display: flex;
-            @if($rtl==false){
-                margin-right: .325rem;
-            }
-            @if($rtl==true){
-                margin-left: .325rem;
-            }
+            margin-right: .325rem;
         }
 
     }
@@ -236,12 +191,7 @@ $ibx-aside-width :      260px;
             .icon{
                 font-size: 1.5rem;
                 + span{
-                    @if($rtl==false){
-                        margin-left: 0.5rem;
-                    }
-                    @if($rtl==true){
-                        margin-right: 0.5rem;
-                    }
+                    margin-left: 0.5rem;
                 }
             }
             .search-toggle{
@@ -278,12 +228,7 @@ $ibx-aside-width :      260px;
                 color: $base-light;
             }
             .badge{
-                @if($rtl==false){
-                    margin-left: auto;
-                }
-                @if($rtl==true){
-                    margin-right: auto;
-                }
+                margin-left: auto;
                 min-width: 2.25rem;
                 justify-content: center;
             }
@@ -337,12 +282,7 @@ $ibx-aside-width :      260px;
     &-label{
         &-text{
             line-height: 1;
-            @if($rtl==false){
-                margin-left: 1rem;
-            }
-            @if($rtl==true){
-                margin-right: 1rem;
-            }
+            margin-left: 1rem;
             font-size: .875rem;
             color: $base-text;
             font-weight: $fw-medium;
@@ -406,12 +346,7 @@ $ibx-aside-width :      260px;
             padding: 0 8px;
             flex-shrink: 0;
             &:first-child{
-                @if($rtl==false){
-                    padding-left: 0;
-                }
-                @if($rtl==true){
-                    padding-right: 0;
-                }
+                padding-left: 0;
             }
         }
         &-check{
@@ -444,12 +379,7 @@ $ibx-aside-width :      260px;
         }
         &-time{
             width: 80px;
-            @if($rtl==false){
-                text-align: right;
-            }
-            @if($rtl==true){
-                text-align: left;
-            }
+            text-align: right;
         }
         &-attach{
             width: 2.25rem;
@@ -468,16 +398,9 @@ $ibx-aside-width :      260px;
             }
         }
         &-tools{
-            @if($rtl==false){
-                padding-right: 0;
-                margin-left: auto;
-                text-align: right;
-            }
-            @if($rtl==true){
-                padding-left: 0;
-                margin-right: auto;
-                text-align: left;
-            }
+            padding-right: 0;
+            margin-left: auto;
+            text-align: right;
         }
         &-check,&-star,&-attach{
             position: relative;
@@ -485,7 +408,6 @@ $ibx-aside-width :      260px;
         }
         &-tools{
             position: relative;
-            z-index: 3;
         }
     }
     &-link{
@@ -496,12 +418,7 @@ $ibx-aside-width :      260px;
         right: 0;
         z-index: 1;
         + .nk-ibx-item-elem{
-            @if($rtl==false){
-                padding-left: 0;
-            }
-            @if($rtl==true){
-                padding-right: 0;
-            }
+            padding-left: 0;
         }
     }
     &-view{
@@ -535,22 +452,12 @@ $ibx-aside-width :      260px;
             }
         }
         &-header{
-            @if($rtl==false){
-                margin-right: -.5rem;
-            }
-            @if($rtl==true){
-                margin-left: -.5rem;
-            }
+            margin-right: -.5rem;
         }
         &-item{
             position: relative;
             > div:not(.nk-reply-header){
-                @if($rtl==false){
-                    margin-left: 0;
-                }
-                @if($rtl==true){
-                    margin-right: 0;
-                }
+                margin-left: 0;
                 margin-top: 1.25rem;
                 margin-bottom: 0.75rem;
             }
@@ -577,12 +484,7 @@ $ibx-aside-width :      260px;
         }
         &-head{
             .search-wrap{
-                @if($rtl==false){
-                    padding: 0 2.375rem 0 2rem;
-                }
-                @if($rtl==true){
-                    padding: 0 2rem 0 2.375rem;
-                }
+                padding: 0 2.375rem 0 2rem;
             }
         }
         &-reply{
@@ -592,12 +494,7 @@ $ibx-aside-width :      260px;
             &-item{
                 padding-bottom: 2.75rem;
                 > div:not(.nk-reply-header){
-                    @if($rtl==false){
-                        margin-left: 56px;
-                    }
-                    @if($rtl==true){
-                        margin-right: 56px;
-                    }
+                    margin-left: 56px;
                 }
                 &:not(:last-child):after {
                     bottom: 1.375rem;
@@ -606,12 +503,7 @@ $ibx-aside-width :      260px;
                 }
             }
             &-quick-btns, &-form {
-                @if($rtl==false){
-                    margin-left: 5.75rem;
-                }
-                @if($rtl==true){
-                    margin-right: 5.75rem;
-                }
+                margin-left: 5.75rem;
             }
         }
     }
@@ -655,12 +547,7 @@ $ibx-aside-width :      260px;
         }
         &-head{
             .search-wrap{
-                @if($rtl==false){
-                    padding: 0 2.25rem 0 1.5rem;
-                }
-                @if($rtl==true){
-                    padding: 0 1.5rem 0 2.25rem;
-                }
+                padding: 0 2.25rem 0 1.5rem;
             }
         }
         &-body{
@@ -668,12 +555,7 @@ $ibx-aside-width :      260px;
         }
         &-reply {
             &-quick-btns, &-form {
-                @if($rtl==false){
-                    margin-left: 5.25rem;
-                }
-                @if($rtl==true){
-                    margin-right: 5.25rem;
-                }
+                margin-left: 5.25rem;
             }
             &-item,&-head{
                 padding-left: 1.75rem;
@@ -693,12 +575,7 @@ $ibx-aside-width :      260px;
                 width: 200px;
             }
             &-time{
-                @if($rtl==false){
-                    margin-right: 5rem;
-                }
-                @if($rtl==true){
-                    margin-left: 5rem;
-                }
+                margin-right: 5rem;
             }
         }
     }
@@ -710,18 +587,13 @@ $ibx-aside-width :      260px;
                 width: 260px;
             }
             &-tools{
-                @if($rtl==false){
-                    margin-left: 5rem;
-                }
-                @if($rtl==true){
-                    margin-right: 5rem;
-                }
+                margin-left: 5rem;
             }
         }
     }
 }
 
-@include media-breakpoint-down(lg){
+@include media-breakpoint-down(xl){
     .nk-ibx{
         &-item{
             &-attach{
@@ -731,7 +603,7 @@ $ibx-aside-width :      260px;
     }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .nk-ibx{
         &-item{
             flex-wrap: wrap;
@@ -739,14 +611,8 @@ $ibx-aside-width :      260px;
                 padding: 0 4px;
             }
             &-fluid{
-                @if($rtl==false){
-                    padding-left: 32px;
-                    padding-right: 48px;
-                }
-                @if($rtl==true){
-                    padding-right: 32px;
-                    padding-left: 48px;
-                }
+                padding-left: 32px;
+                padding-right: 48px;
                 margin-top: 6px;
                 width: calc(100% - 2.5rem);
                 .heading {
@@ -766,34 +632,18 @@ $ibx-aside-width :      260px;
             }
             &-time{
                 position: absolute;
-                @if($rtl==false){
-                    right: 32px;
-                }
-                @if($rtl==true){
-                    left: 32px;
-                }
+                right: 32px;
                 top: 19px;
             }
             &-tools{
                 position: absolute;
-                @if($rtl==false){
-                    right: 28px;
-                    text-align: right;
-                }
-                @if($rtl==true){
-                    text-align: left;
-                    left: 28px;
-                }
+                right: 28px;
+                text-align: right;
                 bottom: 18px;
             }
             &-star{
                 position: absolute;
-                @if($rtl==false){
-                    left: 28px;
-                }
-                @if($rtl==true){
-                    right: 28px;
-                }
+                left: 28px;
                 top: 50px;
             }
         }
@@ -810,28 +660,13 @@ $ibx-aside-width :      260px;
     .nk-ibx{
         &-item{
             &-star{
-                @if($rtl==false){
-                    left: 12px;
-                }
-                @if($rtl==true){
-                    right: 12px;
-                }
+                left: 12px;
             }
             &-time{
-                @if($rtl==false){
-                    right: 12px;
-                }
-                @if($rtl==true){
-                    left: 12px;
-                }
+                right: 12px;
             }
             &-tools{
-                @if($rtl==false){
-                    right: 8px;
-                }
-                @if($rtl==true){
-                    left: 8px;
-                }
+                right: 8px;
             }
         }
         &-reply{
@@ -864,7 +699,7 @@ $ibx-aside-width :      260px;
     }
 }
 
-@include media-breakpoint-between(sm,md){
+@include media-breakpoint-between(sm,lg){
     .nk-ibx{
         &-aside {
             width: 320px;

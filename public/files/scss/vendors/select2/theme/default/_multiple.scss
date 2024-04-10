@@ -13,12 +13,7 @@
   }
   .select2-search--inline{
     .select2-search__field{
-      @if($rtl==false){
-        padding-left: ($select2-padding-x - 0.1875rem) !important;
-      }
-      @if($rtl==true){
-        padding-right: ($select2-padding-x - 0.1875rem) !important;
-      }
+      padding-left: ($select2-padding-x - 0.1875rem) !important;
     }
   }
   .select2-selection__rendered {
@@ -38,14 +33,8 @@
     cursor: pointer;
     font-weight: bold;
     margin-top: 5px;
-    @if($rtl==false){
-      float: right;
-      margin-right: 10px;
-    }
-    @if($rtl==true){
-      float: left;
-      margin-left: 10px;
-    }
+    float: right;
+    margin-right: 10px;
     // This padding is to account for the bottom border for the first
     // selection row and the top border of the second selection row.
     // Without it, selections on the first row may be offset incorrectly
@@ -69,12 +58,7 @@
     display: inline-block;
     font-weight: bold;
 
-    @if($rtl==false){
-      margin-right: .5rem;
-    }
-    @if($rtl==true){
-      margin-left: .5rem;
-    }
+    margin-right: .5rem;
     &:hover {
       color: $select2-color;
     }

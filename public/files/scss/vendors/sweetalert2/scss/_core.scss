@@ -264,14 +264,8 @@
           animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
           border: 3px solid lighten($swal2-black, 60);
           border-radius: 50%;
-          @if($rtl==false){
-            margin-left: 5px;
-            border-right-color: transparent;
-          }
-          @if($rtl==true){
-            margin-right: 5px;
-            border-left-color: transparent;
-          }
+          margin-left: 5px;
+          border-right-color: transparent;
           box-shadow: 1px 1px 1px $swal2-white;
         }
       }
@@ -280,9 +274,9 @@
 }
 
 .swal2-styled {
-  margin: 0 .75rem;
+  margin: 0.5rem;
   box-shadow: none;
-  padding: 0.6875rem 1.25rem;
+  padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   line-height: 1.25rem;
   border-radius: 5px;
@@ -355,12 +349,7 @@
 
   /* 1617 */
   top: $swal2-close-button-gap;
-  @if($rtl==false){
-    right: $swal2-close-button-gap;
-  }
-  @if($rtl==true){
-    left: $swal2-close-button-gap;
-  }
+  right: $swal2-close-button-gap;
   justify-content: center;
   width: $swal2-close-button-width;
   height: $swal2-close-button-height;
@@ -782,24 +771,12 @@
 // Right-to-left support
 .swal2-rtl {
   .swal2-close {
-    @if($rtl==false){
-      right: auto;
-      left: $swal2-close-button-gap;
-    }
-    @if($rtl==true){
-      left: auto;
-      right: $swal2-close-button-gap;
-    }
+    right: auto;
+    left: $swal2-close-button-gap;
   }
 
   .swal2-timer-progress-bar {
-    @if($rtl==false){
-      right: 0;
-      left: auto;
-    }
-    @if($rtl==true){
-      left: 0;
-      right: auto;
-    }
+    right: 0;
+    left: auto;
   }
 }

@@ -8,7 +8,6 @@
         &-content{
             position: relative;
             flex-shrink: 0;
-            width: 100%;
             min-height: 100%;
             &-md{
                 @include media-breakpoint-up(md){
@@ -23,7 +22,7 @@
     }
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .nk-split-stretch{
         &.toggle-break-lg{
             width: 460px;
@@ -31,30 +30,13 @@
     }
 }
 
-.nk-split {
-    &-sm{
-        @include media-breakpoint-down(xs){
+@each $name, $value in $container-max-widths {
+    @include media-breakpoint-down($name){
+        .nk-split-#{$name} {
             flex-wrap: wrap;
-        }
-    }
-    &-md{
-        @include media-breakpoint-down(sm){
-            flex-wrap: wrap;
-        }
-    }
-    &-lg{
-        @include media-breakpoint-down(md){
-            flex-wrap: wrap;
-        }
-    }
-    &-xl{
-        @include media-breakpoint-down(lg){
-            flex-wrap: wrap;
-        }
-    }
-    &-xxl{
-        @include media-breakpoint-down(xl){
-            flex-wrap: wrap;
+            > *{
+                width: 100% !important;
+            }
         }
     }
 }

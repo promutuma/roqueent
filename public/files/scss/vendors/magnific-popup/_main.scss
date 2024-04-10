@@ -93,12 +93,7 @@
   display: inline-block;
   vertical-align: middle;
   margin: 0 auto;
-  @if($rtl==false){
-    text-align: left;
-  }
-  @if($rtl==true){
-    text-align: right;
-  }
+  text-align: left;
   z-index: $mfp-z-index-base + 5;
 }
 .mfp-inline-holder,
@@ -254,12 +249,7 @@ button {
   line-height: 44px;
 
   position: absolute;
-  @if($rtl==false){
-    right: 0;
-  }
-  @if($rtl==true){
-    left: 0;
-  }
+  right: 0;
   top: 0;
   text-decoration: none;
   text-align: center;
@@ -304,12 +294,7 @@ button {
 .mfp-counter {
   position: absolute;
   top: 0;
-  @if($rtl==false){
-    right: 0;
-  }
-  @if($rtl==true){
-    left: 0;
-  }
+  right: 0;
   color: $mfp-controls-text-color;
   font-size: 12px;
   line-height: 18px;
@@ -342,20 +327,10 @@ button {
       width: 0;
       height: 0;
       position: absolute;
-      @if($rtl==false){
-        left: 0;
-      }
-      @if($rtl==true){
-        right: 0;
-      }
+      left: 0;
       top: 0;
       margin-top: 35px;
-      @if($rtl==false){
-        margin-left: 35px;
-      }
-      @if($rtl==true){
-        margin-right: 35px;
-      }
+      margin-left: 35px;
       border: medium inset transparent;
     }
 
@@ -375,50 +350,25 @@ button {
   }
 
   .mfp-arrow-left {
-    @if($rtl==false){
-      left: 0;
-      &:after {
-        border-right: 17px solid $mfp-controls-color;
-        margin-left: 31px;
-      }
-      &:before {
-        margin-left: 25px;
-        border-right: 27px solid $mfp-controls-border-color;
-      }
+    left: 0;
+    &:after {
+      border-right: 17px solid $mfp-controls-color;
+      margin-left: 31px;
     }
-    @if($rtl==true){
-      right: 0;
-      &:after {
-        border-left: 17px solid $mfp-controls-color;
-        margin-right: 31px;
-      }
-      &:before {
-        margin-right: 25px;
-        border-left: 27px solid $mfp-controls-border-color;
-      }
+    &:before {
+      margin-left: 25px;
+      border-right: 27px solid $mfp-controls-border-color;
     }
   }
 
   .mfp-arrow-right {
-    @if($rtl==false){
-      right: 0;
-      &:after {
-        border-left: 17px solid $mfp-controls-color;
-        margin-left: 39px
-      }
-      &:before {
-        border-left: 27px solid $mfp-controls-border-color;
-      }
+    right: 0;
+    &:after {
+      border-left: 17px solid $mfp-controls-color;
+      margin-left: 39px
     }
-    @if($rtl==true){
-      left: 0;
-      &:after {
-        border-right: 17px solid $mfp-controls-color;
-        margin-right: 39px
-      }
-      &:before {
-        border-right: 27px solid $mfp-controls-border-color;
-      }
+    &:before {
+      border-left: 27px solid $mfp-controls-border-color;
     }
   }
 }
@@ -432,7 +382,7 @@ button {
     padding-bottom: $mfp-iframe-padding-top;
     .mfp-content {
       line-height: 0;
-      width: 100%;
+      width: calc(100% - 34px);
       max-width: $mfp-iframe-max-width;
     }
     // .mfp-close {
@@ -509,36 +459,21 @@ button {
     margin-top: -$mfp-image-padding-bottom + 4;
     position: absolute;
     top: 100%;
-    @if($rtl==false){
-      left: 0;
-    }
-    @if($rtl==true){
-      right: 0;
-    }
+    left: 0;
     width: 100%;
     cursor: auto;
   }
   .mfp-title {
-    @if($rtl==false){
-      text-align: left;
-    }
-    @if($rtl==true){
-      text-align: right;
-    }
+    text-align: left;
     line-height: 18px;
     color: $mfp-caption-title-color;
     word-wrap: break-word;
-    @if($rtl==false){
-      padding-right: 36px; // leave some space for counter at right side
-    }
-    @if($rtl==true){
-      padding-left: 36px; // leave some space for counter at right side
-    }
+    padding-right: 36px; // leave some space for counter at right side
   }
 
   .mfp-image-holder {
     .mfp-content {
-      max-width: 100%;
+      max-width: calc(100% - 34px);
     }
   }
 
@@ -574,12 +509,7 @@ button {
           }
           small {
             display: inline;
-            @if($rtl==false){
-              margin-left: 5px;
-            }
-            @if($rtl==true){
-              margin-right: 5px;
-            }
+            margin-left: 5px;
           }
         }
         .mfp-bottom-bar {
@@ -595,22 +525,12 @@ button {
           }
         }
         .mfp-counter {
-          @if($rtl==false){
-            right: 5px;
-          }
-          @if($rtl==true){
-            left: 5px;
-          }
+          right: 5px;
           top: 3px;
         }
         .mfp-close {
           top: 0;
-          @if($rtl==false){
-            right: 0;
-          }
-          @if($rtl==true){
-            left: 0;
-          }
+          right: 0;
           width: 35px;
           height: 35px;
           line-height: 35px;

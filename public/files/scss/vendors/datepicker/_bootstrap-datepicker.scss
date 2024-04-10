@@ -422,12 +422,7 @@ $input-daterange-add-on-bg: $bg-light;
 .datepicker .cw {
   font-size: 10px;
   width: 12px;
-  @if($rtl==false){
-    padding: 0 2px 0 5px;
-  }
-  @if($rtl==true){
-    padding: 0 5px 0 2px;
-  }
+  padding: 0 2px 0 5px;
   vertical-align: middle;
 }
 .input-append.date .add-on,

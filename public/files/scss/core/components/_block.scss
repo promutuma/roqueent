@@ -61,12 +61,7 @@
                 }
                 .dropdown {
                     position: absolute;
-                    @if($rtl==false){
-                        right: -8px;
-                    }
-                    @if($rtl==true){
-                        left: -8px;
-                    }
+                    right: -8px;
                     top: -6px;
                 }
             }
@@ -188,16 +183,11 @@
     }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .nk-block-tools{
         .opt-menu-md{
             order: 100;
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
         }
     }
 }

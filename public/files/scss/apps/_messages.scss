@@ -21,12 +21,7 @@ $msg-body-gap-x-dsk :2.5rem;
             border-bottom: 1px solid $border-light;
         }
         .search-submit {
-            @if($rtl==false){
-                transform: translate(0.25rem, -50%);
-            }
-            @if($rtl==true){
-                transform: translate(-0.25rem, -50%);
-            }
+            transform: translate(0.25rem, -50%);
         }
     }
     &-menu{
@@ -91,14 +86,8 @@ $msg-body-gap-x-dsk :2.5rem;
         flex-shrink: 0;
         .nk-msg-boxed &{
             background: rgba($lighter,.7);
-            @if($rtl==false){
-                border-top-left-radius: ($border-radius - 1);
-                border-bottom-left-radius: ($border-radius - 1);
-            }
-            @if($rtl==true){
-                border-top-right-radius: ($border-radius - 1);
-                border-bottom-right-radius: ($border-radius - 1);
-            }
+            border-top-left-radius: ($border-radius - 1);
+            border-bottom-left-radius: ($border-radius - 1);
         }
     }
 
@@ -122,12 +111,7 @@ $msg-body-gap-x-dsk :2.5rem;
     }
     &-info{
         max-width:calc(100% - 52px);
-        @if($rtl==false){
-            margin-left: 0.75rem;
-        }
-        @if($rtl==true){
-            margin-right: 0.75rem;
-        }
+        margin-left: 0.75rem;
         flex-grow: 1;
     }
     &-from{
@@ -150,12 +134,7 @@ $msg-body-gap-x-dsk :2.5rem;
         color: $base-light;
         font-size: $fx-sz-12;
         .name{
-            @if($rtl==false){
-                margin-right: 0.5rem;
-            }
-            @if($rtl==true){
-                margin-left: 0.5rem;
-            }
+            margin-right: 0.5rem;
             .is-unread &{
                 font-weight: $fw-medium;
                 color: $base-color;
@@ -173,23 +152,13 @@ $msg-body-gap-x-dsk :2.5rem;
             }
         }
         .date{
-            @if($rtl==false){
-                margin-left: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-right: 0.75rem;
-            }
+            margin-left: 0.75rem;
         }
     }
     &-text{
         max-width: calc(100% - 35px);
         flex-grow: 0;
-        @if($rtl==false){
-            padding-right: 0.5rem;
-        }
-        @if($rtl==true){
-            padding-left: 0.5rem;
-        }
+        padding-right: 0.5rem;
         .title{
             font-size: $fx-sz-15;
             margin-bottom: 0.25rem;
@@ -244,14 +213,8 @@ $msg-body-gap-x-dsk :2.5rem;
     &-profile{
         position: absolute;
         top: 0;
-        @if($rtl==false){
-            right: 0;
-            transform: translateX(100%);
-        }
-        @if($rtl==true){
-            left: 0;
-            transform: translateX(-100%);
-        }
+        right: 0;
+        transform: translateX(100%);
         width: 280px;
         height: 100%;
         max-height: 100%;
@@ -266,16 +229,9 @@ $msg-body-gap-x-dsk :2.5rem;
             align-items: center;
             justify-content: center;
             bottom: -18px;
-            @if($rtl==false){
-                right: -18px;
-                margin-right: 40px;
-                transition: right .3s ease-in-out, margin .3s ease-in-out .2s;
-            }
-            @if($rtl==true){
-                left: -18px;
-                margin-left: 40px;
-                transition: left .3s ease-in-out, margin .3s ease-in-out .2s;
-            }
+            right: -18px;
+            margin-right: 40px;
+            transition: right .3s ease-in-out, margin .3s ease-in-out .2s;
             border: 1px solid $border-light;
             background-color: $white;
             border-radius: 50%;
@@ -284,12 +240,7 @@ $msg-body-gap-x-dsk :2.5rem;
             color:$base-light;
             z-index: 110;
             &.active{
-                @if($rtl==false){
-                    margin-right: 0;
-                }
-                @if($rtl==true){
-                    margin-left: 0;
-                }
+                margin-right: 0;
                 transform: rotate(-180deg);
             }
         }
@@ -334,12 +285,7 @@ $msg-body-gap-x-dsk :2.5rem;
                 align-items: center;
                 .icon{
                     color: $accent-color;
-                    @if($rtl==false){
-                        margin-right: 0.25rem;
-                    }
-                    @if($rtl==true){
-                        margin-left: 0.25rem;
-                    }
+                    margin-right: 0.25rem;
                 }
             }
         }
@@ -386,7 +332,7 @@ $msg-body-gap-x-dsk :2.5rem;
     }
     
 }
-@include media-breakpoint-between(sm,md){
+@include media-breakpoint-between(sm,lg){
     .nk-msg{
         &-text{
             .title{
@@ -416,12 +362,7 @@ $msg-body-gap-x-dsk :2.5rem;
         }
         &-aside{
             width: 320px;
-            @if($rtl==false){
-                border-right: 1px solid $border-light;
-            }
-            @if($rtl==true){
-                border-left: 1px solid $border-light;
-            }
+            border-right: 1px solid $border-light;
         }
         &-body{
             position: static;
@@ -429,19 +370,9 @@ $msg-body-gap-x-dsk :2.5rem;
             pointer-events: auto;
         }
         &-profile {
-            @if($rtl==false){
-                border-left: 1px solid $border-light;
-            }
-            @if($rtl==true){
-                border-right: 1px solid $border-light;
-            }
+            border-left: 1px solid $border-light;
             &-toggle{
-                @if($rtl==false){
-                    margin-right: 55px;
-                }
-                @if($rtl==true){
-                    margin-left: 55px;
-                }
+                margin-right: 55px;
                 display: flex;
             }
         }
@@ -455,22 +386,12 @@ $msg-body-gap-x-dsk :2.5rem;
     }
 }
 
-@include media-breakpoint-down(xl){
+@include media-breakpoint-down(xxl){
     .profile-shown{
         .nk-msg-profile-toggle{
-            @if($rtl==false){
-                right: 262px;
-            }
-            @if($rtl==true){
-                left: 262px;
-            }
+            right: 262px;
             .has-apps-sidebar & {
-                @if($rtl==false){
-                    right: -18px;
-                }
-                @if($rtl==true){
-                    left: -18px;
-                }
+                right: -18px;
             }
         }
     }
@@ -479,12 +400,7 @@ $msg-body-gap-x-dsk :2.5rem;
     .has-apps-sidebar{
         .profile-shown{
             .nk-msg-profile-toggle{
-                @if($rtl==false){
-                    right: 262px;
-                }
-                @if($rtl==true){
-                    left: 262px;
-                }
+                right: 262px;
             }
         }
     }
@@ -492,12 +408,7 @@ $msg-body-gap-x-dsk :2.5rem;
 @include media-breakpoint-up(xxl){
     .nk-msg-body{
         &.profile-shown{
-            @if($rtl==false){
-                padding-right: 280px;
-            }
-            @if($rtl==true){
-                padding-left: 280px;
-            }
+            padding-right: 280px;
         }
     }
 }
@@ -505,12 +416,7 @@ $msg-body-gap-x-dsk :2.5rem;
     .has-apps-sidebar{
         .nk-msg-body{
             &.profile-shown{
-                @if($rtl==false){
-                    padding-right: 280px;
-                }
-                @if($rtl==true){
-                    padding-left: 280px;
-                }
+                padding-right: 280px;
             }
         }
     }

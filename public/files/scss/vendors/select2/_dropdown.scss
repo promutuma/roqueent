@@ -8,6 +8,7 @@
   font-weight: $select2-font-weight;
   display: block;
   position: absolute;
+  /*rtl:ignore*/
   left: -100000px;
   z-index: 1051;
   padding: 6px;
@@ -50,6 +51,7 @@
 }
 
 .select2-container--open .select2-dropdown {
+  /*rtl:ignore*/
   left: 0;
   border-color: $select2-open-border-color;
 }

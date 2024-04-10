@@ -73,7 +73,7 @@ body.dark-mode {
 
     $bg-mix: $dark-card-bg;
     $bg-colors: 
-    "dark"              $light-100,
+    "dark"              mix($dark, $bg-mix, 20%),
     "blue-dim"          mix($blue, $bg-mix, 15%),
     "azure-dim"         mix($azure, $bg-mix, 15%),
     "indigo-dim"        mix($indigo, $bg-mix, 15%),
@@ -126,10 +126,10 @@ body.dark-mode {
             }
         }
         .alert-fill.alert-#{$name}{
-            color: color-yiq($color);
+            color: color-contrast($color);
             background: $color;
             .alert-link {
-                color: color-yiq($color);
+                color: color-contrast($color);
             }
         }
         .alert-pro.alert-#{$name}{
@@ -149,46 +149,50 @@ body.dark-mode {
     );
 
     @each $name, $color in $dim-badge {
-        .badge-dim.badge-#{$name} {
+        .badge-dim.bg-#{$name} {
             color: $color;
-            background-color: mix($color, $dim-mix, 15%);
+            background-color: mix($color, $dim-mix, 15%) !important;
             border-color: mix($color, $dim-mix, 15%);
         }
-        .badge-dim.badge-outline-#{$name} {
+        .badge-dim.bg-outline-#{$name} {
             color: $color;
             background-color: mix($color, $dim-mix, 15%);
             border-color: mix($color, $dim-mix, 40%);
         }
     }
 
-    .badge-outline-secondary, .badge-dot.badge-dark, .badge-dot.badge-secondary {
+    .bg-outline-secondary, .badge-dot.bg-dark, .badge-dot.bg-secondary {
         color: $light-400;
     }
 
-    .badge-outline-dark {
+    .bg-outline-dark {
         color: $light;
         border-color: $light;
     }
-    .badge-outline-light {
+    .bg-outline-light {
         color: $light-400;
         border-color: $light-700;
     }
-    .badge-dot.badge-dark, .badge-dot.badge-light {
-        background-color: transparent;
+    .badge-dot.bg-dark, .badge-dot.bg-light {
+        background-color: transparent !important;
     }
-    .badge-dot.badge-light {
+    .badge-dot.bg-light {
         color: $light-500;
     }
 
-    .badge-light, .code-block .btn {
+    .bg-light, .code-block .btn {
         color: $light;
         background: $light-700;
         border-color: $light-700;
     }
-    .badge-dark {
-        color: $dark;
-        background: $light-200;
-        border-color: $light-200;
+    .bg-dark {
+        color: $light-500;
+        border-color: mix($dark, $bg-mix, 20%);
+        &.user-avatar{
+            color: $dark !important;
+            background: $light-200 !important;
+            border-color: $light-200 !important;
+        }
     }
 
     // Buttons 
@@ -284,7 +288,7 @@ body.dark-mode {
             background-color: $background;
             border-color: $border;
             &:not(:disabled):not(.disabled):hover {
-                color: color-yiq($color);
+                color: color-contrast($color);
                 background-color: $color;
                 border-color: $color;
             }
@@ -337,7 +341,9 @@ body.dark-mode {
     .nav-switch-s2 .nav-link, .user-avatar-multiple .user-avatar {
         border-color: $dark-border-color !important;
     }
-
+    .select2-search--dropdown .select2-search__field{
+        color: $base-300;
+    }
     .card, .code-block, .alert-pro,.modal-content,.toast,.toastr {
         box-shadow: 0px 1px 3px 0px rgba($black, 0.4);
     }
@@ -350,8 +356,8 @@ body.dark-mode {
     }
 
     .table-active, .table-active > th, .table-active > td, .table-hover tbody tr:hover, 
-    .code-block .prettyprint,.list-group-item,.example-spacing-pd > div > span,
-    .custom-file-label::after,.ql-picker-options,.data-more:before,.dropzone,
+    .code-block .prettyprint, .prettyprint, .list-group-item,.example-spacing-pd > div > span,
+    .form-file-label::after,.ql-picker-options,.data-more:before,.dropzone,
     .ui-state-hover,.note-editor.note-frame .note-statusbar, 
     .note-editor.note-airframe .note-statusbar,.swal2-popup, 
     .select2-container--default .select2-results__option--highlighted[aria-selected],
@@ -368,10 +374,13 @@ body.dark-mode {
     .tox .tox-collection--list .tox-collection__item--enabled {
         background: darken($dark-body-bg, 4%);
     }
+    .list-group-item{
+        color: $base-300;
+    }
     .icon-overlap li {
         border-color: $dark-card-bg;
     }
-    .card,.kanban-add-task,.kanban-board-header,.kanban-item {
+    .card,.kanban-add-task,.kanban-board-header,.kanban-item,.table > :not(caption) > * > * {
         background: $dark-card-bg;
     }
     .accordion,.form-clip, .form-text-hint,.card-aside,
@@ -379,7 +388,7 @@ body.dark-mode {
     .nav-switch-s2 .nav-link:hover, .nav-switch-s2 .nav-link:focus,.nav-switch-s2 .nav-link.active,
     .select2-container--default .select2-selection--single,
     .select2-container--default .select2-selection--multiple,.select2-dropdown,
-    .custom-file-label,.custom-select,.popover,.search-wrap,.form-control,.form-label-outlined,.input-mail,.page-link,
+    .form-file-label,.form-select,.popover,.search-wrap,.form-control,.form-label-outlined,.input-mail,.page-link,
     .ui-timepicker-standard,.note-editor,.note-toolbar,
     .tox .tox-edit-area__iframe,.tox .tox-menubar,.tox-toolbar-overlord,
     .tox .tox-toolbar, .tox .tox-toolbar__primary, .tox .tox-toolbar__overflow,
@@ -390,7 +399,10 @@ body.dark-mode {
     .datepicker .datepicker-switch:hover, .datepicker .prev:hover, .datepicker .next:hover, .datepicker tfoot tr th:hover {
         background: $dark-card-bg !important;
     }
-
+    .accordion-item{
+        background: $dark-card-bg !important;
+        border-color:  $dark-border-color !important;
+    }
     .clipboard-success-message {
         background: rgba($dark-card-bg, .9);
     }
@@ -404,36 +416,29 @@ body.dark-mode {
     .popover{
         box-shadow: 0 0 20px -5px rgba($black,.6);
     }
-    .bs-popover-bottom .popover-header::before, .bs-popover-auto[x-placement^="bottom"] .popover-header::before{
-        border-color: $dark-border-color;
+    .bs-popover-top > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow::before{
+        border-top-color: $dark-border-color !important;
     }
-
-    .bs-popover-top > .arrow::before, .bs-popover-auto[x-placement^="top"] > .arrow::before{
-        border-top-color: $dark-border-color;
+    .bs-popover-top > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow::after{
+        border-top-color: $dark-card-bg !important;
     }
-    .bs-popover-top > .arrow::after, .bs-popover-auto[x-placement^="top"] > .arrow::after{
-        border-top-color: $dark-card-bg;
+    .bs-popover-bottom > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::before{
+        border-bottom-color: $dark-border-color !important;
     }
-
-    .bs-popover-bottom > .arrow::before, .bs-popover-auto[x-placement^="bottom"] > .arrow::before{
-        border-bottom-color: $dark-border-color;
+    .bs-popover-bottom > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::after{
+        border-bottom-color: $dark-card-bg !important;
     }
-    .bs-popover-bottom > .arrow::after, .bs-popover-auto[x-placement^="bottom"] > .arrow::after{
-        border-bottom-color: $dark-card-bg;
+    .bs-popover-end > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::before{
+        border-right-color: $dark-border-color !important;
     }
-
-    .bs-popover-right > .arrow::before, .bs-popover-auto[x-placement^="right"] > .arrow::before{
-        border-right-color: $dark-border-color;
+    .bs-popover-end > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::after{
+        border-right-color: $dark-card-bg !important;
     }
-    .bs-popover-right > .arrow::after, .bs-popover-auto[x-placement^="right"] > .arrow::after{
-        border-right-color: $dark-card-bg;
+    .bs-popover-start > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::before{
+        border-left-color: $dark-border-color !important;
     }
-
-    .bs-popover-left > .arrow::before, .bs-popover-auto[x-placement^="left"] > .arrow::before{
-        border-left-color: $dark-border-color;
-    }
-    .bs-popover-left > .arrow::after, .bs-popover-auto[x-placement^="left"] > .arrow::after{
-        border-left-color: $dark-card-bg;
+    .bs-popover-start > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::after{
+        border-left-color: $dark-card-bg !important;
     }
     .team-info li span:last-child,.team-statistics li span:first-child,.project-progress-percent,
     .kanban-title-content .title,
@@ -441,8 +446,8 @@ body.dark-mode {
     .card-tools-nav li a.active, 
     .card-tools-nav li.active a, 
     .card-amount .amount,
-    .accordion-head .title,.custom-file-label::after,
-    .input-mail,.form-control,.form-control:focus,.form-label,.form-label-outlined,.input-group-text,.table .thead-light th, .table-hover tbody tr:hover, 
+    .accordion-head .title,.form-file-label::after,
+    .input-mail,.form-control,.form-control:focus,.form-label,.form-label-outlined,.input-group-text,.table .table-light th, .table-hover tbody tr:hover, 
     .close,.close:hover,.user-name,.nk-news-text p,
     .data-item:hover .icon,
     .accordion-icon {
@@ -456,7 +461,7 @@ body.dark-mode {
     }
 
     .nk-block-des, .card-title p, .nk-sale-data .sub-title, .link-check li span, .data-value, 
-    .custom-file-label,.custom-select,.form-control-select-multiple .custom-select option,
+    .form-file-label,.form-select,.form-control-select-multiple .form-select option,
     .select2-container--default .select2-selection--single .select2-selection__rendered,
     .select2-container--default .select2-selection--multiple .select2-selection__rendered,
     .ui-timepicker-standard a,.note-placeholder,[class*="knob"],.tox .tox-tbtn:hover,
@@ -514,7 +519,7 @@ body.dark-mode {
     .nk-sidebar .nk-menu > li .nk-menu-sub .nk-menu-sub{
         border-color: $dark-border-color;
     }
-    .table .thead-light th,.page-item.disabled .page-link,.page-link:hover,.tb-odr-head,.tb-tnx-head,
+    .table .table-light th,.page-item.disabled .page-link,.page-link:hover,.tb-odr-head,.tb-tnx-head,
     .custom-control-input[disabled] ~ .custom-control-label::before, .custom-control-input:disabled ~ .custom-control-label::before {
         background-color: lighten($dark-card-bg, 11%) !important;
     }
@@ -523,8 +528,8 @@ body.dark-mode {
         background-color: lighten($dark-card-bg, 7%) !important;
     }
     .nk-msg-profile-toggle,
-    .custom-control-label::before,.form-control,.input-mail,.custom-file-label,.input-group-text,
-    .custom-select, .swal2-input, .swal2-file, .swal2-textarea,
+    .custom-control-label::before,.form-control,.input-mail,.form-file-label,.input-group-text,
+    .form-select, .swal2-input, .swal2-file, .swal2-textarea,
     .select2-container--default .select2-selection--single,
     .select2-container--default .select2-selection--multiple,.select2-dropdown,
     .note-popover .popover-content .dropdown-style > li[aria-label="pre"], 
@@ -578,6 +583,12 @@ body.dark-mode {
     }
     .ql-stroke {
         stroke: $base-400
+    }
+    .swal2-validation-message{
+        background: $dark-border-color;
+    }
+    .tb-tnx-item{
+        border-color: $dark-border-color !important;;
     }
     .team-info li span:first-child,.team-statistics li span:last-child,.project-progress-task,
     .table, .nk-tb-list, .nk-tb-list .tb-amount span, .nk-tb-list .tb-amount .currency,
@@ -665,6 +676,9 @@ body.dark-mode {
     .attach-info,.profile-stats .amount,.is-unread .chat-from .name{
         color: $white;
     }
+    .chat-upload-option{
+        background-color: $dark-card-bg;
+    }
     .nk-fmg-menu-item .icon, .nk-ibx-menu-item .icon {
         color: $base-400;
     }
@@ -714,7 +728,12 @@ body.dark-mode {
     .nk-msg,.nk-msg-head,.nk-msg-profile, .nk-fmg-switch{
         background: $dark-card-bg;
     }
-
+    .nk-files-view-list .nk-file.selected > div{
+        background: transparent;
+    }
+    .nk-files-view-list .nk-file.selected{
+        background: $dark-border-color;
+    }
     .nk-ibx-status .progress {
         background: $dark-card-bg !important;
     }
@@ -755,30 +774,49 @@ body.dark-mode {
     }
 
     // Full Calendar
-    .fc .fc-toolbar.fc-header-toolbar {
-        .fc-toolbar-chunk{
-          .btn{
-            color: $base-300;
+.fc{
+        table{
+            &.fc-scrollgrid{
+                border-color: $dark-border-color;
+            }
+            td,th{
+                border-color: $dark-border-color;
+            }
+        }
+        .fc-list-event:hover td{
+            background: $dark-body-bg;
+        }
+        &.fc-theme-bootstrap5 .fc-list{
             border-color: $dark-border-color;
-            &:disabled{
-              color: $base-300;
-              border-color:$dark-border-color;
-            }
-            &:hover, &:focus {
-                color: $white;
-                background: $dark-body-bg;
+        }
+        .fc-theme-bootstrap5-shaded{
+            background-color: $dark-border-color;
+        }
+        .fc-toolbar.fc-header-toolbar {
+            .fc-toolbar-chunk{
+              .btn{
+                color: $base-300;
                 border-color: $dark-border-color;
+                &:disabled{
+                  color: $base-300;
+                  border-color:$dark-border-color;
+                }
+                &:hover, &:focus {
+                    color: $white;
+                    background: $dark-body-bg;
+                    border-color: $dark-border-color;
+                }
+                &:focus {
+                    box-shadow: 0 0 0 0.2rem rgba($dark-border-color, 0.5);
+                }
+                &.active {
+                    color: $accent-color;
+                    border-color: $dark-border-color !important;
+                    background: $dark-body-bg;
+                    box-shadow: inset 0 0 4px -1px rgba($dark-border-color, .25);
+                }
+              }
             }
-            &:focus {
-                box-shadow: 0 0 0 0.2rem rgba($dark-border-color, 0.5);
-            }
-            &.active {
-                color: $accent-color;
-                border-color: $dark-border-color;
-                background: $dark-body-bg;
-                box-shadow: inset 0 0 4px -1px rgba($dark-border-color, .25);
-            }
-          }
         }
     }
     .fc-day{
@@ -794,7 +832,7 @@ body.dark-mode {
         background: $dark-body-bg;
     }
     .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror{
-        box-shadow: 0px 0px 0px 1px $darker;
+        box-shadow: none;
     }
 
     $colors: (
@@ -1138,6 +1176,19 @@ body.dark-mode {
     .noUi-active {
         box-shadow: inset 0 0 1px $black, inset 0 1px 7px $black, 0 3px 6px -3px $black;
     }
+     //   autocomplete indicator
+     input:-webkit-autofill,
+     input:-webkit-autofill:hover, 
+     input:-webkit-autofill:focus,
+     textarea:-webkit-autofill,
+     textarea:-webkit-autofill:hover,
+     textarea:-webkit-autofill:focus,
+     select:-webkit-autofill,
+     select:-webkit-autofill:hover,
+     select:-webkit-autofill:focus {
+         -webkit-text-fill-color: $white;
+         transition: background-color 5000s ease-in-out 0s;
+     }
 }
 
 @media (max-width: 576px) {
@@ -1146,6 +1197,32 @@ body.dark-mode {
             .toggle-expand-content{
                 background-color: lighten($dark-card-bg, 7%);
             }
+        }
+    }
+}
+
+//@ih / 27-06-22
+.dark-mode {
+    .pro-control .custom-control-label{
+        border-color: $dark-border-color;
+    }
+    .col{
+        &-sep{
+            > * + *{
+                border-color: $dark-border-color;
+            }
+            &-vr{
+                > * + *{
+                    border-color: $dark-border-color;
+                }
+            }
+        }
+    }
+    .page-item {
+        &.active .page-link {
+          color: $pagination-active-color !important;
+          background-color: $pagination-active-bg !important;
+          border-color: $pagination-active-border-color !important;
         }
     }
 }

@@ -11,12 +11,7 @@
   .select2-selection__rendered {
     display: inline-block;
     overflow: hidden;
-    @if($rtl==false){
-      padding-left: 8px;
-    }
-    @if($rtl==true){
-      padding-right: 8px;
-    }
+    padding-left: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }

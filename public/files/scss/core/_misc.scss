@@ -15,12 +15,7 @@
     .card .data-head:not(.is-plain) {
         margin-left: 0.75rem;
         margin-right: 0.75rem;
-        @if($rtl==false){
-            padding-left: 0.75rem;
-        }
-        @if($rtl==true){
-            padding-right: 0.75rem;
-        }
+        padding-left: 0.75rem;
     }
     .nav-tabs {
         box-shadow: 0 2px 0 -1px rgba($shadow-color-light, 0.06);
@@ -85,12 +80,7 @@
         top: 50%;
     }
     &:before{
-        @if($rtl==false){
-            right: 0;
-        }
-        @if($rtl==true){
-            left: 0;
-        }
+        right: 0;
         width: 3rem;
         height: 1.5rem;
         background-color: $custom-control-indicator-bg;
@@ -99,12 +89,7 @@
     &:after{
         height: 1rem;
         width: 1rem;
-        @if($rtl==false){
-            right: calc(2rem - #{$custom-control-indicator-border-width} - .125rem);
-        }
-        @if($rtl==true){
-            left: calc(2rem - #{$custom-control-indicator-border-width} - .125rem);
-        }
+        right: calc(2rem - #{$custom-control-indicator-border-width} - .125rem);
         background-color: $custom-control-indicator-border-color;
     }
     &.active{
@@ -113,12 +98,7 @@
             border-color: $accent-color;
         }
         &:after{
-            @if($rtl==false){
-                right: calc(#{$custom-control-indicator-border-width} + .125rem);
-            }
-            @if($rtl==true){
-                left: calc(#{$custom-control-indicator-border-width} + .125rem);
-            }
+            right: calc(#{$custom-control-indicator-border-width} + .125rem);
             background-color: $white;
         }
     }
@@ -127,24 +107,6 @@
 .is-scrollable {
     overflow: auto;
 }
-@if($rtl==true){
-    .ni {
-        &[class*="left"],&[class*="right"], &[class*="back-ios"], &[class*="forward-ios"]  {
-        transform: scale(-1);
-            .btn > span + & {
-                @if($rtl==false){
-                    padding-left: 0;
-                    padding-right: 8px;
-                }
-                @if($rtl==true){
-                    padding-right: 0;
-                    padding-left: 8px;
-                }
-            }
-        }
-    }
-}
-
 
 //@e-290
 // country region
@@ -204,4 +166,33 @@
             display: inline-flex;
         }
     }
+}
+
+// 
+.close {
+    float: right;
+    font-size: $close-font-size;
+    font-weight: $close-font-weight;
+    line-height: 1;
+    color: $close-color;
+    text-shadow: $close-text-shadow;
+    opacity: .5;
+    &:hover{
+        color: $close-color;
+        text-decoration: none;
+    }
+    &:not(:disabled):not(.disabled) {
+        &:hover-focus{
+            opacity: .75;
+        }
+    }
+  }
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}
+// popover
+.popover-header{
+    border-bottom: $popover-border-width solid darken($popover-header-bg, 5%);
 }

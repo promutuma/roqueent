@@ -12,12 +12,7 @@
     }
     &-item{
         width: 180px;
-        @if($rtl==false){
-            padding-right: 2rem;
-        }
-        @if($rtl==true){
-            padding-left: 2rem;
-        }
+        padding-right: 2rem;
         padding-bottom: 0.5rem;
         a{
             display: flex;
@@ -28,12 +23,7 @@
         .icon{
             font-size: 1.5rem;
             color: $accent-color;
-            @if($rtl==false){
-                margin-right: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-left: 0.75rem;
-            }
+            margin-right: 0.75rem;
         }
         span{
             @extend .ellipsis;

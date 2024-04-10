@@ -1,4 +1,22 @@
 .table {
+    &-striped tbody tr:nth-of-type(odd) {
+        background-color: $lighter;
+    }
+    > :not(caption) > * > *{
+        border-top: 1px solid $table-border-color;
+        border-bottom: 0;
+        background-color: $white;
+    }
+    &-hover tbody tr:hover {
+        color: $secondary-light;
+        background-color: $lighter;
+    }
+    &-head{
+        background: $lighter;
+    }
+    > :not(:first-child) {
+        border-top: none; 
+    }
     thead tr:last-child{
         th{
             border-bottom: $table-border-width solid $table-border-color;
@@ -9,20 +27,10 @@
     }
     td,th{
         &:first-child{
-            @if($rtl==false){
-                padding-left: $table-cell-padding-x-sm;
-            }
-            @if($rtl==true){
-                padding-right: $table-cell-padding-x-sm;
-            }
+            padding-left: $table-cell-padding-x-sm;
         }
         &:last-child{
-            @if($rtl==false){
-                padding-right: $table-cell-padding-x-sm;
-            }
-            @if($rtl==true){
-                padding-left: $table-cell-padding-x-sm;
-            }
+            padding-right: $table-cell-padding-x-sm;
         }
     }
 
@@ -35,12 +43,7 @@
     }
     caption {
         font-style: italic;
-        @if($rtl==false){
-            padding-left: $table-cell-padding-x-sm;
-        }
-        @if($rtl==true){
-            padding-right: $table-cell-padding-x-sm;
-        }
+        padding-left: $table-cell-padding-x-sm;
     }
     &-bordered {
         td, th {
@@ -51,20 +54,10 @@
     &-plain {
         td, th{
             &:first-child{
-                @if($rtl==false){
-                    padding-left: 0;
-                }
-                @if($rtl==true){
-                    padding-right: 0;
-                }
+                padding-left: 0;
             }
             &:last-child{
-                @if($rtl==false){
-                    padding-right: 0;
-                }
-                @if($rtl==true){
-                    padding-left: 0;
-                }
+                padding-right: 0;
             }
         }
     }
@@ -86,21 +79,25 @@
     .table {
         &-lg td, &-lg th {
             &:first-child{
-                @if($rtl==false){
-                    padding-left: ($table-cell-padding-sm + $table-cell-padding-x-sm);
-                }
-                @if($rtl==true){
-                    padding-right: ($table-cell-padding-sm + $table-cell-padding-x-sm);
-                }
+                padding-left: ($table-cell-padding-sm + $table-cell-padding-x-sm);
             }
             &:last-child{
-                @if($rtl==false){
-                    padding-right: ($table-cell-padding-sm + $table-cell-padding-x-sm);
-                }
-                @if($rtl==true){
-                    padding-left: ($table-cell-padding-sm + $table-cell-padding-x-sm);
-                }
+                padding-right: ($table-cell-padding-sm + $table-cell-padding-x-sm);
             }
         }
     }
+}
+.table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody {
+    border: 0;
+}
+.table > :not(caption) > * > *{
+    box-shadow: none;
+}
+.table-sm th, .table-sm td{
+    padding: 0.25rem;
+}
+.table .table-light th {
+    color: $base-color !important;
+    background-color: $lighter;
+    border: $light-300;
 }

@@ -31,7 +31,8 @@
   .dual-listbox__buttons {
       display: flex;
       flex-direction: column;
-      margin: 0 10px;
+      margin: 10px;
+      padding: 10px 10px 0;
   }
 
   .dual-listbox__button {
@@ -70,6 +71,41 @@
     &:active,
     &.dual-listbox__item--selected {
       @extend .bg-primary-dim;
+    }
+  }
+}
+@include media-breakpoint-between(sm,lg){
+  .dual-listbox{
+    .dual-listbox__container{
+      flex-wrap: nowrap;
+      > div:not(.dual-listbox__buttons){
+        width: 100%;
+      }
+    }
+    .dual-listbox__available, .dual-listbox__selected{
+      width: auto;
+    }
+    .dual-listbox__buttons{
+      margin: 10px auto;
+    }
+  } 
+  .dual-listbox__buttons{
+    flex-shrink: 0;
+  }
+}
+
+@include media-breakpoint-down(sm){
+  .dual-listbox{
+    .dual-listbox__container{
+      > div:not(.dual-listbox__buttons){
+        width: 100%;
+      }
+    }
+    .dual-listbox__available, .dual-listbox__selected{
+      width: 100%;
+    }
+    .dual-listbox__buttons{
+      margin: 10px auto 0;
     }
   }
 }

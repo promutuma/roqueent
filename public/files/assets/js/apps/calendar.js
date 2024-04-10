@@ -1,12 +1,12 @@
 "use strict";
 
 !function (NioApp, $) {
-  "use strict"; // Variable
+  "use strict";
 
+  // Variable
   var $win = $(window),
-      $body = $('body'),
-      breaks = NioApp.Break;
-
+    $body = $('body'),
+    breaks = NioApp.Break;
   NioApp.Calendar = function () {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -42,7 +42,7 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       timeZone: 'UTC',
       initialView: mobileView ? 'listWeek' : 'dayGridMonth',
-      themeSystem: 'bootstrap',
+      themeSystem: 'bootstrap5',
       headerToolbar: {
         left: 'title prev,next',
         center: null,
@@ -61,20 +61,25 @@
       direction: NioApp.State.isRTL ? "rtl" : "ltr",
       nowIndicator: true,
       now: TODAY + 'T09:25:00',
-      eventDragStart: function eventDragStart(info) {
-        $('.popover').popover('hide');
-      },
       eventMouseEnter: function eventMouseEnter(info) {
-        $(info.el).popover({
-          template: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-          title: info.event._def.title,
-          content: info.event._def.extendedProps.description,
-          placement: 'top'
-        });
-        info.event._def.extendedProps.description ? $(info.el).popover('show') : $(info.el).popover('hide');
+        var elm = info.el,
+          title = info.event._def.title,
+          content = info.event._def.extendedProps.description;
+        if (content) {
+          var fcPopover = new bootstrap.Popover(elm, {
+            template: '<div class="popover event-popover"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+            title: title,
+            content: content ? content : '',
+            placement: 'top'
+          });
+          fcPopover.show();
+        }
       },
-      eventMouseLeave: function eventMouseLeave(info) {
-        $(info.el).popover('hide');
+      eventMouseLeave: function eventMouseLeave() {
+        removePopover();
+      },
+      eventDragStart: function eventDragStart() {
+        removePopover();
       },
       eventClick: function eventClick(info) {
         // Get data
@@ -90,11 +95,10 @@
         var endTime = end.toUTCString().split(' ');
         endTime = endTime[endTime.length - 2];
         endTime = endTime == '00:00:00' ? '' : endTime;
-
         var className = info.event._def.ui.classNames[0].slice(3);
+        var eventId = info.event._def.publicId;
 
-        var eventId = info.event._def.publicId; //Set data in eidt form
-
+        //Set data in eidt form
         $('#edit-event-title').val(title);
         $('#edit-event-start-date').val(startDate).datepicker('update');
         $('#edit-event-end-date').val(endDate).datepicker('update');
@@ -103,8 +107,9 @@
         $('#edit-event-description').val(description);
         $('#edit-event-theme').val(className);
         $('#edit-event-theme').trigger('change.select2');
-        editEventForm.attr('data-id', eventId); // Set data in preview
+        editEventForm.attr('data-id', eventId);
 
+        // Set data in preview
         var previewStart = String(start.getDate()).padStart(2, '0') + ' ' + month[start.getMonth()] + ' ' + start.getFullYear() + (startTime ? ' - ' + to12(startTime) : '');
         var previewEnd = String(end.getDate()).padStart(2, '0') + ' ' + month[end.getMonth()] + ' ' + end.getFullYear() + (endTime ? ' - ' + to12(endTime) : '');
         $('#preview-event-title').text(title);
@@ -113,8 +118,12 @@
         $('#preview-event-end').text(previewEnd);
         $('#preview-event-description').text(description);
         !description ? $('#preview-event-description-check').css('display', 'none') : null;
+        removePopover();
+        var fcMorePopover = document.querySelectorAll('.fc-more-popover');
+        fcMorePopover && fcMorePopover.forEach(function (elm) {
+          elm.remove();
+        });
         previewEventPopup.modal('show');
-        $('.popover').popover('hide');
       },
       events: [{
         id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
@@ -201,7 +210,9 @@
         description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
       }]
     });
-    calendar.render(); //Add event
+    calendar.render();
+
+    //Add event
 
     addEventBtn.on("click", function (e) {
       e.preventDefault();
@@ -214,7 +225,6 @@
       var eventTheme = $('#event-theme').val();
       var eventStartTimeCheck = eventStartTime ? 'T' + eventStartTime + 'Z' : '';
       var eventEndTimeCheck = eventEndTime ? 'T' + eventEndTime + 'Z' : '';
-      console.log(eventStartTime);
       calendar.addEvent({
         id: 'added-event-id-' + Math.floor(Math.random() * 9999999),
         title: eventTitle,
@@ -253,31 +263,30 @@
       var selectEvent = calendar.getEventById(editEventForm[0].dataset.id);
       selectEvent.remove();
     });
-
+    function removePopover() {
+      var fcPopover = document.querySelectorAll('.event-popover');
+      fcPopover.forEach(function (elm) {
+        elm.remove();
+      });
+    }
     function to12(time) {
       time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
       if (time.length > 1) {
         time = time.slice(1);
         time.pop();
         time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
-
         time[0] = +time[0] % 12 || 12;
       }
-
       time = time.join('');
       return time;
     }
-
     function customCalSelect(cat) {
       if (!cat.id) {
         return cat.text;
       }
-
       var $cat = $('<span class="fc-' + cat.element.value + '"> <span class="dot"></span>' + cat.text + '</span>');
       return $cat;
     }
-
     ;
     NioApp.Select2('.select-calendar-theme', {
       templateResult: customCalSelect
@@ -293,6 +302,5 @@
       $('#preview-event-header').removeClass().addClass('modal-header');
     });
   };
-
   NioApp.coms.docReady.push(NioApp.Calendar);
 }(NioApp, jQuery);

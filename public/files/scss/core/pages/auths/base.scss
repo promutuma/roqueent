@@ -34,12 +34,7 @@
     .nk-auth{
         &-body,&-footer{
             .nk-split & {
-                @if($rtl==false){
-                    margin-right: 90px;
-                }
-                @if($rtl==true){
-                    margin-left: 90px;
-                }
+                margin-right: 90px;
             }
         }
     }

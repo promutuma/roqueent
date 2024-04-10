@@ -14,12 +14,7 @@ $invoice-margin-bottom: 1.5rem !default;
     }
     &-action {
         position: absolute;
-		@if($rtl==false){
-			right: 1.25rem;
-		}
-		@if($rtl==true){
-			left: 1.25rem;
-		}
+		right: 1.25rem;
         top: 1.25rem;
     }
     &-brand {
@@ -41,12 +36,7 @@ $invoice-margin-bottom: 1.5rem !default;
 			}
 			th, td {
 				&:last-child {
-					@if($rtl==false){
-						text-align: right;
-					}
-					@if($rtl==true){
-						text-align: left;
-					}
+					text-align: right;
 				}
 			}
 			tfoot {
@@ -101,12 +91,7 @@ $invoice-margin-bottom: 1.5rem !default;
                     color: $base-light;
                 }
                 &:last-child {
-					@if($rtl==false){
-						padding-left: 0.75rem;
-					}
-					@if($rtl==true){
-						padding-right: 0.75rem;
-					}
+					padding-left: 0.75rem;
                 }
             }
         }
@@ -134,12 +119,7 @@ $invoice-margin-bottom: 1.5rem !default;
 			    vertical-align: top;
 			    margin-top: -2px;
 			    color: $accent-color;
-				@if($rtl==false){
-					margin-right: .5rem;
-                }
-                @if($rtl==true){
-					margin-left: .5rem;
-                }
+				margin-right: .5rem;
 			    + span {
 		    	    display: inline-block;
 					vertical-align: top;

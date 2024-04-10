@@ -70,12 +70,7 @@ $select2-arrow-up:              $ni-chevron-up !default;
   padding: 0;
   display: block;
   position: fixed;
-  @if($rtl==false){
-    left: 0;
-  }
-  @if($rtl==true){
-    right: 0;
-  }
+  left: 0;
   top: 0;
   min-height: 100%;
   min-width: 100%;

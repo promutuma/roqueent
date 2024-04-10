@@ -16,19 +16,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="<?php echo base_url() ?>files/images/favicon.png">
+
     <!-- Page Title  -->
     <title><?php echo $title ?> | Camera20 POS</title>
+
     <!-- StyleSheets  -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>files/assets/css/dashlite.css?ver=2.9.1">
-
-    <link rel="stylesheet" href="<?php echo base_url() ?>files/js/libs/datatable-btns.js">
-    <link id="skin-default" rel="stylesheet" href="<?php echo base_url() ?>files/assets/css/theme.css?ver=2.9.1">
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link rel="stylesheet" href="<?php echo base_url() ?>files/assets/css/dashlite.css?ver=3.2.3">
+    <link id="skin-default" rel="stylesheet" href="<?php echo base_url() ?>files/assets/css/theme.css?ver=3.2.3">
 
 </head>
 
@@ -40,7 +37,7 @@
             <div class="nk-header is-light">
                 <div class="container-fluid">
                     <div class="nk-header-wrap">
-                        <div class="nk-menu-trigger mr-sm-2 d-lg-none">
+                        <div class="nk-menu-trigger me-sm-2 d-lg-none">
                             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-menu"></em></a>
                         </div>
                         <div class="nk-header-brand">
@@ -49,7 +46,7 @@
                                 <img class="logo-dark logo-img" src="<?php echo base_url() ?>/files/images/logo-dark.png" srcset="<?php echo base_url() ?>/files/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
                         </div><!-- .nk-header-brand -->
-                        <div class="nk-header-menu ml-auto" data-content="headerNav">
+                        <div class="nk-header-menu ms-auto" data-content="headerNav">
                             <div class="nk-header-mobile">
                                 <div class="nk-header-brand">
                                     <a href="html/index.html" class="logo-link">
@@ -57,8 +54,8 @@
                                         <img class="logo-dark logo-img" src="<?php echo base_url() ?>/files/images/logo-dark.png" srcset="<?php echo base_url() ?>/files/images/logo-dark2x.png 2x" alt="logo-dark">
                                     </a>
                                 </div>
-                                <div class="nk-menu-trigger mr-n2">
-                                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-arrow-left"></em></a>
+                                <div class="nk-menu-trigger me-n2">
+                                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-bs-target="headerNav"><em class="icon ni ni-arrow-left"></em></a>
                                 </div>
                             </div>
                             <ul class="nk-menu nk-menu-main ui-s2">
@@ -94,14 +91,11 @@
                                         <span class="nk-menu-text">Expenses</span>
                                     </a>
                                     <ul class="nk-menu-sub">
-
-
                                         <li class="nk-menu-item">
                                             <a href="/html/expense-list.html" class="nk-menu-link">
                                                 <span class="nk-menu-text">View Expense</span>
                                             </a>
                                         </li><!-- .nk-menu-item -->
-
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item has-sub">
@@ -134,17 +128,15 @@
                         </div><!-- .nk-header-menu -->
                         <div class="nk-header-tools">
                             <ul class="nk-quick-nav">
-
-
                                 <li class="dropdown user-dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <div class="user-toggle">
                                             <div class="user-avatar sm">
                                                 <em class="icon ni ni-user-alt"></em>
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right dropdown-menu-s1 is-light">
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1 is-light">
                                         <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                             <div class="user-card">
                                                 <div class="user-avatar">
@@ -170,7 +162,7 @@
                                                 <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
                                                 <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                                 <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                                <li><a class="dark-mode-switch" href=""><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                                <!-- <li><a class="dark-mode-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> -->
                                             </ul>
                                         </div>
                                         <div class="dropdown-inner">
@@ -210,8 +202,8 @@
                         <div class="nk-footer-links">
                             <ul class="nav nav-sm">
                                 <li class="nav-item dropup">
-                                    <a herf="#" class="dropdown-toggle dropdown-indicator has-indicator nav-link" data-toggle="dropdown" data-offset="0,10"><span>English</span></a>
-                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                    <a herf="#" class="dropdown-toggle dropdown-indicator has-indicator nav-link" data-bs-toggle="dropdown" data-offset="0,10"><span>English</span></a>
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
                                         <ul class="language-list">
                                             <li>
                                                 <a href="#" class="language-item">
@@ -237,7 +229,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" data-toggle="modal" data-target="#region" class="nav-link"><em class="icon ni ni-globe"></em><span class="ml-1">Select Region</span></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#region" class="nav-link"><em class="icon ni ni-globe"></em><span class="ml-1">Select Region</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -254,7 +246,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="region">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
                     <h5 class="title mb-4">Select Your Country</h5>
                     <div class="nk-country-region">
@@ -373,10 +365,48 @@
             </div><!-- .modal-content -->
         </div><!-- .modla-dialog -->
     </div><!-- .modal -->
+
     <!-- JavaScript -->
-    <script src="<?php echo base_url() ?>/files/assets/js/bundle.js?ver=2.9.1"></script>
-    <script src="<?php echo base_url() ?>/files/assets/js/scripts.js?ver=2.9.1"></script>
-    <script src="<?php echo base_url() ?>/files/assets/js/charts/gd-invest.js?ver=2.9.1"></script>
+    <script src="<?php echo base_url() ?>/files/assets/js/bundle.js?ver=3.2.3"></script>
+    <script src="<?php echo base_url() ?>/files/assets/js/scripts.js?ver=3.2.3"></script>
+    <script src="<?php echo base_url() ?>/files/assets/js/charts/gd-invest.js?ver=3.2.3"></script>
+    <script src="<?php echo base_url() ?>/files/assets/js/libs/datatable-btns.js?ver=3.2.3"></script>
 </body>
+
+
+<!-- Show success toast -->
+<?php if (session()->get('success')) : ?>
+    <script>
+        NioApp.Toast("<?= session()->get('success'); ?>", 'success', {
+            position: 'top-center',
+            icon: 'auto',
+            ui: 'is-dark'
+        });
+    </script>
+<?php endif; ?>
+
+<!-- Show error toast -->
+<?php if (session()->get('error')) : ?>
+    <script>
+        NioApp.Toast("<?= session()->get('error'); ?>", 'error', {
+            position: 'top-center',
+            icon: 'auto',
+            ui: 'is-dark'
+        });
+    </script>
+<?php endif; ?>
+
+<script>
+    function updateToken(ct) {
+        let forms = document.forms;
+
+        for (let form of forms) {
+            let csrfInput = form.querySelector('input[name="<?= csrf_token(); ?>"]');
+            if (csrfInput) {
+                csrfInput.value = ct;
+            }
+        }
+    }
+</script>
 
 </html>

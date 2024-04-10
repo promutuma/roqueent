@@ -17,12 +17,7 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        @if($rtl==false){
-            right: 1rem;
-        }
-        @if($rtl==true){
-            left: 1rem;
-        }
+        right: 1rem;
         font-family: $nk-dashlite-font;
     }
 }
@@ -215,14 +210,8 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
             position: absolute;
             font-size: 1rem;
             font-family: $nk-dashlite-font;
-            @if($rtl==false){
-                content: $link-list-menu-icon-ltr;
-                right: 1.25rem;
-            }
-            @if($rtl==true){
-                content: $link-list-menu-icon-rtl;
-                left: 1.25rem;
-            }
+            content: $link-list-menu-icon-ltr;
+            right: 1.25rem;
             color: $base-light;
             transition: .3s ease;
         }
@@ -236,6 +225,9 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
     }
     li.active > a, a.active, a:hover, li.active > a .icon, a.active .icon, a:hover .icon, li.active > a:after, a.active:after, a:hover:after {
          color: $accent-color;
+    }
+    &.nav {
+        display: block;
     }
 }
 
@@ -303,22 +295,12 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
 @each $li_col in $li_cols {
     .link-list-plain.li-col#{$li_col}x{
         > li{
-            @if($rtl==false){
-                border-right: 1px solid $border-light;
-            }
-            @if($rtl==true){
-                border-left: 1px solid $border-light;
-            }
+            border-right: 1px solid $border-light;
             border-bottom: 1px solid $border-light;
             border-top: 0;
         }
         > li:nth-child(#{$li_col}n) {
-            @if($rtl==false){
-                border-right: none;
-            }
-            @if($rtl==true){
-                border-left: none;
-            }
+            border-right: none;
         }
     }
 }

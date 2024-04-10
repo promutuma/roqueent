@@ -332,12 +332,7 @@
     z-index: 20;
     position: absolute;
     top: 0;
-    @if($rtl==false){
-        left: 0;
-    }
-    @if($rtl==true){
-        right: 0;
-    }
+    left: 0;
     opacity: 0;
     font-size: 13px;
     min-width: 100%;

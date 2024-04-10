@@ -38,19 +38,21 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
 .accordion {
     border-radius: $border-radius;
     border: 1px solid $border-color;
-    background: $white; 
+    background: $accordion-bg;; 
     &-heading {
         padding-bottom: 1.5rem;
     }
     &-body {
         border-radius: $border-radius;
+        padding: 0;
     }
     &-item {
+        border: none;
         &:not(:last-child){
             .accordion-head {
                 border-bottom: 1px solid $border-color;
             }
-            .accordion-inner {
+            .accordion-inner{
                 border-bottom: 1px solid $border-color;
             }
         }
@@ -61,12 +63,7 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
         }
     }
     &-head {
-        @if($rtl==false){
-            padding: $accordion-head-gap-y $accordion-head-gap-r $accordion-head-gap-y $accordion-head-gap-l;
-        }
-        @if($rtl==true){
-            padding: $accordion-head-gap-y $accordion-head-gap-l $accordion-head-gap-y $accordion-head-gap-r;
-        }
+        padding: $accordion-head-gap-y $accordion-head-gap-r $accordion-head-gap-y $accordion-head-gap-l;
         display: block;
         position: relative;
         .title {
@@ -86,12 +83,7 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
     }
     &-icon {
         position: absolute;
-        @if($rtl==false){
-            right: 1rem;
-        }
-        @if($rtl==true){
-            left: 1rem;
-        }
+        right: 1rem;
         top: 50%;
         font-size: 1rem;
         color: $base-color;
@@ -120,12 +112,7 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
             padding: $accordion-inner-gap-y $accordion-inner-gap-md-x ($accordion-inner-gap-y * 1.25);
         }
         &-icon {
-            @if($rtl==false){
-                right: 1.5rem;
-            }
-            @if($rtl==true){
-                left: 1.5rem;
-            }
+            right: 1.5rem;
         }
     }
 }
@@ -134,23 +121,13 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
 .accordion-s2{
     border: none;  
     .accordion-icon {
-        @if($rtl==false){
-            right: 0;
-        }
-        @if($rtl==true){
-            left: 0;
-        }
+        right: 0;
         &:before{
             content: $accordion-s2-icon;
         }
     }
     .accordion-head{
-        @if($rtl==false){
-            padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-r $accordion-s2-head-gap-y $accordion-s2-head-gap-l;
-        }
-        @if($rtl==true){
-            padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-l $accordion-s2-head-gap-y $accordion-s2-head-gap-r;
-        }
+        padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-r $accordion-s2-head-gap-y $accordion-s2-head-gap-l;
         border: none !important;
         .title{
             font-size: 1.1rem;
@@ -177,12 +154,7 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
     .accordion-s2{
         .accordion {
             &-head {
-                @if($rtl==false){
-                    padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-md-r $accordion-s2-head-gap-y $accordion-s2-head-gap-md-l;
-                }
-                @if($rtl==true){
-                    padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-md-l $accordion-s2-head-gap-y $accordion-s2-head-gap-md-r;
-                }
+                padding: $accordion-s2-head-gap-y $accordion-s2-head-gap-md-r $accordion-s2-head-gap-y $accordion-s2-head-gap-md-l;
             }
             &-inner {
                 padding: $accordion-s2-inner-gap-y $accordion-s2-inner-gap-md-x ($accordion-s2-inner-gap-y * 1.25);
@@ -195,25 +167,14 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
 .accordion-s3{
     border: none;  
     .accordion-icon {
-        @if($rtl==false){
-            left: 0;
-            right: auto;
-        }
-        @if($rtl==true){
-            right: 0;
-            left: auto;
-        }
+        left: 0;
+        right: auto;
         &:before{
             content: $accordion-s3-icon;
         }
     }
     .accordion-head{
-        @if($rtl==false){
-            padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-r $accordion-s3-head-gap-y $accordion-s3-head-gap-l;
-        }
-        @if($rtl==true){
-            padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-l $accordion-s3-head-gap-y $accordion-s3-head-gap-r;
-        }
+        padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-r $accordion-s3-head-gap-y $accordion-s3-head-gap-l;
         border: none !important;
         .title{
             font-size: 1.1rem;
@@ -240,12 +201,7 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
     .accordion-s3{
         .accordion {
             &-head {
-                @if($rtl==false){
-                    padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-md-r $accordion-s3-head-gap-y $accordion-s3-head-gap-md-l;
-                }
-                @if($rtl==true){
-                    padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-md-l $accordion-s3-head-gap-y $accordion-s3-head-gap-md-r;
-                }
+                padding: $accordion-s3-head-gap-y $accordion-s3-head-gap-md-r $accordion-s3-head-gap-y $accordion-s3-head-gap-md-l;
             }
             &-inner {
                 padding: $accordion-s3-inner-gap-y $accordion-s3-inner-gap-md-x ($accordion-s3-inner-gap-y * 1.25);

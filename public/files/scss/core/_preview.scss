@@ -4,12 +4,7 @@
     display: block;
     color: $base-light;
     padding:.15rem 1.25rem;
-    @if($rtl==false){
-        border-left: 1px solid $border-light;
-    }
-    @if($rtl==true){
-        border-right: 1px solid $border-light;
-    }
+    border-left: 1px solid $border-light;
 }
 //
 .dashboard-preview{
@@ -56,12 +51,7 @@
     .clipboard-init{
         position: absolute;
         top: 12px;
-        @if($rtl==false){
-            right: 12px;
-        }
-        @if($rtl==true){
-            left: 12px;
-        }
+        right: 12px;
     }
     .card-preview + &{
         margin-top: 28px;
@@ -122,15 +112,11 @@
             position: relative;
             padding: 25px 20px;
             text-align: center;
+            border: 1px solid $border-color;
             .btn-clipboard{
                 position: absolute;
                 top: 0;
-                @if($rtl==false){
-                    right: 0;
-                }
-                @if($rtl==true){
-                    left: 0;
-                }
+                right: 0;
                 opacity: 0;
                 z-index: 1;
                 &:focus{
@@ -239,12 +225,7 @@
         & > div {
             width: 8rem;
             background-color: $light;
-            @if($rtl==false){
-                margin-right: .5rem;
-            }
-            @if($rtl==true){
-                margin-left: .5rem;
-            }
+            margin-right: .5rem;
         }
     }
     &-spacing {
@@ -255,12 +236,7 @@
             margin-bottom: .5rem;
         }
         &-pd > div {
-            @if($rtl==false){
-                margin-right: .5rem;
-            }
-            @if($rtl==true){
-                margin-left: .5rem;
-            }
+            margin-right: .5rem;
             height: auto;
             width: auto;
             > span {
@@ -310,7 +286,7 @@
         }
     }
 }
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .preview {
         &-reference {
             tr, th, td {

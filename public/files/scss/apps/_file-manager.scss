@@ -19,16 +19,9 @@ $file-desc-sap:           $ni-dot !default;
         max-height: 100%;
         background: $white;
         flex-shrink: 0;
-        @if($rtl==false){
-            left: 0;
-            transform: translateX(-100%);
-            border-right: 1px solid $border-light;
-        }
-        @if($rtl==true){
-            right: 0;
-            transform: translateX(100%);
-            border-left: 1px solid $border-light;
-        }
+        left: 0;
+        transform: translateX(-100%);
+        border-right: 1px solid $border-light;
         z-index: 99;
         top: $header-height;
         transition: transform .4s linear;
@@ -81,12 +74,7 @@ $file-desc-sap:           $ni-dot !default;
                 color: $base-light;
             }
             .badge{
-                @if($rtl==false){
-                    margin-left: auto;
-                }
-                @if($rtl==true){
-                    margin-right: auto;
-                }
+                margin-left: auto;
                 min-width: 2.25rem;
             }
             .active > &{
@@ -107,21 +95,10 @@ $file-desc-sap:           $ni-dot !default;
         li ul {
             margin-top: -0.125rem;
             margin-bottom: 0.5rem;
-            @if($rtl==false){
-                padding-left: 2.75rem;
-            }
-            @if($rtl==true){
-                padding-right: 2.75rem;
-            }
+            padding-left: 2.75rem;
             ul {
-                @if($rtl==false){
-                    padding-left: .75rem;
-                    border-left: 1px solid $border-light;
-                }
-                @if($rtl==true){
-                    padding-right: .75rem;
-                    border-right: 1px solid $border-light;
-                }
+                padding-left: .75rem;
+                border-left: 1px solid $border-light;
             }
             .nk-fmg-menu{
                 &-item {
@@ -150,12 +127,7 @@ $file-desc-sap:           $ni-dot !default;
             margin-bottom: 1rem;
             .icon{
                 font-size: 1.25rem;
-                @if($rtl==false){
-                    margin-right: .75rem;
-                }
-                @if($rtl==true){
-                    margin-left: .75rem;
-                }
+                margin-right: .75rem;
             }
         }
         &-info{
@@ -182,12 +154,7 @@ $file-desc-sap:           $ni-dot !default;
             z-index: 9;
             position: relative;
             top: 0;
-            @if($rtl==false){
-                border-top-right-radius: $border-radius;
-            }
-            @if($rtl==true){
-                border-top-left-radius: $border-radius;
-            }
+            border-top-right-radius: $border-radius;
         }
         &-content{
             padding:1.125rem 1.25rem;
@@ -229,12 +196,7 @@ $file-desc-sap:           $ni-dot !default;
                 align-items: flex-start;
                 &:after{
                     position: absolute;
-                    @if($rtl==false){
-                        right: 1.5rem;
-                    }
-                    @if($rtl==true){
-                        left: 1.5rem;
-                    }
+                    right: 1.5rem;
                     top: 50%;
                     transform: translateY(-50%);
                     font-size: 1rem;
@@ -266,27 +228,15 @@ $file-desc-sap:           $ni-dot !default;
 }
 @include media-breakpoint-up(lg){
     .nk-fmg{
-        @if($rtl==false){
-            padding-left: $fmg-aside-width;
-        }
-        @if($rtl==true){
-            padding-right: $fmg-aside-width;
-        }
+        padding-left: $fmg-aside-width;
         &-aside {
             transform: none;
             transition: none;
             width: $fmg-aside-width;
             position: absolute;
-            @if($rtl==false){
-                left: 0;
-                border-top-left-radius: $border-radius;
-                border-bottom-left-radius: $border-radius;
-            }
-            @if($rtl==true){
-                right: 0;
-                border-top-right-radius: $border-radius;
-                border-bottom-right-radius: $border-radius;
-            }
+            left: 0;
+            border-top-left-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
             top: 0;
             min-height: 100%;
             max-height: 100%;
@@ -307,12 +257,7 @@ $file-desc-sap:           $ni-dot !default;
 }
 @include media-breakpoint-up(xl){
     .nk-fmg{
-        @if($rtl==false){
-            padding-left: $fmg-aside-width-small;
-        }
-        @if($rtl==true){
-            padding-right: $fmg-aside-width-small;
-        }
+        padding-left: $fmg-aside-width-small;
         &-filter.toggle-expand-content {
             display: block !important;
         }
@@ -324,19 +269,14 @@ $file-desc-sap:           $ni-dot !default;
 
 @media (min-width: 992px) and (max-width: 1360px) {
     .nk-fmg{
-        @if($rtl==false){
-            padding-left: $fmg-aside-width-small;
-        }
-        @if($rtl==true){
-            padding-right: $fmg-aside-width-small;
-        }
+        padding-left: $fmg-aside-width-small;
         &-aside {
             width: $fmg-aside-width-small;
         }
     }
 }
 
-@include media-breakpoint-between(sm,md){
+@include media-breakpoint-between(sm,lg){
     .nk-fmg{
         &-aside {
             width: 320px;
@@ -368,12 +308,7 @@ $file-desc-sap:           $ni-dot !default;
         }
     }
     &-icon {
-        @if($rtl==false){
-            margin-right: 8px;
-        }
-        @if($rtl==true){
-            margin-left: 8px;
-        }
+        margin-right: 8px;
         flex-shrink: 0;
         &-link {
             display: block;
@@ -402,12 +337,7 @@ $file-desc-sap:           $ni-dot !default;
         position: relative;
         line-height: 1.4;
         &-text {
-            @if($rtl==false){
-                padding-right: 1.5rem;
-            }
-            @if($rtl==true){
-                padding-left: 1.5rem;
-            }
+            padding-right: 1.5rem;
             display: inline-block;
             .title {
                 transition: color .3s;
@@ -429,12 +359,7 @@ $file-desc-sap:           $ni-dot !default;
         .asterisk{
             position: absolute;
             display: inline-flex;
-            @if($rtl==false){
-                margin-left: .5rem;
-            }
-            @if($rtl==true){
-                margin-right: .5rem;
-            }
+            margin-left: .5rem;
             transition: .3s opacity;
             margin-top: -1px;
             top: 50%;
@@ -461,12 +386,7 @@ $file-desc-sap:           $ni-dot !default;
                 content:$file-desc-sap;
                 font-family: $nk-dashlite-font;
                 position: absolute;
-                @if($rtl==false){
-                    left: 0;
-                }
-                @if($rtl==true){
-                    right: 0;
-                }
+                left: 0;
                 top: 50%;
                 font-size: 11px;
                 line-height: 10px;
@@ -517,12 +437,7 @@ $file-desc-sap:           $ni-dot !default;
         &-input {
             display: flex;
             .label{
-                @if($rtl==false){
-                    margin:.3rem .5rem .3rem 0;
-                }
-                @if($rtl==true){
-                    margin:.3rem 0 .3rem .5rem;
-                }
+                margin:.3rem .5rem .3rem 0;
                 width: 1.25rem;
                 color: $base-light;
             }
@@ -625,21 +540,11 @@ $file-desc-sap:           $ni-dot !default;
                 font-weight: $fw-medium;
                 font-size: 0.8125rem;
                 padding: 0.25rem;
-                @if($rtl==false){
-                    &:first-child{
-                        padding-left: 0;
-                    }
-                    &:last-child{
-                        padding-right: .5rem;
-                    }
+                &:first-child{
+                    padding-left: 0;
                 }
-                @if($rtl==true){
-                    &:first-child{
-                        padding-right: 0;
-                    }
-                    &:last-child{
-                        padding-left: .5rem;
-                    }
+                &:last-child{
+                    padding-right: .5rem;
                 }
             }
         }
@@ -669,12 +574,7 @@ $file-desc-sap:           $ni-dot !default;
                 height: 4rem;
                 background-color: $white;
                 &:first-child{
-                    @if($rtl==false){
-                        padding-left: 1.25rem;
-                    }
-                    @if($rtl==true){
-                        padding-right: 1.25rem;
-                    }
+                    padding-left: 1.25rem;
                 }
                 &.nk-file-info {
                     padding-top: 0.125rem;
@@ -683,41 +583,21 @@ $file-desc-sap:           $ni-dot !default;
             }
             &:first-child{
                 > div{
-                    @if($rtl==false){
-                        &:first-child{
-                            border-top-left-radius: $border-radius;
-                        }
-                        &:last-child{
-                            border-top-right-radius: $border-radius;
-                        }
+                    &:first-child{
+                        border-top-left-radius: $border-radius;
                     }
-                    @if($rtl==true){
-                        &:first-child{
-                            border-top-right-radius: $border-radius;
-                        }
-                        &:last-child{
-                            border-top-left-radius: $border-radius;
-                        }
+                    &:last-child{
+                        border-top-right-radius: $border-radius;
                     }
                 }
             }
             &:last-child{
                 > div{
-                    @if($rtl==false){
-                        &:first-child{
-                            border-bottom-left-radius: $border-radius;
-                        }
-                        &:last-child{
-                            border-bottom-right-radius: $border-radius;
-                        }
+                    &:first-child{
+                        border-bottom-left-radius: $border-radius;
                     }
-                    @if($rtl==true){
-                        &:first-child{
-                            border-bottom-right-radius: $border-radius;
-                        }
-                        &:last-child{
-                            border-bottom-left-radius: $border-radius;
-                        }
+                    &:last-child{
+                        border-bottom-right-radius: $border-radius;
                     }
                 }
             } 
@@ -727,22 +607,12 @@ $file-desc-sap:           $ni-dot !default;
                 }
             } 
             .custom-checkbox{
-                @if($rtl==false){
-                    margin-right: 1rem;
-                }
-                @if($rtl==true){
-                    margin-left: 1rem;
-                }
+                margin-right: 1rem;
             }
             &-members{
                 .tb-shared{
                     position: absolute;
-                    @if($rtl==false){
-                        left: -1rem;
-                    }
-                    @if($rtl==true){
-                        right: -1rem;
-                    }
+                    left: -1rem;
                     top: 50%;
                     transform: translateY(-50%);
                     font-size: 1rem;
@@ -755,14 +625,8 @@ $file-desc-sap:           $ni-dot !default;
             }
             &-icon {
                 + .nk-file-name a.title {
-                    @if($rtl==false){
-                        padding-left: ($fmg-file-icon-width-sm + 8px);
-                        margin-left: -($fmg-file-icon-width-sm + 8px);
-                    }
-                    @if($rtl==true){
-                        padding-right: ($fmg-file-icon-width-sm + 8px);
-                        margin-right: -($fmg-file-icon-width-sm + 8px);
-                    }
+                    padding-left: ($fmg-file-icon-width-sm + 8px);
+                    margin-left: -($fmg-file-icon-width-sm + 8px);
                 }
             }
         }
@@ -794,12 +658,7 @@ $file-desc-sap:           $ni-dot !default;
             .nk-file-actions {
                 width: 30px;
                 padding: 0 !important;
-                @if($rtl==false){
-                    margin-right: -4px;
-                }
-                @if($rtl==true){
-                    margin-left: -4px;
-                }
+                margin-right: -4px;
             }
         }
         .nk-files-list {
@@ -811,12 +670,7 @@ $file-desc-sap:           $ni-dot !default;
                 border: 0 none;
                 background: transparent;
                 width: 46px;
-                @if($rtl==false){
-                    right: 4px;
-                }
-                @if($rtl==true){
-                    left: 4px;
-                }
+                right: 4px;
                 top: 10px;
             }
             .custom-control{
@@ -829,6 +683,7 @@ $file-desc-sap:           $ni-dot !default;
             margin: 8px;
             background: $white;
             border-radius: $border-radius;
+            border: 1px solid $border-color;
             .nk-file-members{
                 display: none;
             }
@@ -888,12 +743,7 @@ $file-desc-sap:           $ni-dot !default;
             }
             .custom-control{
                 top: .75rem;
-                @if($rtl==false){
-                    left: 1rem;
-                }
-                @if($rtl==true){
-                    right: 1rem;
-                }
+                left: 1rem;
             }
         }
     }
@@ -907,12 +757,7 @@ $file-desc-sap:           $ni-dot !default;
             > div {
                 display: block;
                 width: 100%;
-                @if($rtl==false){
-                    padding-right: 2.5rem;
-                }
-                @if($rtl==true){
-                    padding-left: 2.5rem;
-                }
+                padding-right: 2.5rem;
             }
             &-desc {
                 padding: .25rem .125rem 0;
@@ -924,32 +769,16 @@ $file-desc-sap:           $ni-dot !default;
             }
             &-icon {
                 + .nk-file-name a.title {
-                    @if($rtl==false){
-                        padding-left: ($fmg-file-icon-width-sm + 8px);
-                        margin-left: -($fmg-file-icon-width-sm + 8px);
-                    }
-                    @if($rtl==true){
-                        padding-right: ($fmg-file-icon-width-sm + 8px);
-                        margin-right: -($fmg-file-icon-width-sm + 8px);
-                    }
+                    padding-left: ($fmg-file-icon-width-sm + 8px);
+                    margin-left: -($fmg-file-icon-width-sm + 8px);
                 }
             }
             .nk-file-actions {
-                @if($rtl==false){
-                    right: 2px;
-                }
-                @if($rtl==true){
-                    left: 2px;
-                }
+                right: 2px;
                 top: 4px;
             }
             .custom-control{
-                @if($rtl==false){
-                    right: .5rem;
-                }
-                @if($rtl==true){
-                    left: .5rem;
-                }
+                right: .5rem;
                 bottom: .5rem;
             }
             .nk-file-meta{
@@ -973,7 +802,7 @@ $file-desc-sap:           $ni-dot !default;
     }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .nk-file {
         &-name-text {
             font-size: $fx-sz-13;
@@ -983,7 +812,7 @@ $file-desc-sap:           $ni-dot !default;
         }
     }
 }
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .nk-fmg-body .nk-block-tools .btn-icon.btn-trigger .icon {
         font-size: 1.25rem;
     }
@@ -1075,12 +904,7 @@ $file-desc-sap:           $ni-dot !default;
                 display: none !important;
             }
             .custom-checkbox {
-                @if($rtl==false){
-                    margin-right: 0.75rem;
-                }
-                @if($rtl==true){
-                    margin-left: 0.75rem;
-                }
+                margin-right: 0.75rem;
             }
         } 
     }
@@ -1116,24 +940,14 @@ $file-desc-sap:           $ni-dot !default;
     }
     &-icon {
         width: 48px;
-        @if($rtl==false){
-            margin-right: .25rem;
-        }
-        @if($rtl==true){
-            margin-left: .25rem;
-        }
+        margin-right: .25rem;
         flex-shrink: 0;
     }
     &-info {
         font-weight: $fw-medium;
         color: $base-color;
         flex-grow: 1;
-        @if($rtl==false){
-            padding-right: .75rem;
-        }
-        @if($rtl==true){
-            padding-left: .75rem;
-        }
+        padding-right: .75rem;
     }
     &-title{
         display: flex;
@@ -1143,12 +957,7 @@ $file-desc-sap:           $ni-dot !default;
         }
         .meta{
             font-size: $fx-sz-12;
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
             color:$base-light;
             font-weight: $fw-normal;
         }
@@ -1162,11 +971,6 @@ $file-desc-sap:           $ni-dot !default;
         margin: .375rem 0 .25rem;
     }
     &-action{
-        @if($rtl==false){
-            margin-left: auto;
-        }
-        @if($rtl==true){
-            margin-right: auto;
-        }
+        margin-left: auto;
     }
 }

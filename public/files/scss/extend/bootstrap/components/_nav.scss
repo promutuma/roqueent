@@ -4,12 +4,7 @@
         display: inline-flex;
         align-items: center;
         .icon + span, span + .icon{
-            @if($rtl==false){
-                margin-left: 0.75rem;
-            }
-            @if($rtl==true){
-                margin-right: 0.75rem;
-            }
+            margin-left: 0.75rem;
         }
         .icon{
             font-size: 1.3em;
@@ -29,19 +24,9 @@
         }
         .nav{
             &-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
                 &:last-child{
-                    @if($rtl==false){
-                        padding-right: 0;
-                    }
-                    @if($rtl==true){
-                        padding-left: 0;
-                    }
+                    padding-right: 0;
                 }
                 &.active .nav-link{
                     color: $primary;
@@ -62,21 +47,11 @@
                 .icon{
                     font-size: 1.4em;
                     + span{
-                        @if($rtl==false){
-                            margin-left: 0.5rem;
-                        }
-                        @if($rtl==true){
-                            margin-right: 0.5rem;
-                        }
+                        margin-left: 0.5rem;
                     }
                 }
                 .badge{
-                    @if($rtl==false){
-                        margin-left: 0.25rem;
-                    }
-                    @if($rtl==true){
-                        margin-right: 0.25rem;
-                    }
+                    margin-left: 0.25rem;
                 }
                 &:hover{
                     color: $base-color;
@@ -114,21 +89,11 @@
 @include media-breakpoint-up(md){
     .nav-tabs{
         .nav-item{
-            @if($rtl==false){
-                padding-right:1.5rem;
-            }
-            @if($rtl==true){
-                padding-left:1.5rem;
-            }
+            padding-right:1.5rem;
         }
         &-sm{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
     }
@@ -136,21 +101,11 @@
 @include media-breakpoint-up(lg){
     .nav-tabs{
         .nav-item{
-            @if($rtl==false){
-                padding-right:1.75rem;
-            }
-            @if($rtl==true){
-                padding-left:1.75rem;
-            }
+            padding-right:1.75rem;
         }
         &-sm{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
         .nav-link{
@@ -161,26 +116,16 @@
 @include media-breakpoint-up(xl){
     .nav-tabs{
         .nav-item{
-            @if($rtl==false){
-                padding-right:2.25rem;
-            }
-            @if($rtl==true){
-                padding-left:2.25rem;
-            }
+            padding-right:2.25rem;
         }
         &-sm{
             .nav-item{
-                @if($rtl==false){
-                    padding-right:1.25rem;
-                }
-                @if($rtl==true){
-                    padding-left:1.25rem;
-                }
+                padding-right:1.25rem;
             }
         }
     }
 }
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .nav-tabs.is-stretch{
         margin-left: -$stretch-gap-x;
         margin-right: -$stretch-gap-x;
@@ -193,12 +138,7 @@
 .nav-item-trigger{
     display: inline-flex;
     align-items: center;
-    @if($rtl==false){
-        margin:-1px -.5rem 0 auto;
-    }
-    @if($rtl==true){
-        margin:-1px auto 0 -.5rem;
-    }
+    margin:-1px -.5rem 0 auto;
 }
 
 // Card Nav
@@ -215,15 +155,10 @@
 }
 
 // ICON
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
     .nav-tabs-mb-icon{
         .nav-item{
-            @if($rtl==false){
-                padding-right: .75rem;
-            }
-            @if($rtl==true){
-                padding-left: .75rem;
-            }
+            padding-right: .75rem;
         }
         .nav-link{
             .icon{
@@ -239,12 +174,7 @@
 @media (max-width:359px){
     .nav-tabs-mb-icon{
         .nav-item{
-            @if($rtl==false){
-                padding-right: .35rem;
-            }
-            @if($rtl==true){
-                padding-left: .35rem;
-            }
+            padding-right: .35rem;
         }
     }
 }

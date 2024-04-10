@@ -20,7 +20,7 @@
                             <li><a href="#" class="btn btn-white btn-dim btn-outline-primary"><em class="icon ni ni-reports"></em><span>Reports</span></a></li>
                             <li class="nk-block-tools-opt">
                                 <div class="drodown">
-                                    <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
+                                    <a href="#" class="dropdown-toggle btn btn-icon btn-primary" data-bs-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <ul class="link-list-opt no-bdr">
                                             <li><a href="html/user-list-regular.html"><em class="icon ni ni-user-add-fill"></em><span>Add User</span></a></li>
@@ -46,7 +46,7 @@
                                 <h6 class="subtitle">Total Sales</h6>
                             </div>
                             <div class="card-tools">
-                                <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total Sales"></em>
+                                <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-placement="left" title="Total Sales"></em>
                             </div>
                         </div>
                         <div class="card-amount">
@@ -80,7 +80,7 @@
                                 <h6 class="subtitle">Total Expense</h6>
                             </div>
                             <div class="card-tools">
-                                <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total Expenses"></em>
+                                <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-placement="left" title="Total Expenses"></em>
                             </div>
                         </div>
                         <div class="card-amount">
@@ -114,7 +114,7 @@
                                 <h6 class="subtitle">All Time Totals</h6>
                             </div>
                             <div class="card-tools">
-                                <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total Profit"></em>
+                                <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-placement="left" title="Total Profit"></em>
                             </div>
                         </div>
                         <div class="card-amount">
@@ -156,7 +156,7 @@
                     <div class="nk-tb-list">
                         <div class="nk-tb-item nk-tb-head">
                             <div class="nk-tb-col"><span>Plan</span></div>
-                            <div class="nk-tb-col tb-col-sm"><span>Created By</span></div>
+                            <div class="nk-tb-col"><span>Created By</span></div>
                             <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
                             <div class="nk-tb-col"><span>Total Amount</span></div>
                             <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
@@ -169,20 +169,22 @@
                                         <div class="user-avatar user-avatar-sm bg-light">
                                             <span>RS</span>
                                         </div>
-                                        <span class="tb-sub ml-2">SALE<span class="d-none d-md-inline"><?php echo $row['sale_id'] ?></span></span>
+                                        <span class="tb-sub ms-2"><span class="d-none d-md-inline"><?php echo $row['sale_id'] ?></span></span>
                                     </div>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col">
                                     <div class="user-card">
-                                        <div class="user-avatar user-avatar-xs <?php if ($row['sale_id'] % 4 == 0) {
-                                                                                    echo 'bg-azure-dim';
-                                                                                } elseif ($row['sale_id'] % 3 == 0) {
-                                                                                    echo 'bg-purple-dim';
-                                                                                } elseif ($row['sale_id'] % 2 == 0) {
-                                                                                    echo 'bg-teal-dim';
-                                                                                } else {
-                                                                                    echo 'bg-orange-dim';
-                                                                                } ?>">
+                                        <div class="user-avatar user-avatar-xs
+                                        <?php if ($row['amount'] % 4 == 0) {
+                                            echo 'bg-azure-dim';
+                                        } elseif ($row['amount'] % 3 == 0) {
+                                            echo 'bg-purple-dim';
+                                        } elseif ($row['amount'] % 2 == 0) {
+                                            echo 'bg-teal-dim';
+                                        } else {
+                                            echo 'bg-orange-dim';
+                                        } ?>
+                                                                                ">
                                             <span><?php echo substr($row['user_fname'], 0, 1) ?><?php echo substr($row['user_oname'], 0, 1) ?></span>
                                         </div>
                                         <div class="user-name">
@@ -208,7 +210,7 @@
                                 </div>
                                 <div class="nk-tb-col nk-tb-col-action">
                                     <div class="dropdown">
-                                        <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
+                                        <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                             <ul class="link-list-plain">
                                                 <li><a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>">View</a></li>
@@ -240,7 +242,7 @@
                     <div class="nk-tb-list">
                         <div class="nk-tb-item nk-tb-head">
                             <div class="nk-tb-col"><span>Expense</span></div>
-                            <div class="nk-tb-col tb-col-sm"><span>Added By</span></div>
+                            <div class="nk-tb-col tb-col-lg"><span>Added By</span></div>
                             <div class="nk-tb-col tb-col-lg"><span>Date</span></div>
                             <div class="nk-tb-col"><span>Amount</span></div>
                             <div class="nk-tb-col tb-col-sm"><span>&nbsp;</span></div>
@@ -254,10 +256,10 @@
                                         <div class="user-avatar user-avatar-sm bg-light">
                                             <span>EX</span>
                                         </div>
-                                        <span class="tb-sub ml-2"><?php echo $row['expense_description'] ?><span class="d-none d-md-inline"> - <?php echo $row['remarks'] ?></span></span>
+                                        <span class="tb-sub ms-2"><?php echo $row['expense_description'] ?><span class="d-none d-md-inline"> - <?php echo $row['remarks'] ?></span></span>
                                     </div>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col tb-col-lg">
                                     <div class="user-card">
                                         <div class="user-avatar user-avatar-xs <?php if ($row['expense_ID'] % 4 == 0) {
                                                                                     echo 'bg-azure-dim';
@@ -287,7 +289,7 @@
                                 </div>
                                 <div class="nk-tb-col nk-tb-col-action">
                                     <div class="dropdown">
-                                        <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
+                                        <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                             <ul class="link-list-plain">
                                                 <li><a href="">View</a></li>
@@ -365,13 +367,13 @@
                         </div>
                         <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#overview">Today</a>
+                                <a class="nav-link active" data-bs-toggle="tab" href="#overview">Today</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#thisyear">This Year</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#thisyear">This Year</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#alltime">All Time</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#alltime">All Time</a>
                             </li>
                         </ul>
                         <div class="tab-content mt-0">

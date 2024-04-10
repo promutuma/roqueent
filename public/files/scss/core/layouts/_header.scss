@@ -31,12 +31,7 @@
         }
         &:not(:first-child){
             position: absolute;
-            @if($rtl==false){
-                left: 0;
-            }
-            @if($rtl==true){
-                right: 0;
-            }
+            left: 0;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -99,12 +94,7 @@
             justify-content: center;
         }
         &-tools{
-            @if($rtl==false){
-                margin-left: auto;
-            }
-            @if($rtl==true){
-                margin-right: auto;
-            }
+            margin-left: auto;
             padding-top: $header-main-gap-y;
             padding-bottom: $header-main-gap-y;
         }
@@ -260,14 +250,8 @@
     &-menu{
         position: fixed;
         top: 0;
-        @if($rtl==false){
-            left: 0;
-            transform: translateX(-100%);
-        }
-        @if($rtl==true){
-            right: 0;
-            transform: translateX(100%);
-        }
+        left: 0;
+        transform: translateX(-100%);
         width: 280px;
         height: 100vh;
         max-height: 100vh;
@@ -333,12 +317,7 @@
             background: transparent !important;
             height: auto;
             max-height: auto;
-            @if($rtl==false){
-                border-right: none;
-            }
-            @if($rtl==true){
-                border-left: none;
-            }
+            border-right: none;
             width: auto;
             padding: 0;
             overflow: visible;

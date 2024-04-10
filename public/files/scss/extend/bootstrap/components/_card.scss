@@ -128,13 +128,8 @@
                 }
             }
         }
-        &.mr-n1 {
-            @if($rtl==false){
-                margin-right: -0.5rem !important;
-            }
-            @if($rtl==true){
-                margin-left: -0.5rem !important;
-            }
+        &.me-n1 {
+            margin-right: -0.5rem !important;
         }
     }
     &-hint{
@@ -142,7 +137,7 @@
         color: $border-color;
     }
 }
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
     .card-head{
         &.ui-v2{
             .card-tools{

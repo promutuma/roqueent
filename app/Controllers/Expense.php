@@ -6,6 +6,8 @@ use App\Models\ExpenseModel;
 
 class Expense extends BaseController
 {
+    private string $errorText = 'Error: ';
+
     public function index()
     {
         $data['title'] = "Expenses";
@@ -17,103 +19,150 @@ class Expense extends BaseController
 
     public function addExpense()
     {
-        $session = session();
-        $Addexpense = new ExpenseModel();
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
-
-        $ExpenseId =  $getTime['ts'];
-        $ExpenseDate =  $getTime['date'];
-        $ExpenseTime =  $getTime['time'];
-        $expenseDesc = $this->request->getVar('txtDesc');
-        $expenseAmount = $this->request->getVar('txtAmount');
-        $remarks = $this->request->getVar('txtRemarks');
-        $expenseData = [
-            'expense_ID' => $ExpenseId,
-            'expense_description' => $expenseDesc,
-            'date' => $ExpenseDate,
-            'time' => $ExpenseTime,
-            'expense_amount' => $expenseAmount,
-            'remarks' => $remarks,
-            'createdBy' => $session->get('user_id'),
+        $data = [
+            'status' => 0,
+            'message' => '',
+            'tn' => csrf_hash(),
+            'data' => [],
         ];
-        $Addexpense->save($expenseData);
-        if ($Addexpense == false) {
-            echo json_encode(array("status" => 0, 'data' => 'Error occured when trying to add Expense. Please do not re-add the item'));
-        } else {
-            $logDesc = "Expense " . $ExpenseId . " of Ksh " . $expenseAmount . "  added to by " . $session->get('user_name') . " on " . $ExpenseDate . " " . $ExpenseTime;
-            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
-            echo json_encode(array("status" => 1, 'data' => 'Expense with ID:' . $expenseData['expense_ID'] . ' added to the System Successfully at ' . $ExpenseDate . ' ' . $ExpenseTime . ', Please note that this information is editable for only 30 minutes.'));
+
+        try {
+            $expense = new ExpenseModel();
+
+            $sys = new Sys();
+            $getTime = $sys->getTime();
+
+            $expenseId =  $getTime['ts'];
+            $expenseDate =  $getTime['date'];
+            $expenseTime =  $getTime['time'];
+            $expenseDesc = $this->request->getVar('txtDesc');
+            $expenseAmount = $this->request->getVar('txtAmount');
+            $remarks = $this->request->getVar('txtRemarks');
+            $expenseData = [
+                'expense_ID' => $expenseId,
+                'expense_description' => $expenseDesc,
+                'date' => $expenseDate,
+                'time' => $expenseTime,
+                'expense_amount' => $expenseAmount,
+                'remarks' => $remarks,
+                'createdBy' => session()->get('user_id'),
+            ];
+
+            $expense->addExpense($expenseData);
+
+            $data['status'] = 1;
+            $data['message'] = "Expense Added Successfully";
+        } catch (\Throwable $th) {
+            $data['message'] = $this->errorText . $th->getMessage();
+            $this->logError('Expense::addExpense', $th->getMessage());
         }
+
+        // Return JSON response
+        return $this->response->setJSON($data);
     }
 
     public function expenseGet($action, $expenseId)
     {
-        $getexpense = new ExpenseModel();
-        $expense = $getexpense->where('expense_ID', $expenseId)->first();
-        $data['expense'] = $expense;
+        $data = [
+            'status' => 0,
+            'message' => '',
+            'data' => [],
+        ];
 
-        if (empty($expense)) {
-            # code...
-            $status = 0;
-            $data['message'] = "Expense not found";
-        } else {
-            # code...
-            $status = 1;
-            $data['message'] = "Do you want to " . $action . " this Expense";
+        try {
+            $getexpense = new ExpenseModel();
+            $expense = $getexpense->where('expense_ID', $expenseId)->first();
+            $res_data['expense'] = $expense;
+
+            if (empty($expense)) {
+                $data['message'] = "Expense not found";
+            } else {
+                $data['status'] = 1;
+                $data['message'] = "Do you want to " . $action . " this Expense";
+                $data['data'] = $res_data;
+            }
+        } catch (\Throwable $th) {
+            $data['message'] = $this->errorText . $th->getMessage();
+            $this->logError('Expense::expenseGet', $th->getMessage());
         }
-        echo json_encode(array("status" => $status, 'data' => $data));
+
+        // Return JSON response
+        return $this->response->setJSON($data);
     }
+
 
     public function removeExpense($expenseId)
     {
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
+        try {
+            $sys = new Sys();
+            $getTime = $sys->getTime();
 
-        $Date =  $getTime['date'];
-        $Time =  $getTime['time'];
+            $date =  $getTime['date'];
+            $time =  $getTime['time'];
 
-        $session = session();
-        $status = 0;
-        $data['message'] = "Expenses cannot be removed, Please edit the expense";
-        $logDesc = "User " . $session->get('user_name') . " tried to delete expense (" . $expenseId . ") data on " . $Date . " " . $Time;
-        $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Delete", $logDesc);
-        echo json_encode(array("status" => $status, 'data' => $data));
+            $session = session();
+
+            $logDesc = "User " . $session->get('user_name') . " tried to delete expense (" . $expenseId . ") data on " . $date . " " . $time;
+            $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Delete", $logDesc);
+
+            // $e = new ExpenseModel();
+            // $e->deleteExpense($expenseId);
+
+            throw new \Exception('Expenses cannot be removed, Please edit the expense');
+        } catch (\Throwable $th) {
+            $data['message'] = $this->errorText . $th->getMessage();
+            $this->logError('Expense::removeExpense', $th->getMessage());
+        }
+
+        // Return JSON response
+        return $this->response->setJSON($data);
     }
+
+
     public function editExpense()
     {
-        $session = session();
-        $expenseID = $this->request->getVar('txtExpID');
-        $expenseDesc = $this->request->getVar('txtDesc');
-        $expenseAmount = $this->request->getVar('txtAmount');
-        $Sys = new Sys();
-        $getTime = $Sys->getTime();
-
-        $Date =  $getTime['date'];
-        $Time =  $getTime['time'];
-        $remarks = $this->request->getVar('txtRemarks') . "(Edited on " . $Date . " at " . $Time . ")";
-        $expenseData = [
-            'expense_description' => $expenseDesc,
-            'expense_amount' => $expenseAmount,
-            'remarks' => $remarks
+        $data = [
+            'status' => 0,
+            'message' => '',
+            'tn' => csrf_hash(),
+            'data' => [],
         ];
 
-        $updateExpense = new ExpenseModel();
-        $updateExpense->where('expense_ID', $expenseID);
-        $updateExpense->set($expenseData);
-        $updateExpense->update();
+        try {
+            $expenseId = $this->request->getVar('txtExpID');
+            $expenseDesc = $this->request->getVar('txtDesc');
+            $expenseAmount = $this->request->getVar('txtAmount');
+            $sys = new Sys();
+            $getTime = $sys->getTime();
 
-        if ($updateExpense == false) {
-            # code...
-            $status = 0;
-            $data['message'] = "Update failed to save to database";
-        } else {
-            # code...
-            $status = 1;
-            $data['message'] = "Update Successful. The page will reload now.";
-            $logDesc = "User " . $session->get('user_name') . " updated expense " . $expenseID . " data on " . $Date . " " . $Time;
-            $Sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Update", $logDesc);
+            $date =  $getTime['date'];
+            $time =  $getTime['time'];
+            $remarks = $this->request->getVar('txtRemarks') . "(Edited on " . $date . " at " . $time . ")";
+            $expenseData = [
+                'expense_description' => $expenseDesc,
+                'expense_amount' => $expenseAmount,
+                'remarks' => $remarks
+            ];
+
+            $e = new ExpenseModel();
+            $e->updateExpense($expenseId, $expenseData);
+
+            $data['status'] = 1;
+            $data['message'] = "Expense Updated Successfully";
+        } catch (\Throwable $th) {
+            $data['message'] = $this->errorText . $th->getMessage();
+            $this->logError('Expense::removeExpense', $th->getMessage());
         }
-        echo json_encode(array("status" => $status, 'data' => $data));
+
+        // Return JSON response
+        return $this->response->setJSON($data);
+    }
+
+
+    // logs all throwables and exeptions in this class
+    private function logError($method, $message)
+    {
+        $logMessage = "Error in $method method: $message";
+        log_message('error', $logMessage);
     }
 }

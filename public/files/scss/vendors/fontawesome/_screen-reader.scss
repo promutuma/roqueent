@@ -1,5 +1,5 @@
 // Screen Readers
 // -------------------------
 
-.sr-only { @include sr-only; }
-.sr-only-focusable { @include sr-only-focusable; }
+.visually-hidden { @include visually-hidden; }
+.visually-hidden-focusable { @include visually-hidden-focusable; }

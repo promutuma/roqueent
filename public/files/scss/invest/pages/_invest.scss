@@ -20,12 +20,7 @@
             transition: all .3s;
             &:after{
                 position: absolute;
-                @if($rtl==false){
-                    right: 12px;
-                }
-                @if($rtl==true){
-                    left: 12px;
-                }
+                right: 12px;
                 top: 12px;
                 height: 24px;
                 width: 24px;
@@ -76,12 +71,7 @@
                         min-width: 50%;
                     }
                     &-data{
-                        @if($rtl==false){
-                            margin-left: auto;
-                        }
-                        @if($rtl==true){
-                            margin-right: auto;
-                        }
+                        margin-left: auto;
                     }
                 }
                 +.plan-item-action{
@@ -161,12 +151,7 @@
                 &:after{
                     position: absolute;
                     top: 0;
-                    @if($rtl==false){
-                        right: 0;
-                    }
-                    @if($rtl==true){
-                        left: 0;
-                    }
+                    right: 0;
                     bottom: 0;
                     width: 56px;
                     font-size: 24px;
@@ -219,22 +204,12 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 0;
-            @if($rtl==false){
-                padding: 16px 20px 16px 60px;
-            }
-            @if($rtl==true){
-                padding: 16px 60px 16px 20px;
-            }
+            padding: 16px 20px 16px 60px;
             cursor: pointer;
             &:before,&:after{
                 position: absolute;
                 top: 50%;
-                @if($rtl==false){
-                    left: 20px;
-                }
-                @if($rtl==true){
-                    right: 20px;
-                }
+                left: 20px;
                 transform: translateY(-50%);
                 height: 24px;
                 width: 24px;
@@ -285,12 +260,7 @@
     }
     &-field{
         .form-control-amount{
-            @if($rtl==false){
-                padding: 1rem 4rem 1.25rem 1.5rem;
-            }
-            @if($rtl==true){
-                padding: 1rem 1.5rem 1.25rem 4rem;
-            }
+            padding: 1rem 4rem 1.25rem 1.5rem;
             height: 3.75rem;
             font-size: 1.25rem;
             color: $base-light;
