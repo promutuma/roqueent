@@ -3,9 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Libraries\EmailLibrary;
+use App\Libraries\SystemLibrary;
 
 class User extends BaseController
 {
+    public $email;
+    public $system;
+
+    public function __construct()
+    {
+        $this->system = new SystemLibrary();
+        $this->email = new EmailLibrary();
+    }
+
     public function index()
     {
         $data['title'] = "Users";
@@ -44,9 +55,6 @@ class User extends BaseController
                 if (!empty($userEmail)) {
                     throw new \Exception("Failed Duplicate entry for user email " . $email . "  Please try again with different email");
                 } else {
-                    $getTime = $sys->getTime();
-
-                    $dateTime = $getTime['date'] . " " . $getTime['time'];
 
                     $userData = [
                         'user_id' => $userID,
@@ -55,19 +63,48 @@ class User extends BaseController
                         'user_oname' => $this->request->getVar('txtOname'),
                         'user_type' => $this->request->getVar('txtUT'),
                         'user_status' => 1,
-                        'added_on' => $dateTime,
+                        'added_on' => $this->system->getCurrentDateTime(),
                         'phone_number' => $this->request->getVar('txtPN'),
                         'createdBy' => $session->get('user_id'),
                     ];
 
-                    $message = 'Hello ' . $this->request->getVar('txtFname') . ', An account has been created using this email. Please login to ' . base_url() . ' then reset password to set your password thanks.';
+
+                    $password = $this->system->generateRandomPassword();
+
+                    // Get the User Provider (UserModel by default)
+                    $users = auth()->getProvider();
+
+                    $userDatas = [
+                        'username' => $userData['user_fname'] . $userID,
+                        'email'    => $email,
+                        'password' => $password,
+                    ];
+
+                    $users->save($userDatas);
+
+                    $user = $users->findById($users->getInsertID());
+
+                    $user->addGroup($this->request->getVar('txtUT'));
+
+                    $user->fill([
+                        'username' => $userData['user_fname'] . $userID,
+                        'name' => $userData['user_fname'],
+                        'email'    => $email,
+                        'password' => $password,
+                    ]);
+                    $users->save($user);
 
                     $modelUser->createNewUser($userData);
 
+                    $message = 'Hello ' . $this->request->getVar('txtFname')
+                        . ',<br><br> A CAMERA20 POS account has been created using this email. Please login to ' . base_url() . ' and use the following password and username <br>'
+                        . 'Username: <b>' . $email . '</b><br>'
+                        . 'Password: <b>' . $password . '</b>';
+
                     $data['status'] = 1;
                     $data['message'] = "Success, User account created successfully and email sent to the new user with password";
-                    $sys->sendEmail($email, "Account Creation Successful", $message);
-                    $logDesc = "User " . $this->request->getVar('txtFname') . " added as " . $this->request->getVar('txtUT') . " by " . $session->get('user_name') . " on " . $dateTime;
+                    $this->email->sendEmail($email, "Account Creation Successful", $message);
+                    $logDesc = "User " . $this->request->getVar('txtFname') . " added as " . $this->request->getVar('txtUT') . " by " . $session->get('user_name') . " on " . $this->system->getCurrentDateTime();
                     $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
                 }
             }

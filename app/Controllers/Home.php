@@ -4,10 +4,23 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\SessionModel;
+use App\Libraries\EmailLibrary;
+use App\Libraries\SystemLibrary;
 use PhpParser\Node\Stmt\TryCatch;
 
 class Home extends BaseController
 {
+    public $email;
+    public $system;
+
+    public function __construct()
+    {
+        $this->system = new SystemLibrary();
+        $this->email = new EmailLibrary();
+    }
+
+
+
     public function index()
     {
         $sessionId = "0";
@@ -34,7 +47,7 @@ class Home extends BaseController
             # code...
             $data['userId'] = $userData['user_id'];
 
-            return view('auth/reset_password', $data);;
+            return view('auth/reset_password', $data);
         }
     }
 
@@ -47,34 +60,29 @@ class Home extends BaseController
             'data' => [],
         ];
 
-        $id = $this->request->getVar('txtEmailinput');
-        $password = $this->request->getVar('txtPassword');
-
-        $checkUser = new UserModel();
-
         try {
-            $userId = $checkUser->findUserById($id);
-            $userEmail = $checkUser->findUserByEmail($id);
+            $email = $this->request->getPost('txtEmailinput');
 
-            // check if there is data
-            if (!empty($userId)) {
-                $userData = $userId;
-            } elseif (!empty($userEmail)) {
-                $userData = $userEmail;
+            $credentials = [
+                'email'    => $email,
+                'password' => $this->request->getPost('txtPassword')
+            ];
+
+            $loginAttempt = auth()->attempt($credentials);
+
+            if (!$loginAttempt->isOK()) {
+                throw new \Exception('Invalid login credentials');
             } else {
-                throw new \Exception('User Not Found');
-            }
-
-            // authenticate the user
-            if (password_verify($password, $userData['user_password'])) {
+                $us = new UserModel();
+                $userData = $us->findUserByEmail($email);
                 $this->setSession($userData);
+
+
                 $data['message'] = "User Verified Successfully";
                 $data['status'] = 1;
-            } else {
-                throw new \Exception('Incorrect Password');
             }
         } catch (\Throwable $th) {
-            $data['message'] = 'Error: "' . $th->getMessage();
+            $data['message'] = 'Error: ' . $th->getMessage();
             $this->logError('Home::login', $th->getMessage());
         }
 
@@ -82,9 +90,6 @@ class Home extends BaseController
         // Return JSON response
         return $this->response->setJSON($data);
     }
-
-
-
 
     public function resetPasscode()
     {
@@ -128,6 +133,24 @@ class Home extends BaseController
             // create a function to send emails
             log_message('info', $resetId);
 
+            $link = base_url() . "/html/pages/auths/auth-check-password-reset-v2.html/" . $resetId;
+
+            $agent_data = $this->system->getAgentData($this->request->getUserAgent());
+
+            $message = "Hello,<b>" . $userData['user_fname'] . "</b>,<br><br>"
+                . "You requested password reset using ip address "
+                . $this->request->getIPAddress() . " on "
+                . $agent_data['browser'] . " - "
+                . $agent_data['browser_Version'] . " browser for "
+                . $agent_data['Device'] . " machine running "
+                . $agent_data['platform']
+                . " operating system. <br><br> Requested on "
+                . $this->system->getCurrentDateTime()
+                . ". <br> Please follow the link below to reset your password. LINK: "
+                . $link
+                . "<br><br> Full Agent Info: " . $agent_data['agentString'];
+
+            $this->email->sendEmail($userData['user_email'], 'Password Change Request', $message);
 
             // response
             $data['status'] = 1;
@@ -164,6 +187,9 @@ class Home extends BaseController
 
             // update user data
             $checkUser->updateUser($userId, $userData);
+            $userData = $checkUser->findUserById($userId);
+
+            $this->email->sendEmail($userData['user_email'], 'Password Updated', 'Hello ' . $userData['user_fname'] . ', <br><br>You have successfully updated your password at ' . $this->system->getCurrentDateTime());
 
 
             $data['status'] = 1;
@@ -245,22 +271,6 @@ class Home extends BaseController
             // Re-throw the exception
             throw $th;
         }
-    }
-
-    // generate reset password email
-    private function generateResetPasswordMessage()
-    {
-        $sys = new Sys();
-        $getTime = $sys->getTime();
-        $resetId =  $getTime['ts'];
-        $link = base_url() . "/html/pages/auths/auth-check-password-reset-v2.html/" . $resetId;
-        $logType = "Request";
-        $date =  $getTime['date'];
-        $time =  $getTime['time'];
-        $subject = "Password Reset Request";
-        $getBrowser = $sys->getBrowser();
-        $getIP = $sys->getIPAddress();
-        $message1 = "You requested password reset using ip address " . $getIP . " on " . $getBrowser['browser'] . " browser for " . $getBrowser['device'] . " machine running " . $getBrowser['os_platform'] . " operating system. Requested on " . $time . " on " . $date . ". Please follow the link below to reset your password. LINK: " . $link;
     }
 
 

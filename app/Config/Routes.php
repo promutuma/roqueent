@@ -5,9 +5,23 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+service('auth')->routes($routes, [
+    'except' =>
+    [
+        '/',
+        'login',
+        'html/pages/auths/auth-login-v2.html',
+        'html/user-session-close.html',
+        'html/user-access-login.html',
+        '/html/pages/auths/auth-request-password-reset-v2.html',
+        'html/pages/auths/user-update-password-v2.html',
+        '/html/pages/auths/auth-check-password-reset-v2.html/*'
+    ]
+]);
 
 // auth files/routes
 $routes->get('/', 'Home::index', ['filter' => 'noauth']);
+$routes->get('login', 'Home::index', ['filter' => 'noauth']);
 $routes->get('html/pages/auths/auth-login-v2.html', 'Home::index', ['filter' => 'noauth']);
 $routes->get('html/user-session-close.html', 'Home::logout');
 $routes->post('html/user-access-login.html', 'Home::login', ['filter' => 'noauth']);

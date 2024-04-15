@@ -7,6 +7,9 @@ use App\Models\LogModel;
 
 class Sys extends BaseController
 {
+
+
+
     public function getIPAddress()
     {
         //whether ip is from the share internet  
@@ -200,24 +203,5 @@ class Sys extends BaseController
             'log_time' => $time['time']
         ];
         $newLog->save($logData);
-    }
-
-
-    public function sendEmail($toEmail, $subject, $message)
-    {
-        $email = \Config\Services::email();
-        $email->setFrom('no_reply@eelam.co.ke', 'CAMERA20POS');
-        $email->setTo($toEmail);
-        #$email->setCC('another@another-example.com');
-        #$email->setBCC('them@their-example.com');
-        $email->setSubject($subject);
-        $email->setMessage($message);
-
-        if ($email->send()) {
-            $data = 'Email successfully sent';
-        } else {
-            $data = $email->printDebugger(['headers']);
-        }
-        return $data;
     }
 }

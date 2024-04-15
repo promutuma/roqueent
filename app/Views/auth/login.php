@@ -16,13 +16,14 @@
                 </div>
             </div>
         </div>
+
         <form id="frmLogin" name="frmLogin" action="html/user-access-login.html" method="post">
             <div class="form-group">
                 <div class="form-label-group">
-                    <label class="form-label" for="txtEmailinput">Email or National ID</label>
+                    <label class="form-label" for="txtEmailinput">Email</label>
                 </div>
                 <div class="form-control-wrap">
-                    <input type="text" class="form-control form-control-lg" id="txtEmailinput" name="txtEmailinput" placeholder="Enter your email address or username" required>
+                    <input type="email" class="form-control form-control-lg" id="txtEmailinput" name="txtEmailinput" placeholder="Enter your email address or username" required>
                 </div>
             </div>
             <div class="form-group">

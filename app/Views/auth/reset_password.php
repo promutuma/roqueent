@@ -30,11 +30,19 @@
                     <label class="form-label" for="txtPassword">Password</label>
                 </div>
                 <div class="form-control-wrap">
+                    <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="txtPassword">
+                        <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                        <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                    </a>
                     <input type="password" class="form-control form-control-lg" id="txtPassword" name="txtPassword" placeholder="Enter your new password here">
                 </div>
             </div>
             <div class="form-group">
                 <div class="form-label-group">
+                    <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="txtPassword1">
+                        <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                        <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                    </a>
                     <label class="form-label" for="txtPassword1">Retype Password</label>
                 </div>
                 <div class="form-control-wrap">

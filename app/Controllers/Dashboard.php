@@ -127,6 +127,8 @@ class Dashboard extends BaseController
         $data['logs'] = $getLog->orderBy('log_id', 'DESC')->findAll(10);
 
 
+
+
         return view('home/dashboard', $data);
     }
 

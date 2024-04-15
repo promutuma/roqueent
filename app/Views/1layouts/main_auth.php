@@ -276,4 +276,48 @@
     }
 </script>
 
+
+
+<?php if (session('error') !== null) : ?>
+    <script>
+        NioApp.Toast("<?= session('error') ?>", 'error', {
+            position: 'top-center',
+            icon: 'auto',
+            ui: 'is-dark'
+        });
+    </script>
+<?php elseif (session('errors') !== null) : ?>
+    <div class="alert alert-danger" role="alert">
+        <?php if (is_array(session('errors'))) : ?>
+            <?php foreach (session('errors') as $error) : ?>
+                <script>
+                    NioApp.Toast("<?= $error ?>", 'error', {
+                        position: 'top-center',
+                        icon: 'auto',
+                        ui: 'is-dark'
+                    });
+                </script>
+            <?php endforeach ?>
+        <?php else : ?>
+            <script>
+                NioApp.Toast("<?= session('error') ?>", 'error', {
+                    position: 'top-center',
+                    icon: 'auto',
+                    ui: 'is-dark'
+                });
+            </script>
+        <?php endif ?>
+    </div>
+<?php endif ?>
+
+<?php if (session('message') !== null) : ?>
+    <script>
+        NioApp.Toast("<?= session('message') ?>", 'success', {
+            position: 'top-center',
+            icon: 'auto',
+            ui: 'is-dark'
+        });
+    </script>
+<?php endif ?>
+
 </html>
