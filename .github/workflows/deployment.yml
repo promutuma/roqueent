@@ -11,6 +11,6 @@ jobs:
     - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.camera20production.co.ke
-        username: pointofsale@pointofsale.camera20production.co.ke
+        server: ftp.eelam.co.ke
+        username: pointofsale@eelam.co.ke
         password: POINTOFSALE
