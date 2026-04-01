@@ -38,7 +38,7 @@ class Home extends BaseController
     public function changePasscode($resetCode)
     {
         $selectUser = new UserModel();
-        $userData = $selectUser->where('user_status', $resetCode)->first();
+        $userData = $selectUser->asArray()->where('user_status', $resetCode)->first();
         if (empty($userData)) {
             # code...
 

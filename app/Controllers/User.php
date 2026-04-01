@@ -21,7 +21,7 @@ class User extends BaseController
     {
         $data['title'] = "Users";
         $checkUser = new UserModel();
-        $data['user'] = $checkUser->findAll();
+        $data['user'] = $checkUser->asArray()->findAll();
 
 
         return view('user/userlist', $data);
