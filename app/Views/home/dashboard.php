@@ -37,6 +37,15 @@
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
     <div class="nk-block">
+        <?php if (isset($migration_needed) && $migration_needed) : ?>
+            <div class="alert alert-pro alert-warning mb-4">
+                <div class="alert-cta flex-wrap g-lg-2 g-2">
+                    <div class="alert-text">
+                        <p><strong>Database synchronization needed!</strong> Some features require schema updates. Please <a href="/html/migrate" class="link link-primary">click here to update the database</a>.</p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row g-gs">
             <div class="col-md-4">
                 <div class="card card-bordered card-full">

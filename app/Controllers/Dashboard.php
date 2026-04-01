@@ -29,7 +29,12 @@ class Dashboard extends BaseController
         $data['stock'] = $product->orderBy('stock', 'ASC')->findAll(3);
         
         // Low Stock alerts
-        $data['lowStockProducts'] = $product->where('stock <= low_stock_threshold')->findAll();
+        try {
+            $data['lowStockProducts'] = $product->where('stock <= low_stock_threshold', null, false)->findAll();
+        } catch (\Throwable $th) {
+            $data['lowStockProducts'] = [];
+            $data['migration_needed'] = true;
+        }
 
 
         $expense = new ExpenseModel();
