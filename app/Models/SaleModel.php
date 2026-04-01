@@ -9,6 +9,7 @@ class SaleModel extends Model
     protected $table = 'sale';
     protected $primaryKey = 'id';
     protected $allowedFields = [
+        'sale_id',
         'sale_reference',
         'sale_date',
         'sale_time',

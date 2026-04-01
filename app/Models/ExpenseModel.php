@@ -9,6 +9,7 @@ class ExpenseModel extends Model
     protected $table = 'expense';
     protected $primaryKey = 'id';
     protected $allowedFields = [
+        'expense_ID',
         'expense_description',
         'date',
         'time',

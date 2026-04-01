@@ -26,7 +26,7 @@ class Dashboard extends BaseController
         $currentWeek = date_format($date, "W");
 
         $product = new ProductModel();
-        $data['stock'] = $product->orderBy('stock', 'ASD')->findAll(3);
+        $data['stock'] = $product->orderBy('stock', 'ASC')->findAll(3);
 
 
         $expense = new ExpenseModel();
