@@ -310,7 +310,7 @@ class Sales extends BaseController
         $data['totalPaid'] = (float)($totalPaid['amount'] ?? 0);
 
         $userModel = new \App\Models\UserModel();
-        $data['cashier'] = $userModel->find($sale['createdBy']);
+        $data['cashier'] = $userModel->findUserById($sale['createdBy']);
 
         $customerModel = new \App\Models\CustomerModel();
         $data['customer'] = $sale['customer_id'] ? $customerModel->find($sale['customer_id']) : null;

@@ -69,7 +69,7 @@
         <div>
             <p style="margin: 2px 0;"><strong>REF:</strong> <?= $sale['sale_reference'] ?></p>
             <p style="margin: 2px 0;"><strong>Date:</strong> <?= $sale['sale_date'] ?> <?= $sale['sale_time'] ?></p>
-            <p style="margin: 2px 0;"><strong>Cashier:</strong> <?= $cashier['user_name'] ?? 'Admin' ?></p>
+            <p style="margin: 2px 0;"><strong>Cashier:</strong> <?= $cashier['user_fname'] ?? ($cashier['username'] ?? 'Admin') ?></p>
             <?php if ($customer): ?>
                 <p style="margin: 2px 0;"><strong>Customer:</strong> <?= $customer['customer_name'] ?></p>
             <?php endif; ?>
