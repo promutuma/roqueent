@@ -24,7 +24,7 @@ jobs:
           # If the user chooses 'all', run through our master array of clients
           if [ "${{ github.event.inputs.client }}" == "all" ]; then
             # Edit this array locally as you add more customers
-            echo "clients=[\"client_a\", \"client_b\", \"client_c\"]" >> $GITHUB_OUTPUT
+            echo "clients=[\"mikamwater\"]" >> $GITHUB_OUTPUT
           else
             # Only deploy to the single requested client
             echo "clients=[\"${{ github.event.inputs.client }}\"]" >> $GITHUB_OUTPUT
