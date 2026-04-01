@@ -84,3 +84,7 @@ $routes->get('/html/shift-status.html', 'Shift::index', ['filter' => 'auth']);
 $routes->post('/html/shift/open', 'Shift::openShift', ['filter' => 'auth']);
 $routes->post('/html/shift/close', 'Shift::closeShift', ['filter' => 'auth']);
 $routes->get('/html/shift/status', 'Shift::getActiveShiftStatus', ['filter' => 'auth']);
+
+// Refund
+$routes->post('/html/refund/process', 'Refund::processRefund', ['filter' => 'auth']);
+

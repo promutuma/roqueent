@@ -83,6 +83,8 @@ class Sales extends BaseController
             }
 
             $customer_id = $this->request->getVar('txtCustomerId');
+            $discount_amount = (float)$this->request->getVar('txtDiscountAmount');
+            $discount_type = $this->request->getVar('txtDiscountType') ?: 'Fixed';
 
             $result = $this->saleService->processNewSaleData(
                 $sale_reference, 
@@ -90,7 +92,9 @@ class Sales extends BaseController
                 session()->get('user_id'),
                 $saleDate,
                 $saleTime,
-                $customer_id ? (int)$customer_id : null
+                $customer_id ? (int)$customer_id : null,
+                $discount_amount,
+                $discount_type
             );
 
             if ($result['status'] === true) {

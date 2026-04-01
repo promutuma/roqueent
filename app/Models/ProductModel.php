@@ -14,6 +14,7 @@ class ProductModel extends Model
         'regular_price',
         'sale_price',
         'stock',
+        'low_stock_threshold',
         'category',
         'createdBy'
     ];

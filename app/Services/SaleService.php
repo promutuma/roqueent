@@ -16,7 +16,7 @@ class SaleService
     /**
      * Process a completely new sale with items
      */
-    public function processNewSaleData(string $saleReference, array $itemsData, $userId, $saleDate, $saleTime, $customerId = null): array
+    public function processNewSaleData(string $saleReference, array $itemsData, $userId, $saleDate, $saleTime, $customerId = null, $discountAmount = 0, $discountType = 'Fixed'): array
     {
         $this->db->transStart();
 
@@ -71,15 +71,33 @@ class SaleService
                 ];
             }
 
+            $totalBeforeDiscount = $saleTotal;
+            $finalAmount = $saleTotal;
+
+            if ($discountType === 'Percent') {
+                $discountValue = ($discountAmount / 100) * $saleTotal;
+                $finalAmount = $saleTotal - $discountValue;
+            } else {
+                $finalAmount = $saleTotal - $discountAmount;
+            }
+
+            // Ensure final amount isn't negative
+            if ($finalAmount < 0) {
+                $finalAmount = 0;
+            }
+
             // Create Sale
             $saleData = [
                 'sale_reference' => $saleReference,
                 'customer_id' => $customerId,
+                'total_before_discount' => $totalBeforeDiscount,
+                'discount_amount' => $discountAmount,
+                'discount_type' => $discountType,
+                'amount' => $finalAmount,
                 'sale_date' => $saleDate,
                 'sale_time' => $saleTime,
                 'sale_status' => "Payment Initiated",
                 'createdBy' => $userId,
-                'amount' => $saleTotal,
             ];
 
             $this->db->table('sale')->insert($saleData);

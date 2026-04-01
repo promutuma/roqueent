@@ -14,9 +14,14 @@ class SaleModel extends Model
         'sale_time',
         'customer_id',
         'amount',
+        'discount_amount',
+        'discount_type',
+        'total_before_discount',
         'paid_amount',
         'pay_method',
         'sale_status',
+        'is_voided',
+        'void_reason',
         'createdBy'
     ];
 

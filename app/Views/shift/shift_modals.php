@@ -10,6 +10,7 @@
             </div>
             <div class="modal-body">
                 <form id="formOpenShift" class="form-validate is-alter">
+                    <?= csrf_field() ?>
                     <div class="form-group">
                         <label class="form-label" for="txtOpeningFloat">Opening Float (Cash in Drawer)</label>
                         <div class="form-control-wrap">
@@ -38,6 +39,7 @@
             </div>
             <div class="modal-body">
                 <form id="formCloseShift" class="form-validate is-alter">
+                    <?= csrf_field() ?>
                     <div class="row g-gs">
                         <div class="col-md-6">
                             <div class="form-group text-center">
@@ -90,6 +92,10 @@
                 dataType: 'json',
                 success: function(res) {
                     $('#btnOpenShift').attr('disabled', false).text('Open Shift');
+                    // Update CSRF token
+                    if (res.tn) {
+                        $('input[name="csrf_test_name"]').val(res.tn);
+                    }
                     if (res.status == 1) {
                         Swal.fire('Success', res.message, 'success').then(() => location.reload());
                     } else {
@@ -122,6 +128,10 @@
                         dataType: 'json',
                         success: function(res) {
                             $('#btnCloseShift').attr('disabled', false).text('Close & Reconcile Shift');
+                            // Update CSRF token
+                            if (res.tn) {
+                                $('input[name="csrf_test_name"]').val(res.tn);
+                            }
                             if (res.status == 1) {
                                 Swal.fire('Shift Closed', res.message, 'success').then(() => location.reload());
                             } else {

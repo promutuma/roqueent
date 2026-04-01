@@ -21,18 +21,20 @@
                     </div>
                 </div><!-- .nk-block-head-content -->
 
-                <?php
-                if ($sale['sale_status'] == 'Complete') {
-                    # code...
-                } else {
-                    # code...
-                ?>
-                    <div class="nk-block-head-content">
-                        <a data-id="<?php echo $saleId ?>" class="btn btnAddItem btn-xl btn-outline-info"> Add Item</a>
-                    </div><!-- .nk-block-head-content -->
-                <?php
-                }
-                ?>
+                <div class="nk-block-head-content">
+                    <ul class="nk-block-tools g-3">
+                        <li class="nk-block-tools-opt">
+                            <?php if (!$sale['is_voided']) : ?>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#refundSaleModal" class="btn btn-outline-danger">
+                                    <em class="icon ni ni-reload"></em><span>Process Refund</span>
+                                </a>
+                            <?php else : ?>
+                                <span class="badge badge-lg badge-dim badge-danger">REFUNDED</span>
+                            <?php endif; ?>
+                        </li>
+                        <li><a href="/html/sales-list.html" class="btn btn-icon btn-outline-light"><em class="icon ni ni-arrow-left"></em></a></li>
+                    </ul>
+                </div><!-- .nk-block-head-content -->
             </div><!-- .nk-block-between -->
         </div><!-- .nk-block-head -->
         <div class="nk-block">
@@ -386,6 +388,82 @@
 </script>
 
 
+<!-- Refund Sale Modal -->
+<div class="modal fade" tabindex="-1" id="refundSaleModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Refund Sale #<?= $saleId ?></h5>
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form id="formRefundSale" class="form-validate is-alter">
+                    <input type="hidden" name="txtSaleId" value="<?= $sale['id'] ?>">
+                    <div class="form-group">
+                        <label class="form-label">Refund Amount (Full)</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" value="Ksh <?= number_format($Payment, 2) ?>" readonly disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="txtReason">Reason for Refund</label>
+                        <div class="form-control-wrap">
+                            <select class="form-select" name="txtReason" id="txtReason" required>
+                                <option value="Customer returned items">Customer returned items</option>
+                                <option value="Order correction">Order correction</option>
+                                <option value="Damaged goods">Damaged goods</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="btnRefundSubmit" class="btn btn-lg btn-danger btn-block text-white">Confirm Refund & Revert Stock</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('#formRefundSale').on('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This will refund Ksh <?= number_format($Payment, 2) ?> and add ALL items back to stock. This action CANNOT be undone.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Refund Sale'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#btnRefundSubmit').attr('disabled', true).text('Processing Refund...');
+                    $.ajax({
+                        url: '/html/refund/process',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(res) {
+                            $('#btnRefundSubmit').attr('disabled', false).text('Confirm Refund & Revert Stock');
+                            if (res.status == 1) {
+                                Swal.fire('Refund Successful', res.message, 'success').then(() => location.reload());
+                            } else {
+                                Swal.fire('Error', res.message, 'error');
+                            }
+                        },
+                        error: function() {
+                            $('#btnRefundSubmit').attr('disabled', false).text('Confirm Refund & Revert Stock');
+                            Swal.fire('Error', "An error occurred. Please try again.", 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 <!-- Load Modals -->
 <?= $this->include('sales/sales_modals') ?>
 <!-- End Load Modals -->
@@ -393,4 +471,5 @@
 
 
 <!-- content ends here -->
+
 <?= $this->endSection('cp') ?>

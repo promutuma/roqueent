@@ -27,6 +27,9 @@ class Dashboard extends BaseController
 
         $product = new ProductModel();
         $data['stock'] = $product->orderBy('stock', 'ASC')->findAll(3);
+        
+        // Low Stock alerts
+        $data['lowStockProducts'] = $product->where('stock <= low_stock_threshold')->findAll();
 
 
         $expense = new ExpenseModel();

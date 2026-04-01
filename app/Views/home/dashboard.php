@@ -140,6 +140,34 @@
                     </div>
                 </div><!-- .card -->
             </div><!-- .col -->
+            
+            <?php if (!empty($lowStockProducts)) : ?>
+            <div class="col-12">
+                <div class="card card-bordered border-danger">
+                    <div class="card-inner">
+                        <div class="card-title-group align-start mb-2">
+                            <div class="card-title text-danger">
+                                <h6 class="title"><em class="icon ni ni-alert-fill"></em> Low Stock Alerts</h6>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <?php foreach ($lowStockProducts as $p) : ?>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="p-2 border rounded bg-warning-dim">
+                                    <div class="fw-bold"><?= $p['product_name'] ?></div>
+                                    <div class="text-soft small">SKU: <?= $p['product_sku'] ?></div>
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <span class="badge badge-danger">Stock: <?= number_format($p['stock'], 2) ?></span>
+                                        <a href="/html/product-list.html" class="link small">Restock</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
 
             <div class="col-xl-12 col-xxl-6">
                 <div class="card card-bordered card-full">

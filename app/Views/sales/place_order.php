@@ -137,8 +137,30 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="2">Total:</td>
-                                            <td id="total-amount">0</td>
+                                            <td colspan="2">Subtotal:</td>
+                                            <td id="subtotal-amount">0.00</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="row g-2 align-items-center">
+                                                    <div class="col-6">Discount</div>
+                                                    <div class="col-6">
+                                                        <select class="form-select form-select-sm" name="txtDiscountType" id="txtDiscountType">
+                                                            <option value="Fixed">Ksh (Fixed)</option>
+                                                            <option value="Percent">% (Percent)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" step="0.01" class="form-control form-control-sm" name="txtDiscountAmount" id="txtDiscountAmount" value="0.00">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="bg-lighter">
+                                            <td colspan="2" class="font-weight-bold">Net Total:</td>
+                                            <td id="total-amount" class="font-weight-bold text-primary" style="font-size: 1.25rem;">0.00</td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
@@ -261,40 +283,62 @@
                     "<td><button class='btn btn-danger remove-item'>Remove</button></td>" +
                     "</tr>"
                 );
-                updateTotal();
+                updateTotals();
             });
 
             // Update total when quantity changes
             $(document).on('change', '.quantity', function() {
-                updateTotal();
+                updateTotals();
             });
 
             // Remove item from form
             $(document).on('click', '.remove-item', function() {
                 $(this).closest('tr').remove();
-                updateTotal();
+                updateTotals();
             });
 
-            // Function to update total
-            function updateTotal() {
-                var total = 0;
+            // Update subtotal/total when discount changes
+            $(document).on('change keyup', '#txtDiscountAmount, #txtDiscountType', function() {
+                updateTotals();
+            });
+
+            // Function to update totals
+            function updateTotals() {
+                var subtotal = 0;
                 $("#selected-items-table tbody tr").each(function() {
                     var price = parseFloat($(this).find('.price').text());
-                    var quantity = parseFloat($(this).find('.quantity').val()); // Parse quantity as float
+                    var quantity = parseFloat($(this).find('.quantity').val());
                     var totalPrice = price * quantity;
                     $(this).find('.total-price').text(totalPrice.toFixed(2));
-                    total += totalPrice;
+                    subtotal += totalPrice;
                 });
-                $("#total-amount").text(total.toFixed(2));
+                $("#subtotal-amount").text(subtotal.toFixed(2));
 
-                // Update submit button state after updating total
-                updateSubmitButton(total);
+                // Calculate Discount
+                var discountAmount = parseFloat($("#txtDiscountAmount").val()) || 0;
+                var discountType = $("#txtDiscountType").val();
+                var netTotal = subtotal;
+
+                if (discountType === 'Percent') {
+                    var discountVal = (discountAmount / 100) * subtotal;
+                    netTotal = subtotal - discountVal;
+                } else {
+                    netTotal = subtotal - discountAmount;
+                }
+
+                if (netTotal < 0) {
+                    netTotal = 0;
+                }
+
+                $("#total-amount").text(netTotal.toFixed(2));
+
+                // Update submit button state
+                updateSubmitButton(subtotal);
             }
 
-
-            // Function to update submit button state based on total amount
-            function updateSubmitButton(total) {
-                if (total === 0) {
+            // Function to update submit button state based on subtotal amount
+            function updateSubmitButton(subtotal) {
+                if (subtotal <= 0) {
                     $(".btn-submit").prop('disabled', true);
                 } else {
                     $(".btn-submit").prop('disabled', false);

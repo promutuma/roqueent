@@ -223,26 +223,27 @@
 
 
                         <?php foreach ($user as $row) : ?>
+                            <?php $row = (array)$row; ?>
                             <div class="nk-tb-item">
                                 <div class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">
-                                        <input type="checkbox" class="custom-control-input" id="uid<?php echo $row['user_id'] ?>">
-                                        <label class="custom-control-label" for="uid<?php echo $row['user_id'] ?>"></label>
+                                        <input type="checkbox" class="custom-control-input" id="uid<?php echo $row['user_id'] ?? '' ?>">
+                                        <label class="custom-control-label" for="uid<?php echo $row['user_id'] ?? '' ?>"></label>
                                     </div>
                                 </div>
                                 <div class="nk-tb-col">
                                     <div class="user-card">
                                         <div class="user-avatar bg-purple">
-                                            <span><?php echo substr($row['user_fname'], 0, 1) ?><?php echo substr($row['user_oname'], 0, 1) ?></span>
+                                            <span><?php echo substr($row['user_fname'] ?? '', 0, 1) ?><?php echo substr($row['user_oname'] ?? '', 0, 1) ?></span>
                                         </div>
                                         <div class="user-info">
-                                            <span class="tb-lead"><?php echo $row['user_fname'] ?> <?php echo $row['user_oname'] ?> <span class="dot dot-success d-md-none ml-1"></span></span>
-                                            <span><?php echo $row['user_email'] ?></span>
+                                            <span class="tb-lead"><?php echo $row['user_fname'] ?? '' ?> <?php echo $row['user_oname'] ?? '' ?> <span class="dot dot-success d-md-none ml-1"></span></span>
+                                            <span><?php echo $row['user_email'] ?? '' ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="nk-tb-col tb-col-mb">
-                                    <span class="tb-amount"><?php echo $row['user_id'] ?></span></span>
+                                    <span class="tb-amount"><?php echo $row['user_id'] ?? '' ?></span></span>
                                 </div>
                                 <div class="nk-tb-col tb-col-md">
                                     <span><?php echo !empty($row['phone_number']) ? '+254 ' . substr($row['phone_number'], 1, 3) . ' ' . substr($row['phone_number'], 4, 3) . ' ' . substr($row['phone_number'], 7, 3) : 'N/A' ?></span>

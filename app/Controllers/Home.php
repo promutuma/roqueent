@@ -237,7 +237,8 @@ class Home extends BaseController
 
         $sessionData = [
             'session_iddata' => $sessionId,
-            'user_id' => $user['user_id'],
+            'user_id' => $user['id'], // Use the integer primary key
+            'legacy_user_id' => $user['user_id'], // Store the custom ID for reference
             'user_name' => $user['user_fname'] . " " . $user['user_oname'],
             'ip_address' => $sys->getIPAddress(),
             'device' => $getBrowser['device'],
