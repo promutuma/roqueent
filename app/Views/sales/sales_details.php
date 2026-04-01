@@ -167,7 +167,7 @@
                             }
                             ?>
 
-                            <a class="btn btn-xl btn-success">Generate Invoice</a>
+                            <a href="/html/sales-receipt.html/<?= $saleId ?>" target="_blank" class="btn btn-xl btn-success">Generate Invoice</a>
                             <a class="btn btn-xl btn-danger">Cancel Sale</a>
                         </div><!-- .card-inner -->
 

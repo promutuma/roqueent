@@ -286,6 +286,39 @@ class Sales extends BaseController
     }
 
 
+    public function printReceipt($saleId)
+    {
+        $saleModel = new SaleModel();
+        $sale = $saleModel->findSaleByID($saleId);
+
+        if (!$sale) {
+            return "Sale not found.";
+        }
+
+        $realSaleId = $sale['id'];
+        $data['sale'] = $sale;
+        $data['saleId'] = $saleId;
+        $data['title'] = "Receipt: " . $saleId;
+
+        $itemModel = new \App\Models\ItemModel();
+        $data['items'] = $itemModel->where('sale_id', $realSaleId)->findAll();
+
+        $paymentModel = new \App\Models\PaymentModel();
+        $data['payments'] = $paymentModel->where('sale_id', $realSaleId)->findAll();
+        
+        $totalPaid = $paymentModel->where('sale_id', $realSaleId)->selectSum('amount')->first();
+        $data['totalPaid'] = (float)($totalPaid['amount'] ?? 0);
+
+        $userModel = new \App\Models\UserModel();
+        $data['cashier'] = $userModel->find($sale['createdBy']);
+
+        $customerModel = new \App\Models\CustomerModel();
+        $data['customer'] = $sale['customer_id'] ? $customerModel->find($sale['customer_id']) : null;
+
+        return view('sales/receipt_print', $data);
+    }
+
+
     // logs all throwables and exeptions in this class
     private function logError($method, $message)
     {
