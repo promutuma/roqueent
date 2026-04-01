@@ -2,28 +2,31 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use CodeIgniter\Shield\Models\UserModel as ShieldUserModel;
 
-class UserModel extends Model
+class UserModel extends ShieldUserModel
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $allowedFields = [
+        'username',
+        'status',
+        'status_message',
+        'active',
+        'last_active',
         'user_id',
         'user_email',
         'user_fname',
         'user_oname',
         'user_type',
         'user_status',
-        'user_password',
         'error_times',
-        'added_on',
         'phone_number',
         'createdBy'
     ];
 
-    // function to create a new user
-    public function createNewUser($data)
+    // function to create a new user profile
+    public function createCustomUser($data)
     {
         try {
             $this->insert($data);

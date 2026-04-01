@@ -94,7 +94,7 @@ class User extends BaseController
                     ]);
                     $users->save($user);
 
-                    $modelUser->createNewUser($userData);
+                    $modelUser->createCustomUser($userData);
 
                     $message = 'Hello ' . $this->request->getVar('txtFname')
                         . ',<br><br> A CAMERA20 POS account has been created using this email. Please login to ' . base_url() . ' and use the following password and username <br>'
