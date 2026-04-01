@@ -81,6 +81,24 @@
                                         <div class="form-control-wrap">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
+                                                    <span class="input-group-text">Customer</span>
+                                                </div>
+                                                <select class="form-select js-select2" name="txtCustomerId" id="txtCustomerId" data-search="on">
+                                                    <option value="">Walking Customer</option>
+                                                    <?php foreach ($customers as $c) : ?>
+                                                        <option value="<?= $c['id'] ?>"><?= $c['customer_name'] ?> (<?= $c['phone_number'] ?>)</option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-control-wrap">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
                                                     <span class="input-group-text" id="txtSaleId">Sale or Order ID / REF</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="txtSaleId" name="txtSaleId" value="<?= $saleId ?>" readonly>

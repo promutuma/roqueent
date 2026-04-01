@@ -71,3 +71,10 @@ $routes->get('/html/expense-get-item.html/(:any)/(:any)', 'Expense::expenseGet/$
 $routes->get('/html/expense-remove-item.html/(:any)', 'Expense::removeExpense/$1', ['filter' => 'auth']);
 $routes->post('/html/expense-add-item.html', 'Expense::addExpense', ['filter' => 'auth']);
 $routes->post('/html/expense-edit-item.html', 'Expense::editExpense', ['filter' => 'auth']);
+
+//Customer
+$routes->get('/html/customer-list.html', 'Customer::index', ['filter' => 'auth']);
+$routes->get('/html/customer/getCustomer/(:any)', 'Customer::getCustomer/$1', ['filter' => 'auth']);
+$routes->post('/html/customer/add', 'Customer::addCustomer', ['filter' => 'auth']);
+$routes->post('/html/customer/update', 'Customer::updateCustomer', ['filter' => 'auth']);
+$routes->delete('/html/customer/delete/(:any)', 'Customer::deleteCustomer/$1', ['filter' => 'auth']);

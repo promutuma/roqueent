@@ -47,6 +47,9 @@ class Sales extends BaseController
         $data['saleId'] = $saleId;
         $data['title'] = "Sale : " . $saleId;
 
+        $customer = new \App\Models\CustomerModel();
+        $data['customers'] = $customer->getCustomers();
+
         return view('sales/place_order', $data);
     }
 
@@ -76,12 +79,15 @@ class Sales extends BaseController
                 ];
             }
 
+            $customer_id = $this->request->getVar('txtCustomerId');
+
             $result = $this->saleService->processNewSaleData(
                 $sale_reference, 
                 $itemsList, 
                 session()->get('user_id'),
                 $saleDate,
-                $saleTime
+                $saleTime,
+                $customer_id ? (int)$customer_id : null
             );
 
             if ($result['status'] === true) {
@@ -102,40 +108,43 @@ class Sales extends BaseController
 
     public function sale($saleId)
     {
+        $s = new SaleModel();
+        $saleData = $s->findSaleByID($saleId);
 
+        if (!$saleData) {
+            return redirect()->to('/html/sales-list.html')->with('error', 'Sale not found.');
+        }
+
+        $realSaleId = $saleData['id'];
+        $data['sale'] = $saleData;
         $data['saleId'] = $saleId;
         $data['title'] = "Sale:" . $saleId;
+
         $product = new ProductModel();
         $data['product'] = $product->where('stock >', 0)->findAll();
-        $item = new ItemModel();
-        $item->where('sale_id', $saleId);
-        $data['item'] = $item->findAll();
-        $tP = $item->where('sale_id', $saleId)->select('sum(total_price) as TotalPrice')->first();
-        $tQ = $item->where('sale_id', $saleId)->select('sum(quantity) as TotalQ')->first();
-        $data['itemsN'] =  $item->where('sale_id', $saleId)->select('sum(quantity) as TotalQ')->countAllResults();
+
+        $itemModel = new ItemModel();
+        $data['item'] = $itemModel->where('sale_id', $realSaleId)->findAll();
+
+        $tP = $itemModel->where('sale_id', $realSaleId)->selectSum('total_price', 'TotalPrice')->first();
+        $tQ = $itemModel->where('sale_id', $realSaleId)->selectSum('quantity', 'TotalQ')->first();
+        $data['itemsN'] = $itemModel->where('sale_id', $realSaleId)->countAllResults();
 
         $checkpayment = new PaymentModel();
-        $checkpayment->where('sale_id', $saleId);
+        $data['payment'] = $checkpayment->where('sale_id', $realSaleId)->findAll();
 
-        $data['payment'] = $checkpayment->findAll();
-        $s = new SaleModel();
-        $data['sale'] = $s->findSaleByID($saleId);
-        $tPc = $checkpayment->where('sale_id', $saleId)->select('sum(amount) as total_payment')->first();
         if (empty($data['payment'])) {
             $data['Payment'] = 0;
         } else {
+            $tPc = $checkpayment->where('sale_id', $realSaleId)->selectSum('amount', 'total_payment')->first();
             $data['Payment'] = $tPc['total_payment'];
         }
 
         if (empty($data['item'])) {
             $data['totalPrice'] = 0;
-        } else {
-            $data['totalPrice'] = $tP['TotalPrice'];
-        }
-
-        if (empty($data['item'])) {
             $data['totalQuantity'] = 0;
         } else {
+            $data['totalPrice'] = $tP['TotalPrice'];
             $data['totalQuantity'] = $tQ['TotalQ'];
         }
 
@@ -164,12 +173,11 @@ class Sales extends BaseController
 
     public function addSaleItem($salesId)
     {
-        $sale = new SaleModel();
-        $sale->where('sale_id', $salesId);
-        $fsale = $sale->first();
+        $saleModel = new SaleModel();
+        $fsale = $saleModel->findSaleByID($salesId);
 
-        if ($fsale < 1) {
-            echo json_encode(array("status" => 0, 'data' => "Sale with Id (" . $salesId . ") not found."));
+        if (!$fsale) {
+            echo json_encode(array("status" => 0, 'data' => "Sale with Id/Ref (" . $salesId . ") not found."));
         } else {
             echo json_encode(array("status" => true, 'data' => $fsale));
         }
@@ -218,7 +226,7 @@ class Sales extends BaseController
     public function getPayment($saleId)
     {
         $s = new SaleModel();
-        $saleDataRow = $s->where('sale_reference', $saleId)->first();
+        $saleDataRow = $s->findSaleByID($saleId);
         if (!$saleDataRow) {
             return $this->response->setJSON(["status" => 0, 'data' => 'Sale not found']);
         }

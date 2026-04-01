@@ -16,7 +16,7 @@ class SaleService
     /**
      * Process a completely new sale with items
      */
-    public function processNewSaleData(string $saleReference, array $itemsData, $userId, $saleDate, $saleTime): array
+    public function processNewSaleData(string $saleReference, array $itemsData, $userId, $saleDate, $saleTime, $customerId = null): array
     {
         $this->db->transStart();
 
@@ -74,6 +74,7 @@ class SaleService
             // Create Sale
             $saleData = [
                 'sale_reference' => $saleReference,
+                'customer_id' => $customerId,
                 'sale_date' => $saleDate,
                 'sale_time' => $saleTime,
                 'sale_status' => "Payment Initiated",

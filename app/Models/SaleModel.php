@@ -12,6 +12,7 @@ class SaleModel extends Model
         'sale_reference',
         'sale_date',
         'sale_time',
+        'customer_id',
         'amount',
         'paid_amount',
         'pay_method',
@@ -37,7 +38,10 @@ class SaleModel extends Model
     public function findSaleByID($id)
     {
         try {
-            return $this->where('id', $id)
+            return $this->groupStart()
+                ->where('id', $id)
+                ->orWhere('sale_reference', $id)
+                ->groupEnd()
                 ->first();
         } catch (\Throwable $th) {
             $this->logError('findSaleByID', $th->getMessage());

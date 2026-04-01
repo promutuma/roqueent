@@ -124,6 +124,18 @@
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-text">Customers</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="/html/customer-list.html" class="nk-menu-link">
+                                                <span class="nk-menu-text">View Customers</span>
+                                            </a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
                             </ul><!-- .nk-menu -->
                         </div><!-- .nk-header-menu -->
                         <div class="nk-header-tools">
