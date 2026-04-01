@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class LogModel extends Model{
     protected $table = 'log';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['log_id', 'session_id', 'user_id', 'log_type', 'log_desc', 'log_date', 'log_time'];
+    protected $allowedFields = ['session_id', 'user_id', 'log_type', 'log_desc', 'log_date', 'log_time'];
 
 
 }

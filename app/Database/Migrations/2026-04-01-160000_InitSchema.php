@@ -22,7 +22,6 @@ class InitSchema extends Migration
         // 2. Table: expense
         $this->forge->addField([
             'id' => ['type' => 'BIGINT', 'constraint' => 20, 'unsigned' => true, 'auto_increment' => true],
-            'expense_ID' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'expense_description' => ['type' => 'VARCHAR', 'constraint' => 255],
             'date' => ['type' => 'DATE', 'null' => true],
             'time' => ['type' => 'TIME', 'null' => true],
@@ -36,7 +35,6 @@ class InitSchema extends Migration
         // 3. Table: log
         $this->forge->addField([
             'id' => ['type' => 'BIGINT', 'constraint' => 20, 'unsigned' => true, 'auto_increment' => true],
-            'log_id' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'session_id' => ['type' => 'VARCHAR', 'constraint' => 255],
             'user_id' => ['type' => 'VARCHAR', 'constraint' => 255],
             'log_type' => ['type' => 'VARCHAR', 'constraint' => 255],
@@ -107,7 +105,6 @@ class InitSchema extends Migration
         // 7. Table: sale
         $this->forge->addField([
             'id' => ['type' => 'BIGINT', 'constraint' => 20, 'unsigned' => true, 'auto_increment' => true],
-            'sale_id' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'sale_reference' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true, 'unique' => true],
             'sale_date' => ['type' => 'DATE', 'null' => true],
             'sale_time' => ['type' => 'TIME', 'null' => true],

@@ -91,7 +91,7 @@
                                 <?php foreach ($allSales as $row) : ?>
                                     <tr class="tb-odr-item">
                                         <td class="tb-odr-info">
-                                            <span class="tb-odr-id"><a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>">#<?php echo $row['sale_id'] ?></a></span>
+                                            <span class="tb-odr-id"><a href="/html/sales-new.html/<?php echo $row['id'] ?>">#<?php echo $row['id'] ?></a></span>
                                             <span class="tb-odr-date"><?php echo $row['sale_date'] ?>, <?php echo $row['sale_time'] ?></span>
                                         </td>
                                         <td class="tb-odr-amount">
@@ -117,8 +117,8 @@
                                         </td>
                                         <td class="tb-odr-action">
                                             <div class="tb-odr-btns d-none d-sm-inline">
-                                                <a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
-                                                <a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>" class="btn btn-dim btn-sm btn-primary">View</a>
+                                                <a href="/html/sales-new.html/<?php echo $row['id'] ?>" class="btn btn-icon btn-white btn-dim btn-sm btn-primary"><em class="icon ni ni-printer-fill"></em></a>
+                                                <a href="/html/sales-new.html/<?php echo $row['id'] ?>" class="btn btn-dim btn-sm btn-primary">View</a>
                                             </div>
                                             <a href="/html/sales-new.html/" class="btn btn-pd-auto d-sm-none"><em class="icon ni ni-chevron-right"></em></a>
                                         </td>

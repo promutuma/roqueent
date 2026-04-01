@@ -9,7 +9,6 @@ class ExpenseModel extends Model
     protected $table = 'expense';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'expense_ID',
         'expense_description',
         'date',
         'time',
@@ -37,7 +36,7 @@ class ExpenseModel extends Model
     public function updateExpense($id, $setdata)
     {
         try {
-            $this->where('expense_ID', $id)->set($setdata)->update();
+            $this->where('id', $id)->set($setdata)->update();
             return true;
         } catch (\Throwable $th) {
             $this->logError('updateExpense', $th->getMessage());
@@ -51,7 +50,7 @@ class ExpenseModel extends Model
     public function getExpenseByID($id)
     {
         try {
-            return $this->where('expense_ID', $id)->first();
+            return $this->where('id', $id)->first();
         } catch (\Throwable $th) {
             $this->logError('getExpenseByID', $th->getMessage());
 
@@ -65,7 +64,7 @@ class ExpenseModel extends Model
     public function deleteExpense($sku)
     {
         try {
-            $this->where('expense_ID', $sku)->delete();
+            $this->where('id', $sku)->delete();
 
             return true;
         } catch (\Throwable $th) {

@@ -194,7 +194,6 @@ class Sys extends BaseController
         }
 
         $logData = [
-            'log_id' => $logid,
             'session_id' => $sessionId,
             'user_id' => $userId,
             'log_type' => $logType,

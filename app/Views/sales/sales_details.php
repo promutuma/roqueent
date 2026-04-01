@@ -90,8 +90,8 @@
                                                         <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a data-id="<?php echo $row['item_sale_id'] ?>" class="btn btnAddQ"><em class="icon ni ni-edit"></em><span>Add / Deduct Quantity</span></a></li>
-                                                                <li><a data-id="<?php echo $row['item_sale_id'] ?>" class="btn btnRemoveItem"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
+                                                                <li><a data-id="<?php echo $row['id'] ?>" class="btn btnAddQ"><em class="icon ni ni-edit"></em><span>Add / Deduct Quantity</span></a></li>
+                                                                <li><a data-id="<?php echo $row['id'] ?>" class="btn btnRemoveItem"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -269,7 +269,7 @@
                         })
                     } else {
                         $('#addQuantityModal').modal('show');
-                        $('#addQuantityModal #txtItemSaleId').val(res.data.item_sale_id);
+                        $('#addQuantityModal #txtItemSaleId').val(res.data.id);
                     }
                 },
                 error: function(data) {

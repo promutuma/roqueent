@@ -12,7 +12,7 @@ class Expense extends BaseController
     {
         $data['title'] = "Expenses";
         $expense = new ExpenseModel();
-        $data['allexpense'] = $expense->orderBy('expense_ID', 'DESC')->findAll();
+        $data['allexpense'] = $expense->orderBy('id', 'DESC')->findAll();
 
         return view('expense/expenselist', $data);
     }
@@ -39,7 +39,6 @@ class Expense extends BaseController
             $expenseAmount = $this->request->getVar('txtAmount');
             $remarks = $this->request->getVar('txtRemarks');
             $expenseData = [
-                'expense_ID' => $expenseId,
                 'expense_description' => $expenseDesc,
                 'date' => $expenseDate,
                 'time' => $expenseTime,
@@ -71,7 +70,7 @@ class Expense extends BaseController
 
         try {
             $getexpense = new ExpenseModel();
-            $expense = $getexpense->where('expense_ID', $expenseId)->first();
+            $expense = $getexpense->where('id', $expenseId)->first();
             $res_data['expense'] = $expense;
 
             if (empty($expense)) {

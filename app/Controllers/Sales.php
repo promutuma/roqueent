@@ -22,7 +22,7 @@ class Sales extends BaseController
         $data['title'] = "Sales List";
         $sale = new SaleModel();
         $data['allSales'] = $sale->findAll();
-        $data['CSales'] = $sale->select('sum(sale_id) as TotalQ')->countAllResults();
+        $data['CSales'] = $sale->countAllResults();
 
         return view('sales/saleslist', $data);
     }
@@ -178,7 +178,7 @@ class Sales extends BaseController
     public function getItem($itemsaleid)
     {
         $fitem = new ItemModel();
-        $cartitem = $fitem->where('item_sale_id', $itemsaleid)->first();
+        $cartitem = $fitem->where('id', $itemsaleid)->first();
         echo json_encode(array("status" => true, 'data' => $cartitem));
     }
 

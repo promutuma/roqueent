@@ -67,7 +67,7 @@
                     <tbody>
                         <?php foreach ($allexpense as $row) : ?>
                             <tr>
-                                <td><?php echo $row['expense_ID'] ?></th>
+                                <td><?php echo $row['id'] ?></th>
                                 <td><span class="tb-sub"><?php echo $row['date'] ?> - <?php echo $row['time'] ?></span></td>
                                 <td><?php echo $row['expense_description'] ?></td>
                                 <td><span class="tb-lead">Ksh <?php echo $row['expense_amount'] ?></span></td>
@@ -77,8 +77,8 @@
                                         <a href="" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a data-id="<?php echo $row['expense_ID'] ?>" class="btn btnEditEX"><em class="icon ni ni-edit"></em><span>Edit Expense</span></a></li>
-                                                <li><a data-id="<?php echo $row['expense_ID'] ?>" class="btn btnDeleteEX"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
+                                                <li><a data-id="<?php echo $row['id'] ?>" class="btn btnEditEX"><em class="icon ni ni-edit"></em><span>Edit Expense</span></a></li>
+                                                <li><a data-id="<?php echo $row['id'] ?>" class="btn btnDeleteEX"><em class="icon ni ni-trash"></em><span>Remove Item</span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
                                 $('#editExpense').modal('show');
-                                $('#editExpense #txtExpID').val(res.data.expense.expense_ID);
+                                $('#editExpense #txtExpID').val(res.data.expense.id);
                                 $('#editExpense #txtDesc').val(res.data.expense.expense_description);
                                 $('#editExpense #txtAmount').val(res.data.expense.expense_amount);
                                 $('#editExpense #txtRemarks').val(res.data.expense.remarks);

@@ -169,7 +169,7 @@
                                         <div class="user-avatar user-avatar-sm bg-light">
                                             <span>RS</span>
                                         </div>
-                                        <span class="tb-sub ms-2"><span class="d-none d-md-inline"><?php echo $row['sale_id'] ?></span></span>
+                                        <span class="tb-sub ms-2"><span class="d-none d-md-inline"><?php echo $row['id'] ?></span></span>
                                     </div>
                                 </div>
                                 <div class="nk-tb-col">
@@ -213,9 +213,9 @@
                                         <a class="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-chevron-right"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
                                             <ul class="link-list-plain">
-                                                <li><a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>">View</a></li>
-                                                <li><a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>">Invoice</a></li>
-                                                <li><a href="/html/sales-new.html/<?php echo $row['sale_id'] ?>">Print</a></li>
+                                                <li><a href="/html/sales-new.html/<?php echo $row['id'] ?>">View</a></li>
+                                                <li><a href="/html/sales-new.html/<?php echo $row['id'] ?>">Invoice</a></li>
+                                                <li><a href="/html/sales-new.html/<?php echo $row['id'] ?>">Print</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -261,11 +261,11 @@
                                 </div>
                                 <div class="nk-tb-col tb-col-lg">
                                     <div class="user-card">
-                                        <div class="user-avatar user-avatar-xs <?php if ($row['expense_ID'] % 4 == 0) {
+                                        <div class="user-avatar user-avatar-xs <?php if ($row['id'] % 4 == 0) {
                                                                                     echo 'bg-azure-dim';
-                                                                                } elseif ($row['expense_ID'] % 3 == 0) {
+                                                                                } elseif ($row['id'] % 3 == 0) {
                                                                                     echo 'bg-purple-dim';
-                                                                                } elseif ($row['expense_ID'] % 2 == 0) {
+                                                                                } elseif ($row['id'] % 2 == 0) {
                                                                                     echo 'bg-teal-dim';
                                                                                 } else {
                                                                                     echo 'bg-orange-dim';
@@ -337,7 +337,7 @@
                                                                             } ?>"><?php echo substr($row['user_fname'], 0, 1) ?><?php echo substr($row['user_oname'], 0, 1) ?></div>
                                 <div class="nk-activity-data">
                                     <div class="label"><?php echo $row['log_desc'] ?></div>
-                                    <span class="time"><?php $minutes = ($currentTime - $row['log_id']) / 60;
+                                    <span class="time"><?php $minutes = ($currentTime - $row['id']) / 60;
                                                         if ($minutes < 120) {
                                                             echo number_format($minutes) . " Minutes ago";
                                                         } elseif ($minutes < 2880) {

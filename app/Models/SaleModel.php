@@ -9,7 +9,6 @@ class SaleModel extends Model
     protected $table = 'sale';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'sale_id',
         'sale_reference',
         'sale_date',
         'sale_time',
@@ -38,7 +37,7 @@ class SaleModel extends Model
     public function findSaleByID($id)
     {
         try {
-            return $this->where('sale_id', $id)
+            return $this->where('id', $id)
                 ->first();
         } catch (\Throwable $th) {
             $this->logError('findSaleByID', $th->getMessage());
