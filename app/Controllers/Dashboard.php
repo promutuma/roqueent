@@ -88,7 +88,7 @@ class Dashboard extends BaseController
         $data['salesThisToday'] = $totalSalesToday['TotalAmount'] ?? 0;
 
         $totalSalesAll = $sale->selectSum('amount', 'TotalAmount')->first();
-        $data['salesTotal'] = $totalSalesAll['TotalAmount'] ?? 0;
+        $data['salesToday'] = $totalSalesAll['TotalAmount'] ?? 0;
 
 
         # Profit
