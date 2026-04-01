@@ -60,7 +60,7 @@ class UserModel extends ShieldUserModel
     public function findUserById($id)
     {
         try {
-            return $this->where('user_id', $id)->first();
+            return $this->asArray()->where('user_id', $id)->first();
         } catch (\Throwable $th) {
             $this->logError('findUserById', $th->getMessage());
             return false;
@@ -69,10 +69,10 @@ class UserModel extends ShieldUserModel
 
 
     // function to find user by email
-    public function findUserByEmail($id)
+    public function findUserByEmail($email)
     {
         try {
-            return $this->where('user_email', $id)->first();
+            return $this->asArray()->where('user_email', $email)->first();
         } catch (\Throwable $th) {
             $this->logError('findUserByEmail', $th->getMessage());
 
