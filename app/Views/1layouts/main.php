@@ -136,6 +136,18 @@
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-text">Register / Shifts</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="/html/shift-status.html" class="nk-menu-link">
+                                                <span class="nk-menu-text">Shift Status</span>
+                                            </a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
                             </ul><!-- .nk-menu -->
                         </div><!-- .nk-header-menu -->
                         <div class="nk-header-tools">

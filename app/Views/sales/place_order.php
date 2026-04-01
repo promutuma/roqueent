@@ -24,6 +24,15 @@
         </div>
     </div><!-- .nk-block-head -->
     <div class="nk-block">
+        <?php if (!$activeShift) : ?>
+            <div class="alert alert-danger">
+                <div class="alert-cta flex-wrap g-3">
+                    <div class="alert-text">
+                        <p><strong>Heads Up!</strong> You do not have an open shift. While you can still prepare orders, you won't be able to record payments until you <a href="/html/shift-status.html" class="alert-link">open a shift</a>.</p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row gy-5">
             <div class="col-lg-5">
                 <div class="nk-block-head">

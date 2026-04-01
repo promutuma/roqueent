@@ -50,6 +50,9 @@ class Sales extends BaseController
         $customer = new \App\Models\CustomerModel();
         $data['customers'] = $customer->getCustomers();
 
+        $shiftModel = new \App\Models\ShiftModel();
+        $data['activeShift'] = $shiftModel->getActiveShift(session()->get('user_id'));
+
         return view('sales/place_order', $data);
     }
 
@@ -260,7 +263,12 @@ class Sales extends BaseController
         $transactionDate = $getTime['date'];
         $transactionTime = $getTime['time'];
         
-        $result = $this->saleService->addPayment($saleId, $currentPayment, $transactionType, $transactionId, session()->get('user_id'), $transactionDate, $transactionTime);
+        $userId = session()->get('user_id');
+        $shiftModel = new \App\Models\ShiftModel();
+        $activeShift = $shiftModel->getActiveShift($userId);
+        $shiftId = $activeShift ? $activeShift['id'] : null;
+
+        $result = $this->saleService->addPayment($saleId, $currentPayment, $transactionType, $transactionId, $userId, $transactionDate, $transactionTime, $shiftId);
 
         if ($result['status'] > 0) {
             $ntransactionID = substr($transactionType, 0, 1) . $transactionId;

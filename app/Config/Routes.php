@@ -78,3 +78,9 @@ $routes->get('/html/customer/getCustomer/(:any)', 'Customer::getCustomer/$1', ['
 $routes->post('/html/customer/add', 'Customer::addCustomer', ['filter' => 'auth']);
 $routes->post('/html/customer/update', 'Customer::updateCustomer', ['filter' => 'auth']);
 $routes->delete('/html/customer/delete/(:any)', 'Customer::deleteCustomer/$1', ['filter' => 'auth']);
+
+//Shift
+$routes->get('/html/shift-status.html', 'Shift::index', ['filter' => 'auth']);
+$routes->post('/html/shift/open', 'Shift::openShift', ['filter' => 'auth']);
+$routes->post('/html/shift/close', 'Shift::closeShift', ['filter' => 'auth']);
+$routes->get('/html/shift/status', 'Shift::getActiveShiftStatus', ['filter' => 'auth']);

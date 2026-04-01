@@ -350,7 +350,7 @@ class SaleService
     /**
      * Add Payment to Sale
      */
-    public function addPayment(string $saleReference, float $currentPayment, string $transactionType, string $transactionId, $userId, $date, $time): array
+    public function addPayment(string $saleReference, float $currentPayment, string $transactionType, string $transactionId, $userId, $date, $time, $shiftId = null): array
     {
         $this->db->transStart();
 
@@ -390,6 +390,7 @@ class SaleService
 
             $paymentData = [
                 'sale_id' => $saleId,
+                'shift_id' => $shiftId,
                 'payment_reference' => substr($transactionType, 0, 1) . $transactionId,
                 'payment_type' => $transactionType,
                 'payment_date' => $date,
