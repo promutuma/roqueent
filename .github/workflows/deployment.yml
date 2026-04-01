@@ -1,16 +1,46 @@
-on: push
-name: Deploy website on push
+name: Deploy The System to production (Manual Trigger)
+
+on:
+  workflow_dispatch: # This event allows manual triggering
+
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-    - name: Get latest code
-      uses: actions/checkout@v3
-    
-    - name: Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ftp.eelam.co.ke
-        username: pointofsale@eelam.co.ke
-        password: POINTOFSALE
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Debug branch reference
+        run: |
+          echo "Current branch: $GITHUB_REF"
+
+      - name: Determine deployment environment
+        id: set-environment
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
+            echo "server=${{ secrets.MAIN_FTP_SERVER }}" >> $GITHUB_ENV
+            echo "username=${{ secrets.MAIN_FTP_USERNAME }}" >> $GITHUB_ENV
+            echo "password=${{ secrets.MAIN_FTP_PASSWORD }}" >> $GITHUB_ENV
+            echo "port=21" >> $GITHUB_ENV
+          elif [ "$GITHUB_REF" == "refs/heads/beta" ]; then
+            echo "server=${{ secrets.BETA_FTP_SERVER }}" >> $GITHUB_ENV
+            echo "username=${{ secrets.BETA_FTP_USERNAME }}" >> $GITHUB_ENV
+            echo "password=${{ secrets.BETA_FTP_PASSWORD }}" >> $GITHUB_ENV
+            echo "port=21" >> $GITHUB_ENV
+          else
+            echo "Branch not eligible for deployment."
+            exit 1
+          fi
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.server }}
+          username: ${{ env.username }}
+          password: ${{ env.password }}
+          port: ${{ env.port }}
