@@ -395,6 +395,9 @@
     <script src="<?php echo base_url() ?>/files/assets/js/scripts.js?ver=3.2.3"></script>
     <script src="<?php echo base_url() ?>/files/assets/js/charts/gd-invest.js?ver=3.2.3"></script>
     <script src="<?php echo base_url() ?>/files/assets/js/libs/datatable-btns.js?ver=3.2.3"></script>
+    
+    <!-- Shift Modals -->
+    <?php echo view('shift/shift_modals'); ?>
 </body>
 
 

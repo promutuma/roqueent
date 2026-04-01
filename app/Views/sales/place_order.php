@@ -25,10 +25,16 @@
     </div><!-- .nk-block-head -->
     <div class="nk-block">
         <?php if (!$activeShift) : ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-fill alert-danger alert-icon">
+                <em class="icon ni ni-cross-circle"></em>
                 <div class="alert-cta flex-wrap g-3">
                     <div class="alert-text">
-                        <p><strong>Heads Up!</strong> You do not have an open shift. While you can still prepare orders, you won't be able to record payments until you <a href="/html/shift-status.html" class="alert-link">open a shift</a>.</p>
+                        <p><strong>Shift Required!</strong> You must have an active shift to process payments and complete sales.</p>
+                    </div>
+                    <div class="alert-actions">
+                        <button type="button" class="btn btn-sm btn-white text-danger" data-bs-toggle="modal" data-bs-target="#openShiftModal">
+                            <em class="icon ni ni-plus"></em><span>Open Shift Now</span>
+                        </button>
                     </div>
                 </div>
             </div>
