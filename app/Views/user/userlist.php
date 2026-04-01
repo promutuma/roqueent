@@ -245,7 +245,7 @@
                                     <span class="tb-amount"><?php echo $row['user_id'] ?></span></span>
                                 </div>
                                 <div class="nk-tb-col tb-col-md">
-                                    <span>+254 <?php echo substr($row['phone_number'], 1, 3) ?> <?php echo substr($row['phone_number'], 4, 3) ?> <?php echo substr($row['phone_number'], 7, 3) ?></span>
+                                    <span><?php echo !empty($row['phone_number']) ? '+254 ' . substr($row['phone_number'], 1, 3) . ' ' . substr($row['phone_number'], 4, 3) . ' ' . substr($row['phone_number'], 7, 3) : 'N/A' ?></span>
                                 </div>
                                 <div class="nk-tb-col tb-col-lg">
                                     <ul class="list-status">
@@ -254,7 +254,7 @@
                                     </ul>
                                 </div>
                                 <div class="nk-tb-col tb-col-lg">
-                                    <span><?php echo $row['added_on'] ?></span>
+                                    <span><?php echo $row['added_on'] ?? 'N/A' ?></span>
                                 </div>
                                 <div class="nk-tb-col tb-col-md">
                                     <span class="tb-status text-success"><?php echo $row['user_type'] ?></span>
