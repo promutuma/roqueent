@@ -31,7 +31,7 @@ class Dashboard extends BaseController
 
         $expense = new ExpenseModel();
         $expense->join('users as user', 'user.user_id=expense.createdBy');
-        $data['expense'] = $expense->orderBy('id', 'DESC')->findAll(20);
+        $data['expense'] = $expense->orderBy('expense.id', 'DESC')->findAll(20);
         $totalExpenseThisMonth = $expense->WHERE('MONTH(date)', $currentMonth)->select('sum(expense_amount) as TotalAmount')->first();
         if (empty($totalExpenseThisMonth)) {
             # code...
@@ -71,7 +71,7 @@ class Dashboard extends BaseController
 
         $sale = new SaleModel();
         $sale->join('users as user', 'user.user_id=sale.createdBy');
-        $data['sales'] = $sale->orderBy('id', 'DESC')->findAll(20);
+        $data['sales'] = $sale->orderBy('sale.id', 'DESC')->findAll(20);
 
         # Sales
         $totalASalesthisMonth = $sale->WHERE('MONTH(sale_date)', $currentMonth)->select('sum(amount) as TotalAmount')->first();
@@ -124,7 +124,7 @@ class Dashboard extends BaseController
         #Logs
         $getLog = new LogModel();
         $getLog->join('users as user', 'user.user_id=log.user_id');
-        $data['logs'] = $getLog->orderBy('id', 'DESC')->findAll(10);
+        $data['logs'] = $getLog->orderBy('log.id', 'DESC')->findAll(10);
 
 
 
