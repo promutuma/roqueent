@@ -99,12 +99,16 @@
                     if (res.status == 1) {
                         Swal.fire('Success', res.message, 'success').then(() => location.reload());
                     } else {
-                        Swal.fire('Error', res.message, 'error');
+                        Swal.fire('Error', res.message || "Failed to open shift.", 'error');
                     }
                 },
-                error: function() {
+                error: function(xhr) {
                     $('#btnOpenShift').attr('disabled', false).text('Open Shift');
-                    Swal.fire('Error', "An error occurred. Please try again.", 'error');
+                    let errorMsg = "An error occurred. Please try again.";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMsg = xhr.responseJSON.message;
+                    }
+                    Swal.fire('Error', errorMsg, 'error');
                 }
             });
         });
@@ -135,12 +139,16 @@
                             if (res.status == 1) {
                                 Swal.fire('Shift Closed', res.message, 'success').then(() => location.reload());
                             } else {
-                                Swal.fire('Error', res.message, 'error');
+                                Swal.fire('Error', res.message || "Failed to close shift.", 'error');
                             }
                         },
-                        error: function() {
+                        error: function(xhr) {
                             $('#btnCloseShift').attr('disabled', false).text('Close & Reconcile Shift');
-                            Swal.fire('Error', "An error occurred. Please try again.", 'error');
+                            let errorMsg = "An error occurred. Please try again.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMsg = xhr.responseJSON.message;
+                            }
+                            Swal.fire('Error', errorMsg, 'error');
                         }
                     });
                 }

@@ -88,4 +88,4 @@ $routes->get('/html/shift/status', 'Shift::getActiveShiftStatus', ['filter' => '
 // Refund
 $routes->post('/html/refund/process', 'Refund::processRefund', ['filter' => 'auth']);
 
-$routes->get('/html/migrate', 'Migrate::index');
+// Migration route removed

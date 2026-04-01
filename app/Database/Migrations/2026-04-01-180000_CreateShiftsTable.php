@@ -8,7 +8,11 @@ class CreateShiftsTable extends Migration
 {
     public function up()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=0'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = OFF'); }
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
 
         // Create Shifts table
         $this->forge->addField([
@@ -78,15 +82,23 @@ class CreateShiftsTable extends Migration
         ]);
         $this->forge->addForeignKey('shift_id', 'shifts', 'id', 'SET NULL', 'CASCADE');
 
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') {
+            if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=1'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = ON'); }
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        }
     }
 
     public function down()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=0'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = OFF'); }
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
         $this->forge->dropForeignKey('payment', 'payment_shift_id_foreign');
         $this->forge->dropColumn('payment', 'shift_id');
         $this->forge->dropTable('shifts', true);
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=1'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = ON'); }
     }
 }

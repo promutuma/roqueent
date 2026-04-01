@@ -8,7 +8,7 @@ class CreateCustomerTable extends Migration
 {
     public function up()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=0'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = OFF'); }
 
         // Create Customers table
         $this->forge->addField([
@@ -67,15 +67,15 @@ class CreateCustomerTable extends Migration
         ]);
         $this->forge->addForeignKey('customer_id', 'customers', 'id', 'SET NULL', 'CASCADE');
 
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=1'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = ON'); }
     }
 
     public function down()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=0'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = OFF'); }
         $this->forge->dropForeignKey('sale', 'sale_customer_id_foreign');
         $this->forge->dropColumn('sale', 'customer_id');
         $this->forge->dropTable('customers', true);
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') { $this->db->query('SET FOREIGN_KEY_CHECKS=1'); } elseif ($this->db->DBDriver === 'SQLite3') { $this->db->query('PRAGMA foreign_keys = ON'); }
     }
 }

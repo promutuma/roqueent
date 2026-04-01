@@ -8,7 +8,11 @@ class FinalFeaturesSchema extends Migration
 {
     public function up()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
 
         // Update Sale table for Discounts
         $this->forge->addColumn('sale', [
@@ -93,17 +97,29 @@ class FinalFeaturesSchema extends Migration
         $this->forge->addForeignKey('sale_id', 'sale', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('refunds', true);
 
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        }
     }
 
     public function down()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
         
         $this->forge->dropColumn('sale', ['discount_amount', 'discount_type', 'total_before_discount', 'is_voided', 'void_reason']);
         $this->forge->dropColumn('product', 'low_stock_threshold');
         $this->forge->dropTable('refunds', true);
 
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        }
     }
 }

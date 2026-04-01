@@ -8,7 +8,11 @@ class InitSchema extends Migration
 {
     public function up()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
 
         // 1. Table: category
         $this->forge->addField([
@@ -58,12 +62,12 @@ class InitSchema extends Migration
             'deleted_at'     => ['type' => 'datetime', 'null' => true],
             // Custom fields from original user table
             'user_id' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'user_email' => ['type' => 'VARCHAR', 'constraint' => 255, 'unique' => true],
-            'user_fname' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'user_email' => ['type' => 'VARCHAR', 'constraint' => 255, 'unique' => true, 'null' => true],
+            'user_fname' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'user_oname' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'phone_number' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'user_type' => ['type' => 'VARCHAR', 'constraint' => 255],
-            'user_status' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'user_type' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'user_status' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'error_times' => ['type' => 'INT', 'null' => true, 'default' => 0],
             'createdBy' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
         ]);
@@ -258,12 +262,20 @@ class InitSchema extends Migration
         $this->forge->addForeignKey('user_id', 'users', 'id', '', 'CASCADE');
         $this->forge->createTable('auth_permissions_users', true);
 
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        }
     }
 
     public function down()
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        }
         $this->forge->dropTable('auth_permissions_users', true);
         $this->forge->dropTable('auth_groups_users', true);
         $this->forge->dropTable('auth_remember_tokens', true);
@@ -280,6 +292,10 @@ class InitSchema extends Migration
         $this->forge->dropTable('log', true);
         $this->forge->dropTable('expense', true);
         $this->forge->dropTable('category', true);
-        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        if ($this->db->DBDriver === 'MySQLi') {
+            $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        } elseif ($this->db->DBDriver === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        }
     }
 }

@@ -34,12 +34,20 @@ class Shift extends BaseController
             $session = session();
             $sys = new Sys();
 
+            $userId = $session->get('user_id');
+            if (empty($userId)) {
+                throw new \Exception("Session expired. Please log in again.");
+            }
+
             // Check if already has an open shift
-            if ($shiftModel->getActiveShift($session->get('user_id'))) {
+            if ($shiftModel->getActiveShift($userId)) {
                 throw new \Exception("You already have an open shift. Please close it before opening a new one.");
             }
 
             $openingFloat = (float)$this->request->getVar('txtOpeningFloat');
+            if ($openingFloat < 0) {
+                throw new \Exception("Opening float cannot be negative.");
+            }
             $getTime = $sys->getTime();
 
             $insertData = [
@@ -54,10 +62,12 @@ class Shift extends BaseController
                 $data['status'] = 1;
                 $data['message'] = "Shift opened successfully with a float of Ksh " . number_format($openingFloat, 2);
                 
-                $logDesc = "Shift opened by " . $session->get('user_name') . " with float Ksh " . $openingFloat;
-                $sys->addLog($session->get('session_iddata'), $session->get('user_id'), "Create", $logDesc);
+                $logDesc = "Shift opened by " . ($session->get('user_name') ?? 'Unknown') . " with float Ksh " . $openingFloat;
+                $sys->addLog($session->get('session_iddata'), $userId, "Create", $logDesc);
             } else {
-                throw new \Exception("Failed to open shift.");
+                $errors = $shiftModel->errors();
+                $errorMsg = !empty($errors) ? implode(", ", $errors) : "Failed to insert record.";
+                throw new \Exception("Failed to open shift: " . $errorMsg);
             }
         } catch (\Throwable $th) {
             $data['message'] = $this->errorText . $th->getMessage();
@@ -79,12 +89,17 @@ class Shift extends BaseController
             $session = session();
             $sys = new Sys();
 
-            $activeShift = $shiftModel->getActiveShift($session->get('user_id'));
+            $userId = $session->get('user_id');
+            if (empty($userId)) {
+                throw new \Exception("Session expired. Please log in again.");
+            }
+
+            $activeShift = $shiftModel->getActiveShift($userId);
             if (!$activeShift) {
                 throw new \Exception("No active shift found to close.");
             }
 
-            $actualCash = (float)$this->request->getVar('txtActualCash');
+            $actualCash = (float)$this->request->getPost('txtActualCash');
             $expectedCash = $shiftModel->calculateExpectedCash($activeShift['id']);
             $getTime = $sys->getTime();
 
