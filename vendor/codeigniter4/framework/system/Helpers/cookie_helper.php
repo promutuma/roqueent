@@ -24,18 +24,29 @@ if (! function_exists('set_cookie')) {
      *
      * Accepts seven parameters, or you can submit an associative
      * array in the first parameter containing all the values.
+     * ['', 'value', 'expire', '', '', '', '', '', 'name']
      *
-     * @param array|Cookie|string $name     Cookie name / array containing binds / Cookie object
-     * @param string              $value    The value of the cookie
-     * @param int                 $expire   The number of seconds until expiration
-     * @param string              $domain   For site-wide cookie. Usually: .yourdomain.com
-     * @param string              $path     The cookie path
-     * @param string              $prefix   The cookie prefix ('': the default prefix)
-     * @param bool|null           $secure   True makes the cookie secure
-     * @param bool|null           $httpOnly True makes the cookie accessible via http(s) only (no javascript)
-     * @param string|null         $sameSite The cookie SameSite value
-     *
-     * @return void
+     * @param array{
+     *   name?: string,
+     *   value?: string,
+     *   prefix?: string,
+     *   max-age?: int|numeric-string,
+     *   expire?: DateTimeInterface|int|string,
+     *   path?: string,
+     *   domain?: string,
+     *   secure?: bool,
+     *   httponly?: bool,
+     *   samesite?: string,
+     *   raw?: bool
+     *  }|Cookie|string $name     Cookie name / array containing binds / Cookie object
+     * @param string      $value    The value of the cookie
+     * @param int         $expire   The number of seconds until expiration
+     * @param string      $domain   For site-wide cookie. Usually: .yourdomain.com
+     * @param string      $path     The cookie path
+     * @param string      $prefix   The cookie prefix ('': the default prefix)
+     * @param bool|null   $secure   True makes the cookie secure
+     * @param bool|null   $httpOnly True makes the cookie accessible via http(s) only (no javascript)
+     * @param string|null $sameSite The cookie SameSite value
      *
      * @see \CodeIgniter\HTTP\Response::setCookie()
      */
@@ -48,8 +59,8 @@ if (! function_exists('set_cookie')) {
         string $prefix = '',
         ?bool $secure = null,
         ?bool $httpOnly = null,
-        ?string $sameSite = null
-    ) {
+        ?string $sameSite = null,
+    ): void {
         $response = service('response');
         $response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httpOnly, $sameSite);
     }
@@ -64,7 +75,7 @@ if (! function_exists('get_cookie')) {
      *                            '': the prefix in Config\Cookie
      *                            null: no prefix
      *
-     * @return array|string|null
+     * @return array<string, mixed>|string|null
      *
      * @see \CodeIgniter\HTTP\IncomingRequest::getCookie()
      */
@@ -77,7 +88,7 @@ if (! function_exists('get_cookie')) {
         }
 
         $request = service('request');
-        $filter  = $xssClean ? FILTER_SANITIZE_FULL_SPECIAL_CHARS : FILTER_DEFAULT;
+        $filter  = $xssClean ? FILTER_SANITIZE_FULL_SPECIAL_CHARS : FILTER_UNSAFE_RAW;
 
         return $request->getCookie($prefix . $index, $filter);
     }
@@ -92,11 +103,9 @@ if (! function_exists('delete_cookie')) {
      * @param string $path   the cookie path
      * @param string $prefix the cookie prefix
      *
-     * @return void
-     *
      * @see \CodeIgniter\HTTP\Response::deleteCookie()
      */
-    function delete_cookie($name, string $domain = '', string $path = '/', string $prefix = '')
+    function delete_cookie($name, string $domain = '', string $path = '/', string $prefix = ''): void
     {
         service('response')->deleteCookie($name, $domain, $path, $prefix);
     }

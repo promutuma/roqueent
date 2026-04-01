@@ -16,6 +16,7 @@ namespace CodeIgniter\Database\Postgre;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\RawSql;
+use CodeIgniter\Database\TableName;
 use ErrorException;
 use PgSql\Connection as PgSqlConnection;
 use PgSql\Result as PgSqlResult;
@@ -58,8 +59,7 @@ class Connection extends BaseConnection
     /**
      * Connect to the database.
      *
-     * @return         false|resource
-     * @phpstan-return false|PgSqlConnection
+     * @return false|PgSqlConnection
      */
     public function connect(bool $persistent = false)
     {
@@ -75,12 +75,17 @@ class Connection extends BaseConnection
             $this->convertDSN();
         }
 
-        $this->connID = $persistent === true ? pg_pconnect($this->DSN) : pg_connect($this->DSN);
+        $this->connID = $persistent ? pg_pconnect($this->DSN) : pg_connect($this->DSN);
 
         if ($this->connID !== false) {
-            if ($persistent === true && pg_connection_status($this->connID) === PGSQL_CONNECTION_BAD && pg_ping($this->connID) === false
+            if (
+                $persistent
+                && pg_connection_status($this->connID) === PGSQL_CONNECTION_BAD
+                && pg_ping($this->connID) === false
             ) {
-                return false;
+                $error = pg_last_error($this->connID);
+
+                throw new DatabaseException($error);
             }
 
             if (! empty($this->schema)) {
@@ -88,7 +93,9 @@ class Connection extends BaseConnection
             }
 
             if ($this->setClientEncoding($this->charset) === false) {
-                return false;
+                $error = pg_last_error($this->connID);
+
+                throw new DatabaseException($error);
             }
         }
 
@@ -97,6 +104,8 @@ class Connection extends BaseConnection
 
     /**
      * Converts the DSN with semicolon syntax.
+     *
+     * @return void
      */
     private function convertDSN()
     {
@@ -134,22 +143,21 @@ class Connection extends BaseConnection
     }
 
     /**
-     * Keep or establish the connection if no queries have been sent for
-     * a length of time exceeding the server's idle timeout.
-     */
-    public function reconnect()
-    {
-        if (pg_ping($this->connID) === false) {
-            $this->connID = false;
-        }
-    }
-
-    /**
      * Close the database connection.
+     *
+     * @return void
      */
     protected function _close()
     {
         pg_close($this->connID);
+    }
+
+    /**
+     * Ping the database connection.
+     */
+    protected function _ping(): bool
+    {
+        return pg_ping($this->connID);
     }
 
     /**
@@ -184,15 +192,21 @@ class Connection extends BaseConnection
     /**
      * Executes the query against the database.
      *
-     * @return         false|resource
-     * @phpstan-return false|PgSqlResult
+     * @return false|PgSqlResult
      */
     protected function execute(string $sql)
     {
         try {
             return pg_query($this->connID, $sql);
         } catch (ErrorException $e) {
-            log_message('error', (string) $e);
+            $trace = array_slice($e->getTrace(), 2); // remove the call to error handler
+
+            log_message('error', "{message}\nin {exFile} on line {exLine}.\n{trace}", [
+                'message' => $e->getMessage(),
+                'exFile'  => clean_path($e->getFile()),
+                'exLine'  => $e->getLine(),
+                'trace'   => render_backtrace($trace),
+            ]);
 
             if ($this->DBDebug) {
                 throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
@@ -215,6 +229,10 @@ class Connection extends BaseConnection
      */
     public function affectedRows(): int
     {
+        if ($this->resultID === false) {
+            return 0;
+        }
+
         return pg_affected_rows($this->resultID);
     }
 
@@ -225,8 +243,7 @@ class Connection extends BaseConnection
      *
      * @param array|bool|float|int|object|string|null $str
      *
-     * @return         array|float|int|string
-     * @phpstan-return ($str is array ? array : float|int|string)
+     * @return ($str is array ? array : float|int|string)
      */
     public function escape($str)
     {
@@ -278,7 +295,7 @@ class Connection extends BaseConnection
             return $sql . ' AND "table_name" LIKE ' . $this->escape($tableName);
         }
 
-        if ($prefixLimit !== false && $this->DBPrefix !== '') {
+        if ($prefixLimit && $this->DBPrefix !== '') {
             return $sql . ' AND "table_name" LIKE \''
                 . $this->escapeLikeString($this->DBPrefix) . "%' "
                 . sprintf($this->likeEscapeStr, $this->likeEscapeChar);
@@ -289,13 +306,20 @@ class Connection extends BaseConnection
 
     /**
      * Generates a platform-specific query string so that the column names can be fetched.
+     *
+     * @param string|TableName $table
      */
-    protected function _listColumns(string $table = ''): string
+    protected function _listColumns($table = ''): string
     {
+        if ($table instanceof TableName) {
+            $tableName = $this->escape($table->getActualTableName());
+        } else {
+            $tableName = $this->escape($this->DBPrefix . strtolower($table));
+        }
+
         return 'SELECT "column_name"
 			FROM "information_schema"."columns"
-			WHERE LOWER("table_name") = '
-                . $this->escape($this->DBPrefix . strtolower($table))
+			WHERE LOWER("table_name") = ' . $tableName
                 . ' ORDER BY "ordinal_position"';
     }
 
@@ -359,7 +383,7 @@ class Connection extends BaseConnection
             $obj         = new stdClass();
             $obj->name   = $row->indexname;
             $_fields     = explode(',', preg_replace('/^.*\((.+?)\)$/', '$1', trim($row->indexdef)));
-            $obj->fields = array_map(static fn ($v) => trim($v), $_fields);
+            $obj->fields = array_map(trim(...), $_fields);
 
             if (str_starts_with($row->indexdef, 'CREATE UNIQUE INDEX pk')) {
                 $obj->type = 'PRIMARY';
@@ -451,7 +475,7 @@ class Connection extends BaseConnection
     {
         return [
             'code'    => '',
-            'message' => pg_last_error($this->connID) ?: '',
+            'message' => pg_last_error($this->connID),
         ];
     }
 
@@ -493,6 +517,8 @@ class Connection extends BaseConnection
 
     /**
      * Build a DSN from the provided parameters
+     *
+     * @return void
      */
     protected function buildDSN()
     {

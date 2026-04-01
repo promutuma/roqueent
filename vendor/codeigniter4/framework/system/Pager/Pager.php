@@ -279,7 +279,7 @@ class Pager implements PagerInterface
         }
 
         if ($this->only !== null) {
-            $query = array_intersect_key($_GET, array_flip($this->only));
+            $query = array_intersect_key(service('superglobals')->getGetArray(), array_flip($this->only));
 
             if (! $segment) {
                 $query[$this->groups[$group]['pageSelector']] = $page;
@@ -288,14 +288,14 @@ class Pager implements PagerInterface
             $uri->setQueryArray($query);
         }
 
-        return ($returnObject === true)
+        return $returnObject
             ? $uri
             : URI::createURIString(
                 $uri->getScheme(),
                 $uri->getAuthority(),
                 $uri->getPath(),
                 $uri->getQuery(),
-                $uri->getFragment()
+                $uri->getFragment(),
             );
     }
 
@@ -411,8 +411,9 @@ class Pager implements PagerInterface
 
         $this->calculateCurrentPage($group);
 
-        if ($_GET !== []) {
-            $this->groups[$group]['uri'] = $this->groups[$group]['uri']->setQueryArray($_GET);
+        $get = service('superglobals')->getGetArray();
+        if ($get !== []) {
+            $this->groups[$group]['uri'] = $this->groups[$group]['uri']->setQueryArray($get);
         }
     }
 
@@ -433,7 +434,7 @@ class Pager implements PagerInterface
         } else {
             $pageSelector = $this->groups[$group]['pageSelector'];
 
-            $page = (int) ($_GET[$pageSelector] ?? 1);
+            $page = (int) (service('superglobals')->get($pageSelector, '1'));
 
             $this->groups[$group]['currentPage'] = $page < 1 ? 1 : $page;
         }

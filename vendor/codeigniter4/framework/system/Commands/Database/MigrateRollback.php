@@ -15,6 +15,8 @@ namespace CodeIgniter\Commands\Database;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use CodeIgniter\CLI\SignalTrait;
+use CodeIgniter\Database\MigrationRunner;
 use Throwable;
 
 /**
@@ -23,6 +25,8 @@ use Throwable;
  */
 class MigrateRollback extends BaseCommand
 {
+    use SignalTrait;
+
     /**
      * The group the command is lumped under
      * when listing commands.
@@ -73,20 +77,35 @@ class MigrateRollback extends BaseCommand
             $force = array_key_exists('f', $params) || CLI::getOption('f');
 
             if (! $force && CLI::prompt(lang('Migrations.rollBackConfirm'), ['y', 'n']) === 'n') {
-                return;
+                return null;
             }
             // @codeCoverageIgnoreEnd
         }
 
+        /** @var MigrationRunner $runner */
         $runner = service('migrations');
 
         try {
             $batch = $params['b'] ?? CLI::getOption('b') ?? $runner->getLastBatch() - 1;
+
+            if (is_string($batch)) {
+                if (! ctype_digit($batch)) {
+                    CLI::error('Invalid batch number: ' . $batch, 'light_gray', 'red');
+                    CLI::newLine();
+
+                    return EXIT_ERROR;
+                }
+
+                $batch = (int) $batch;
+            }
+
             CLI::write(lang('Migrations.rollingBack') . ' ' . $batch, 'yellow');
 
-            if (! $runner->regress($batch)) {
-                CLI::error(lang('Migrations.generalFault'), 'light_gray', 'red'); // @codeCoverageIgnore
-            }
+            $this->withSignalsBlocked(static function () use ($runner, $batch): void {
+                if (! $runner->regress($batch)) {
+                    CLI::error(lang('Migrations.generalFault'), 'light_gray', 'red'); // @codeCoverageIgnore
+                }
+            });
 
             $messages = $runner->getCliMessages();
 
@@ -101,5 +120,7 @@ class MigrateRollback extends BaseCommand
             $this->showError($e);
             // @codeCoverageIgnoreEnd
         }
+
+        return null;
     }
 }

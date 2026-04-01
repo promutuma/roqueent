@@ -1,68 +1,75 @@
-# CodeIgniter 4 Application Starter
+# Camera20 POS System
 
-## What is CodeIgniter?
+A modern Point of Sale (POS) system built using CodeIgniter 4. This system is designed for high concurrency, reliable database transactions, and secure atomic stock tracking.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Requirements
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **PHP**: ^8.1
+- **Database**: MySQL 5.7+ or MariaDB 10.2+
+- **Composer**: Optional but recommended for installing PHP dependencies
+- **Web Server**: Apache, Nginx, or the built-in PHP development server
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## First-Time Installation & Setup
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+Follow these steps to configure and run the POS system for the first time.
 
-## Installation & updates
+### 1. Environment Configuration
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+1. In the root directory, copy the `env` file to `.env`:
+   ```bash
+   cp env .env
+   ```
+2. Open the `.env` file and set your environment to development to easily catch errors:
+   ```env
+   CI_ENVIRONMENT = development
+   ```
+3. Set your application's base URL (e.g., `localhost` or your local domain):
+   ```env
+   app.baseURL = 'http://localhost:8080/'
+   ```
+4. Define your Database connection settings. Remove the `#` prefix from the following lines and fill in your credentials:
+   ```env
+   database.default.hostname = localhost
+   database.default.database = your_database_name
+   database.default.username = your_database_username
+   database.default.password = your_database_password
+   database.default.DBDriver = MySQLi
+   database.default.port     = 3306
+   ```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+### 2. Install Dependencies
 
-## Setup
+If you are missing any vendor packages, ensure Composer is installed and run:
+   ```bash
+   composer install
+   ```
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### 3. Initialize the Database Schema
 
-## Important Change with index.php
+The system uses CodeIgniter Migrations to instantly construct the internal tables with proper data types and cascading Foreign Key constraints.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Run the following Spark command to automatically create the table structures:
+   ```bash
+   php spark migrate
+   ```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+*(Note: Ensure your database is completely empty before running migrations to avoid potential conflicts with legacy tables).*
 
-**Please** read the user guide for a better explanation of how CI4 works!
+### 4. Running the Application locally
 
-## Repository Management
+Once configured, you can launch the site logically through your desired web server or by running CodeIgniter's internal development server:
+   ```bash
+   php spark serve
+   ```
+Navigate to `http://localhost:8080` in your web browser. 
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## Architectural Refactoring Notes
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+The system now acts with enterprise-level safeguards.
+- **Race Condition Prevention**: Purchasing stock triggers an explicit database `SET stock = stock - quantity` command ensuring concurrent checkouts never corrupt stock totals.
+- **Database Transactions**: Multi-step actions (such as paying or committing cart layouts) run within `$this->db->transStart()`. In the event a script crashes, database changes are completely rolled-back automatically.
+- **Performance**: High-speed, natively auto-incrementing BigInt IDs handle table relationships, ensuring that massive datasets don't slow down SQL lookups.
 
-## Server Requirements
+## Support
 
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Refer to the official [CodeIgniter 4 Documentation](https://codeigniter.com/user_guide/) for further application development troubleshooting.

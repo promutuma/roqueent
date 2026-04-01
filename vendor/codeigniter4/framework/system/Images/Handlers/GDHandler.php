@@ -56,9 +56,6 @@ class GDHandler extends BaseHandler
         // Rotate it!
         $destImg = imagerotate($srcImg, $angle, $white);
 
-        // Kill the file handles
-        imagedestroy($srcImg);
-
         $this->resource = $destImg;
 
         return true;
@@ -86,9 +83,6 @@ class GDHandler extends BaseHandler
 
         imagefilledrectangle($dest, 0, 0, $this->width, $this->height, $matte);
         imagecopy($dest, $srcImg, 0, 0, 0, 0, $this->width, $this->height);
-
-        // Kill the file handles
-        imagedestroy($srcImg);
 
         $this->resource = $dest;
 
@@ -192,7 +186,6 @@ class GDHandler extends BaseHandler
 
         $copy($dest, $src, 0, 0, (int) $this->xAxis, (int) $this->yAxis, $this->width, $this->height, $origWidth, $origHeight);
 
-        imagedestroy($src);
         $this->resource = $dest;
 
         return $this;
@@ -281,7 +274,7 @@ class GDHandler extends BaseHandler
                 throw ImageException::forInvalidImageCreate();
         }
 
-        imagedestroy($this->resource);
+        $this->resource = null;
 
         chmod($target, $this->filePermissions);
 
@@ -322,7 +315,7 @@ class GDHandler extends BaseHandler
             // if valid image type, make corresponding image resource
             $this->resource = $this->getImageResource(
                 $this->image()->getPathname(),
-                $this->image()->imageType
+                $this->image()->imageType,
             );
         }
     }
@@ -471,7 +464,7 @@ class GDHandler extends BaseHandler
 
         // shorthand hex, #f00
         if (strlen($color) === 3) {
-            $color = implode('', array_map('str_repeat', str_split($color), [2, 2, 2]));
+            $color = implode('', array_map(str_repeat(...), str_split($color), [2, 2, 2]));
         }
 
         $color = str_split(substr($color, 0, 6), 2);

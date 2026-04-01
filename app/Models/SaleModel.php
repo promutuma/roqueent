@@ -7,9 +7,9 @@ use CodeIgniter\Model;
 class SaleModel extends Model
 {
     protected $table = 'sale';
-    protected $primarykey = 'sale_id';
+    protected $primaryKey = 'id';
     protected $allowedFields = [
-        'sale_id',
+        'sale_reference',
         'sale_date',
         'sale_time',
         'amount',

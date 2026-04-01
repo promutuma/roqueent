@@ -17,6 +17,7 @@ use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\Config\DotEnv;
 use CodeIgniter\Encryption\Encryption;
+use Config\Paths;
 
 /**
  * Generates a new encryption key.
@@ -101,7 +102,7 @@ class GenerateKey extends BaseCommand
         // force DotEnv to reload the new env vars
         putenv('encryption.key');
         unset($_ENV['encryption.key'], $_SERVER['encryption.key']);
-        $dotenv = new DotEnv(ROOTPATH);
+        $dotenv = new DotEnv((new Paths())->envDirectory ?? ROOTPATH);
         $dotenv->load();
 
         CLI::write('Application\'s new encryption key was successfully set.', 'green');
@@ -124,6 +125,8 @@ class GenerateKey extends BaseCommand
 
     /**
      * Sets the new encryption key in your .env file.
+     *
+     * @param array<int|string, string|null> $params
      */
     protected function setNewEncryptionKey(string $key, array $params): bool
     {
@@ -139,6 +142,8 @@ class GenerateKey extends BaseCommand
 
     /**
      * Checks whether to overwrite existing encryption key.
+     *
+     * @param array<int|string, string|null> $params
      */
     protected function confirmOverwrite(array $params): bool
     {
@@ -151,7 +156,7 @@ class GenerateKey extends BaseCommand
     protected function writeNewEncryptionKeyToFile(string $oldKey, string $newKey): bool
     {
         $baseEnv = ROOTPATH . 'env';
-        $envFile = ROOTPATH . '.env';
+        $envFile = ((new Paths())->envDirectory ?? ROOTPATH) . '.env';
 
         if (! is_file($envFile)) {
             if (! is_file($baseEnv)) {
@@ -178,7 +183,7 @@ class GenerateKey extends BaseCommand
             $newFileContents = preg_replace(
                 '/^[#\s]*encryption.key[=\s]*(?:hex2bin\:[a-f0-9]{64}|base64\:(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?)$/m',
                 $replacementKey,
-                $oldFileContents
+                $oldFileContents,
             );
         }
 

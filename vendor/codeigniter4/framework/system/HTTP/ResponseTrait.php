@@ -16,6 +16,7 @@ namespace CodeIgniter\HTTP;
 use CodeIgniter\Cookie\Cookie;
 use CodeIgniter\Cookie\CookieStore;
 use CodeIgniter\Cookie\Exceptions\CookieException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Pager\PagerInterface;
@@ -23,7 +24,6 @@ use CodeIgniter\Security\Exceptions\SecurityException;
 use Config\Cookie as CookieConfig;
 use DateTime;
 use DateTimeZone;
-use InvalidArgumentException;
 
 /**
  * Response Trait
@@ -123,18 +123,21 @@ trait ResponseTrait
      */
     public function setLink(PagerInterface $pager)
     {
-        $links = '';
+        $links    = '';
+        $previous = $pager->getPreviousPageURI();
 
-        if ($previous = $pager->getPreviousPageURI()) {
+        if (is_string($previous) && $previous !== '') {
             $links .= '<' . $pager->getPageURI($pager->getFirstPage()) . '>; rel="first",';
             $links .= '<' . $previous . '>; rel="prev"';
         }
 
-        if (($next = $pager->getNextPageURI()) && $previous) {
+        $next = $pager->getNextPageURI();
+
+        if (is_string($next) && $next !== '' && is_string($previous) && $previous !== '') {
             $links .= ',';
         }
 
-        if ($next) {
+        if (is_string($next) && $next !== '') {
             $links .= '<' . $next . '>; rel="next",';
             $links .= '<' . $pager->getPageURI($pager->getLastPage()) . '>; rel="last"';
         }
@@ -364,11 +367,7 @@ trait ResponseTrait
     {
         // If we're enforcing a Content Security Policy,
         // we need to give it a chance to build out it's headers.
-        if ($this->CSP->enabled()) {
-            $this->CSP->finalize($this);
-        } else {
-            $this->body = str_replace(['{csp-style-nonce}', '{csp-script-nonce}'], '', $this->body ?? '');
-        }
+        $this->CSP->finalize($this);
 
         $this->sendHeaders();
         $this->sendCookies();
@@ -403,16 +402,19 @@ trait ResponseTrait
             if ($value instanceof Header) {
                 header(
                     $name . ': ' . $value->getValueLine(),
-                    false,
-                    $this->getStatusCode()
+                    true,
+                    $this->getStatusCode(),
                 );
             } else {
+                $replace = true;
+
                 foreach ($value as $header) {
                     header(
                         $name . ': ' . $header->getValueLine(),
-                        false,
-                        $this->getStatusCode()
+                        $replace,
+                        $this->getStatusCode(),
                     );
+                    $replace = false;
                 }
             }
         }
@@ -445,21 +447,26 @@ trait ResponseTrait
     public function redirect(string $uri, string $method = 'auto', ?int $code = null)
     {
         // IIS environment likely? Use 'refresh' for better compatibility
+        $superglobals   = service('superglobals');
+        $serverSoftware = $superglobals->server('SERVER_SOFTWARE');
         if (
             $method === 'auto'
-            && isset($_SERVER['SERVER_SOFTWARE'])
-            && str_contains($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS')
+            && $serverSoftware !== null
+            && str_contains($serverSoftware, 'Microsoft-IIS')
         ) {
             $method = 'refresh';
         } elseif ($method !== 'refresh' && $code === null) {
             // override status code for HTTP/1.1 & higher
+            $serverProtocol = $superglobals->server('SERVER_PROTOCOL');
+            $requestMethod  = $superglobals->server('REQUEST_METHOD');
             if (
-                isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD'])
+                $serverProtocol !== null
+                && $requestMethod !== null
                 && $this->getProtocolVersion() >= 1.1
             ) {
-                if ($_SERVER['REQUEST_METHOD'] === Method::GET) {
+                if ($requestMethod === Method::GET) {
                     $code = 302;
-                } elseif (in_array($_SERVER['REQUEST_METHOD'], [Method::POST, Method::PUT, Method::DELETE], true)) {
+                } elseif (in_array($requestMethod, [Method::POST, Method::PUT, Method::DELETE], true)) {
                     // reference: https://en.wikipedia.org/wiki/Post/Redirect/Get
                     $code = 303;
                 } else {
@@ -509,7 +516,7 @@ trait ResponseTrait
         $prefix = '',
         $secure = null,
         $httponly = null,
-        $samesite = null
+        $samesite = null,
     ) {
         if ($name instanceof Cookie) {
             $this->cookieStore = $this->cookieStore->put($name);
@@ -566,7 +573,7 @@ trait ResponseTrait
      */
     public function hasCookie(string $name, ?string $value = null, string $prefix = ''): bool
     {
-        $prefix = $prefix ?: Cookie::setDefaults()['prefix']; // to retain BC
+        $prefix = $prefix !== '' ? $prefix : Cookie::setDefaults()['prefix']; // to retain BC
 
         return $this->cookieStore->has($name, $prefix, $value);
     }
@@ -586,7 +593,7 @@ trait ResponseTrait
         }
 
         try {
-            $prefix = $prefix ?: Cookie::setDefaults()['prefix']; // to retain BC
+            $prefix = $prefix !== '' ? $prefix : Cookie::setDefaults()['prefix']; // to retain BC
 
             return $this->cookieStore->get($name, $prefix);
         } catch (CookieException $e) {
@@ -607,7 +614,7 @@ trait ResponseTrait
             return $this;
         }
 
-        $prefix = $prefix ?: Cookie::setDefaults()['prefix']; // to retain BC
+        $prefix = $prefix !== '' ? $prefix : Cookie::setDefaults()['prefix']; // to retain BC
 
         $prefixed = $prefix . $name;
         $store    = $this->cookieStore;
@@ -670,7 +677,7 @@ trait ResponseTrait
 
         foreach ($this->cookieStore->display() as $cookie) {
             if ($cookie->isSecure() && ! $request->isSecure()) {
-                throw SecurityException::forDisallowedAction();
+                throw SecurityException::forInsecureCookie();
             }
 
             $name    = $cookie->getPrefixedName();

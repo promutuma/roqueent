@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use CodeIgniter\Settings\Settings;
 
 if (! function_exists('setting')) {
@@ -8,7 +10,7 @@ if (! function_exists('setting')) {
      *
      * @param mixed $value
      *
-     * @return array|bool|float|int|object|Settings|string|void|null
+     * @return         array|bool|float|int|object|Settings|string|void|null
      * @phpstan-return ($key is null ? Settings : ($value is null ? array|bool|float|int|object|string|null : void))
      */
     function setting(?string $key = null, $value = null)

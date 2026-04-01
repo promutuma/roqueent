@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CodeIgniter\Settings;
 
+use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Settings\Config\Settings as SettingsConfig;
 use CodeIgniter\Settings\Handlers\BaseHandler;
 use InvalidArgumentException;
@@ -17,7 +20,7 @@ class Settings
     /**
      * An array of handlers for getting/setting the values.
      *
-     * @var BaseHandler[]
+     * @var list<BaseHandler>
      */
     private array $handlers = [];
 
@@ -73,10 +76,8 @@ class Settings
      * Save a value to the writable handler for later retrieval.
      *
      * @param mixed $value
-     *
-     * @return void
      */
-    public function set(string $key, $value = null, ?string $context = null)
+    public function set(string $key, $value = null, ?string $context = null): void
     {
         [$class, $property] = $this->prepareClassAndProperty($key);
 
@@ -89,10 +90,8 @@ class Settings
      * Removes a setting from the persistent storage,
      * effectively returning the value to the default value
      * found in the config file, if any.
-     *
-     * @return void
      */
-    public function forget(string $key, ?string $context = null)
+    public function forget(string $key, ?string $context = null): void
     {
         [$class, $property] = $this->prepareClassAndProperty($key);
 
@@ -104,10 +103,8 @@ class Settings
     /**
      * Removes all settings from the persistent storage,
      * Useful during testing. Use with caution.
-     *
-     * @return void
      */
-    public function flush()
+    public function flush(): void
     {
         foreach ($this->getWriteHandlers() as $handler) {
             $handler->flush();
@@ -117,7 +114,7 @@ class Settings
     /**
      * Returns the handler that is set to store values.
      *
-     * @return BaseHandler[]
+     * @return list<BaseHandler>
      *
      * @throws RuntimeException
      */
@@ -141,7 +138,7 @@ class Settings
     /**
      * Analyzes the given key and breaks it into the class.field parts.
      *
-     * @return string[]
+     * @return list<string>
      *
      * @throws InvalidArgumentException
      */
@@ -160,6 +157,8 @@ class Settings
     /**
      * Given a key in class.property syntax, will split the values
      * and determine the fully qualified class name, if possible.
+     *
+     * @return array{string, string, BaseConfig|null}
      */
     private function prepareClassAndProperty(string $key): array
     {
@@ -170,7 +169,7 @@ class Settings
         // Use a fully qualified class name if the
         // config file was found.
         if ($config !== null) {
-            $class = get_class($config);
+            $class = $config::class;
         }
 
         return [$class, $property, $config];

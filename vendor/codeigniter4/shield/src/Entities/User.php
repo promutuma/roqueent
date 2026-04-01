@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CodeIgniter\Shield\Entities;
 
 use CodeIgniter\Database\Exceptions\DataException;
+use CodeIgniter\Entity\Entity;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Shield\Authentication\Authenticators\Session;
 use CodeIgniter\Shield\Authentication\Traits\HasAccessTokens;
@@ -67,7 +68,7 @@ class User extends Entity
      */
     protected $casts = [
         'id'          => '?integer',
-        'active'      => 'int_bool',
+        'active'      => 'int-bool',
         'permissions' => 'array',
         'groups'      => 'array',
     ];
@@ -163,7 +164,7 @@ class User extends Entity
      */
     public function saveEmailIdentity(): bool
     {
-        if (empty($this->email) && empty($this->password) && empty($this->password_hash)) {
+        if (($this->email === null || $this->email === '') && ($this->password === null || $this->password === '') && ($this->password_hash === null || $this->password_hash === '')) {
             return true;
         }
 
@@ -180,15 +181,15 @@ class User extends Entity
             $identity = $this->getEmailIdentity();
         }
 
-        if (! empty($this->email)) {
+        if ($this->email !== null && $this->email !== '') {
             $identity->secret = $this->email;
         }
 
-        if (! empty($this->password)) {
+        if ($this->password !== null && $this->password !== '') {
             $identity->secret2 = service('passwords')->hash($this->password);
         }
 
-        if (! empty($this->password_hash) && empty($this->password)) {
+        if ($this->password_hash !== null && $this->password_hash !== '' && ($this->password === null || $this->password === '')) {
             $identity->secret2 = $this->password_hash;
         }
 

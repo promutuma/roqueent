@@ -25,7 +25,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\I18n\Time;
-use Config\Services;
 use Config\Toolbar as ToolbarConfig;
 use Kint\Kint;
 
@@ -59,7 +58,7 @@ class Toolbar
                 log_message(
                     'critical',
                     'Toolbar collector does not exist (' . $collector . ').'
-                    . ' Please check $collectors in the app/Config/Toolbar.php file.'
+                    . ' Please check $collectors in the app/Config/Toolbar.php file.',
                 );
 
                 continue;
@@ -294,7 +293,7 @@ class Toolbar
         array_multisort(...$sortArray);
 
         // Add end time to each element
-        array_walk($data, static function (&$row) {
+        array_walk($data, static function (&$row): void {
             $row['end'] = $row['start'] + $row['duration'];
         });
 
@@ -366,15 +365,17 @@ class Toolbar
 
     /**
      * Prepare for debugging.
-     *
-     * @return void
      */
-    public function prepare(?RequestInterface $request = null, ?ResponseInterface $response = null)
+    public function prepare(?RequestInterface $request = null, ?ResponseInterface $response = null): void
     {
         /**
          * @var IncomingRequest|null $request
          */
         if (CI_DEBUG && ! is_cli()) {
+            if ($this->hasNativeHeaderConflict()) {
+                return;
+            }
+
             $app = service('codeigniter');
 
             $request ??= service('request');
@@ -386,19 +387,19 @@ class Toolbar
                 return;
             }
 
-            $toolbar = Services::toolbar(config(ToolbarConfig::class));
+            $toolbar = service('toolbar', $this->config);
             $stats   = $app->getPerformanceStats();
             $data    = $toolbar->run(
                 $stats['startTime'],
                 $stats['totalTime'],
                 $request,
-                $response
+                $response,
             );
 
             helper('filesystem');
 
             // Updated to microtime() so we can get history
-            $time = sprintf('%.6f', Time::now()->format('U.u'));
+            $time = sprintf('%.6F', Time::now()->format('U.u'));
 
             if (! is_dir(WRITEPATH . 'debugbar')) {
                 mkdir(WRITEPATH . 'debugbar', 0777);
@@ -411,7 +412,7 @@ class Toolbar
             // Non-HTML formats should not include the debugbar
             // then we send headers saying where to find the debug data
             // for this response
-            if ($request->isAJAX() || ! str_contains($format, 'html')) {
+            if ($this->shouldDisableToolbar($request) || ! str_contains($format, 'html')) {
                 $response->setHeader('Debugbar-Time', "{$time}")
                     ->setHeader('Debugbar-Link', site_url("?debugbar_time={$time}"));
 
@@ -440,8 +441,8 @@ class Toolbar
                         '/<head>/',
                         '<head>' . $script,
                         $response->getBody(),
-                        1
-                    )
+                        1,
+                    ),
                 );
 
                 return;
@@ -455,10 +456,8 @@ class Toolbar
      * Inject debug toolbar into the response.
      *
      * @codeCoverageIgnore
-     *
-     * @return void
      */
-    public function respond()
+    public function respond(): void
     {
         if (ENVIRONMENT === 'testing') {
             return;
@@ -513,11 +512,11 @@ class Toolbar
     {
         $data = json_decode($data, true);
 
-        if ($this->config->maxHistory !== 0 && preg_match('/\d+\.\d{6}/s', (string) service('request')->getGet('debugbar_time'), $debugbarTime)) {
+        if (preg_match('/\d+\.\d{6}/s', (string) service('request')->getGet('debugbar_time'), $debugbarTime)) {
             $history = new History();
             $history->setFiles(
                 $debugbarTime[0],
-                $this->config->maxHistory
+                $this->config->maxHistory,
             );
 
             $data['collectors'][] = $history->getAsArray();
@@ -529,7 +528,7 @@ class Toolbar
             case 'html':
                 $data['styles'] = [];
                 extract($data);
-                $parser = Services::parser($this->config->viewsPath, null, false);
+                $parser = service('parser', $this->config->viewsPath, null, false);
                 ob_start();
                 include $this->config->viewsPath . 'toolbar.tpl.php';
                 $output = ob_get_clean();
@@ -547,5 +546,77 @@ class Toolbar
         }
 
         return $output;
+    }
+
+    /**
+     * Checks if the native PHP headers indicate a non-HTML response
+     * or if headers are already sent.
+     */
+    protected function hasNativeHeaderConflict(): bool
+    {
+        // If headers are sent, we can't inject HTML.
+        if (headers_sent()) {
+            return true;
+        }
+
+        // Native Header Inspection
+        foreach (headers_list() as $header) {
+            $lowerHeader = strtolower($header);
+
+            $isNonHtmlContent = str_starts_with($lowerHeader, 'content-type:') && ! str_contains($lowerHeader, 'text/html');
+            $isAttachment     = str_starts_with($lowerHeader, 'content-disposition:') && str_contains($lowerHeader, 'attachment');
+
+            if ($isNonHtmlContent || $isAttachment) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if the toolbar should be disabled based on the request headers.
+     *
+     * This method allows checking both the presence of headers and their expected values.
+     * Useful for AJAX, HTMX, Unpoly, Turbo, etc., where partial HTML responses are expected.
+     *
+     * @return bool True if any header condition matches; false otherwise.
+     */
+    private function shouldDisableToolbar(IncomingRequest $request): bool
+    {
+        // Fallback for older installations where the config option is missing (e.g. after upgrading from a previous version).
+        $headers = $this->config->disableOnHeaders ?? ['X-Requested-With' => 'xmlhttprequest'];
+
+        foreach ($headers as $headerName => $expectedValue) {
+            if (! $request->hasHeader($headerName)) {
+                continue; // header not present, skip
+            }
+
+            // If expectedValue is null, only presence is enough
+            if ($expectedValue === null) {
+                return true;
+            }
+
+            $headerValue = strtolower($request->getHeaderLine($headerName));
+
+            if ($headerValue === strtolower($expectedValue)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Reset all collectors for worker mode.
+     * Calls reset() on collectors that support it.
+     */
+    public function reset(): void
+    {
+        foreach ($this->collectors as $collector) {
+            if (method_exists($collector, 'reset')) {
+                $collector->reset();
+            }
+        }
     }
 }

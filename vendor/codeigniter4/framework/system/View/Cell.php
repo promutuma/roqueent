@@ -17,7 +17,6 @@ use CodeIgniter\Cache\CacheInterface;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\View\Cells\Cell as BaseCell;
 use CodeIgniter\View\Exceptions\ViewException;
-use Config\Services;
 use ReflectionException;
 use ReflectionMethod;
 
@@ -68,10 +67,10 @@ class Cell
     /**
      * Render a cell, returning its body as a string.
      *
-     * @param string            $library   Cell class and method name.
-     * @param array|string|null $params    Parameters to pass to the method.
-     * @param int               $ttl       Number of seconds to cache the cell.
-     * @param string|null       $cacheName Cache item name.
+     * @param string                            $library   Cell class and method name.
+     * @param array<string, string>|string|null $params    Parameters to pass to the method.
+     * @param int                               $ttl       Number of seconds to cache the cell.
+     * @param string|null                       $cacheName Cache item name.
      *
      * @throws ReflectionException
      */
@@ -88,12 +87,14 @@ class Cell
         // Is the output cached?
         $cacheName ??= str_replace(['\\', '/'], '', $class) . $method . md5(serialize($params));
 
-        if ($output = $this->cache->get($cacheName)) {
+        $output = $this->cache->get($cacheName);
+
+        if (is_string($output) && $output !== '') {
             return $output;
         }
 
         if (method_exists($instance, 'initController')) {
-            $instance->initController(Services::request(), service('response'), service('logger'));
+            $instance->initController(service('request'), service('response'), service('logger'));
         }
 
         if (! method_exists($instance, $method)) {
@@ -117,14 +118,14 @@ class Cell
      * If a string, it should be in the format "key1=value key2=value".
      * It will be split and returned as an array.
      *
-     * @param array|string|null $params
+     * @param array<string, string>|float|string|null $params
      *
-     * @return array
+     * @return array<string, string>
      */
     public function prepareParams($params)
     {
         if (
-            ($params === null || $params === '' || $params === [])
+            in_array($params, [null, '', []], true)
             || (! is_string($params) && ! is_array($params))
         ) {
             return [];
@@ -151,10 +152,6 @@ class Cell
 
             $params = $newParams;
             unset($newParams);
-        }
-
-        if ($params === []) {
-            return [];
         }
 
         return $params;

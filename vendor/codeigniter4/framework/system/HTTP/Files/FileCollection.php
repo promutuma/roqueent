@@ -150,11 +150,13 @@ class FileCollection
 
         $this->files = [];
 
-        if ($_FILES === []) {
+        $files = service('superglobals')->getFilesArray();
+
+        if ($files === []) {
             return;
         }
 
-        $files = $this->fixFilesArray($_FILES);
+        $files = $this->fixFilesArray($files);
 
         foreach ($files as $name => $file) {
             $this->files[$name] = $this->createFileObject($file);
@@ -189,7 +191,7 @@ class FileCollection
             $array['type'] ?? null,
             ($array['size'] ?? null) === null ? null : (int) $array['size'],
             $array['error'] ?? null,
-            $array['full_path'] ?? null
+            $array['full_path'] ?? null,
         );
     }
 
@@ -219,7 +221,7 @@ class FileCollection
                 $stack    = [&$pointer];
                 $iterator = new RecursiveIteratorIterator(
                     new RecursiveArrayIterator($value),
-                    RecursiveIteratorIterator::SELF_FIRST
+                    RecursiveIteratorIterator::SELF_FIRST,
                 );
 
                 foreach ($iterator as $key => $val) {
@@ -253,7 +255,7 @@ class FileCollection
     {
         $currentIndex = array_shift($index);
 
-        if (isset($currentIndex) && is_array($index) && $index && is_array($value[$currentIndex]) && $value[$currentIndex]) {
+        if (isset($currentIndex) && $index !== [] && array_key_exists($currentIndex, $value) && is_array($value[$currentIndex])) {
             return $this->getValueDotNotationSyntax($index, $value[$currentIndex]);
         }
 

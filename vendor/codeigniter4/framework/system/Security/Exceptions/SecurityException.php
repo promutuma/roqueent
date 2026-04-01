@@ -20,12 +20,22 @@ class SecurityException extends FrameworkException implements HTTPExceptionInter
 {
     /**
      * Throws when some specific action is not allowed.
+     * This is used for CSRF protection.
      *
      * @return static
      */
     public static function forDisallowedAction()
     {
         return new static(lang('Security.disallowedAction'), 403);
+    }
+
+    /**
+     * Throws if a secure cookie is dispatched when the current connection is not
+     * secure.
+     */
+    public static function forInsecureCookie(): static
+    {
+        return new static(lang('Security.insecureCookie'));
     }
 
     /**
@@ -40,7 +50,7 @@ class SecurityException extends FrameworkException implements HTTPExceptionInter
     {
         return new static(
             'Invalid UTF-8 characters in ' . $source . ': ' . $string,
-            400
+            400,
         );
     }
 
@@ -56,7 +66,7 @@ class SecurityException extends FrameworkException implements HTTPExceptionInter
     {
         return new static(
             'Invalid Control characters in ' . $source . ': ' . $string,
-            400
+            400,
         );
     }
 

@@ -78,7 +78,10 @@ class Filters extends BaseConfig
      * List of filter aliases that are always
      * applied before and after every request.
      *
-     * @var array<string, array<string, array<string, string>>>|array<string, list<string>>
+     * @var array{
+     *    before: array<string, array{except: list<string>|string}>|list<string>,
+     *    after: array<string, array{except: list<string>|string}>|list<string>
+     * }
      */
     public array $globals = [
         'before' => [
@@ -102,6 +105,8 @@ class Filters extends BaseConfig
      * If you use this, you should disable auto-routing because auto-routing
      * permits any HTTP method to access a controller. Accessing the controller
      * with a method you don't expect could bypass the filter.
+     *
+     * @var array<string, list<string>>
      */
     public array $methods = [];
 
@@ -111,6 +116,8 @@ class Filters extends BaseConfig
      *
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     *
+     * @var array<string, array<string, list<string>>>
      */
     public array $filters = [];
 }

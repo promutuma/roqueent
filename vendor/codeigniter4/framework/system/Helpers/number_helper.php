@@ -11,6 +11,8 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+use CodeIgniter\Exceptions\BadFunctionCallException;
+
 // CodeIgniter Number Helpers
 
 if (! function_exists('number_to_size')) {
@@ -82,8 +84,9 @@ if (! function_exists('number_to_amount')) {
         // Strip any formatting & ensure numeric input
         try {
             // @phpstan-ignore-next-line
-            $num = 0 + str_replace(',', '', $num);
+            $num = 0 + str_replace(',', '', (string) $num);
         } catch (ErrorException) {
+            // Catch "Warning:  A non-numeric value encountered"
             return false;
         }
 

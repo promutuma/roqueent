@@ -43,7 +43,7 @@ class ActionController extends BaseController
         // Grab our action instance if one has been set.
         $this->action = $authenticator->getAction();
 
-        if (empty($this->action) || ! $this->action instanceof ActionInterface) {
+        if (! $this->action instanceof ActionInterface) {
             throw new PageNotFoundException();
         }
 
@@ -82,6 +82,10 @@ class ActionController extends BaseController
      */
     public function verify()
     {
+        if ($this->request->getUserAgent()->isRobot()) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         return $this->action->verify($this->request);
     }
 }

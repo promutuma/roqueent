@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CodeIgniter\Settings\Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Settings\Handlers\ArrayHandler;
 use CodeIgniter\Settings\Handlers\DatabaseHandler;
+use CodeIgniter\Settings\Handlers\FileHandler;
 
 class Settings extends BaseConfig
 {
@@ -13,7 +16,7 @@ class Settings extends BaseConfig
      * match a public class var here with the
      * settings array containing 'class'.
      *
-     * @var string[]
+     * @var list<string>
      */
     public $handlers = ['database'];
 
@@ -29,9 +32,20 @@ class Settings extends BaseConfig
      * Database handler settings.
      */
     public $database = [
-        'class'     => DatabaseHandler::class,
-        'table'     => 'settings',
-        'group'     => null,
-        'writeable' => true,
+        'class'       => DatabaseHandler::class,
+        'table'       => 'settings',
+        'group'       => null,
+        'writeable'   => true,
+        'deferWrites' => false,
+    ];
+
+    /**
+     * File handler settings.
+     */
+    public $file = [
+        'class'       => FileHandler::class,
+        'path'        => WRITEPATH . 'settings',
+        'writeable'   => true,
+        'deferWrites' => false,
     ];
 }

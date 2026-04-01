@@ -16,8 +16,9 @@ namespace CodeIgniter\Commands\Database;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\Database\BaseConnection;
+use CodeIgniter\Database\TableName;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use Config\Database;
-use InvalidArgumentException;
 
 /**
  * Get table data if it exists in the database.
@@ -144,7 +145,7 @@ class ShowTableInfo extends BaseCommand
             $tableNameNo = CLI::promptByKey(
                 ['Here is the list of your database tables:', 'Which table do you want to see?'],
                 $tables,
-                'required'
+                'required',
             );
             CLI::newLine();
 
@@ -174,7 +175,7 @@ class ShowTableInfo extends BaseCommand
         ]];
         CLI::table(
             $data,
-            ['hostname', 'database', 'username', 'DBDriver', 'DBPrefix', 'port']
+            ['hostname', 'database', 'username', 'DBDriver', 'DBPrefix', 'port'],
         );
     }
 
@@ -188,13 +189,18 @@ class ShowTableInfo extends BaseCommand
         $this->db->setPrefix($this->DBPrefix);
     }
 
+    /**
+     * Show Data of Table
+     *
+     * @return void
+     */
     private function showDataOfTable(string $tableName, int $limitRows, int $limitFieldValue)
     {
         CLI::write("Data of Table \"{$tableName}\":", 'black', 'yellow');
         CLI::newLine();
 
         $this->removeDBPrefix();
-        $thead = $this->db->getFieldNames($tableName);
+        $thead = $this->db->getFieldNames(TableName::fromActualName($this->db->DBPrefix, $tableName));
         $this->restoreDBPrefix();
 
         // If there is a field named `id`, sort by it.
@@ -207,6 +213,13 @@ class ShowTableInfo extends BaseCommand
         CLI::table($this->tbody, $thead);
     }
 
+    /**
+     * Show All Tables
+     *
+     * @param list<string> $tables
+     *
+     * @return void
+     */
     private function showAllTables(array $tables)
     {
         CLI::write('The following is a list of the names of all database tables:', 'black', 'yellow');
@@ -219,6 +232,13 @@ class ShowTableInfo extends BaseCommand
         CLI::newLine();
     }
 
+    /**
+     * Make body for table
+     *
+     * @param list<string> $tables
+     *
+     * @return list<list<int|string>>
+     */
     private function makeTbodyForShowAllTables(array $tables): array
     {
         $this->removeDBPrefix();
@@ -244,16 +264,21 @@ class ShowTableInfo extends BaseCommand
         return $this->tbody;
     }
 
+    /**
+     * Make table rows
+     *
+     * @return list<list<int|string>>
+     */
     private function makeTableRows(
         string $tableName,
         int $limitRows,
         int $limitFieldValue,
-        ?string $sortField = null
+        ?string $sortField = null,
     ): array {
         $this->tbody = [];
 
         $this->removeDBPrefix();
-        $builder = $this->db->table($tableName);
+        $builder = $this->db->table(TableName::fromActualName($this->db->DBPrefix, $tableName));
         $builder->limit($limitRows);
         if ($sortField !== null) {
             $builder->orderBy($sortField, $this->sortDesc ? 'DESC' : 'ASC');
@@ -266,7 +291,7 @@ class ShowTableInfo extends BaseCommand
                 static fn ($item): string => mb_strlen((string) $item) > $limitFieldValue
                     ? mb_substr((string) $item, 0, $limitFieldValue) . '...'
                     : (string) $item,
-                $row
+                $row,
             );
             $this->tbody[] = $row;
         }

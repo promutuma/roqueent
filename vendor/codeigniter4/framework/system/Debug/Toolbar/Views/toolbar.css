@@ -60,6 +60,7 @@
   margin-right: 5px;
 }
 #debug-bar h2 {
+  font-weight: bold;
   font-size: 16px;
   margin: 0;
   padding: 5px 0 10px 0;
@@ -213,6 +214,8 @@
   white-space: nowrap;
 }
 #debug-bar .tab {
+  height: fit-content;
+  text-align: left;
   bottom: 35px;
   display: none;
   left: 0;
@@ -225,6 +228,8 @@
   z-index: 9999;
 }
 #debug-bar .timeline {
+  position: static;
+  display: table;
   margin-left: 0;
   width: 100%;
 }
@@ -325,6 +330,26 @@
   }
   .hide-sm {
     display: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  #debug-bar table {
+    display: block;
+    overflow-x: auto;
+    font-size: 12px;
+    margin: 5px 5px 10px 5px;
+  }
+  #debug-bar table td,
+  #debug-bar table th {
+    padding: 4px 6px;
+  }
+  #debug-bar .timeline {
+    display: block;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  #debug-bar .toolbar {
+    overflow-x: auto;
   }
 }
 #debug-icon {

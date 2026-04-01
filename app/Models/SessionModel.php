@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class SessionModel extends Model
 {
     protected $table = 'session';
-    protected $primarykey = 'session_id';
+    protected $primaryKey = 'id';
     protected $allowedFields = [
         'session_iddata',
         'user_id',

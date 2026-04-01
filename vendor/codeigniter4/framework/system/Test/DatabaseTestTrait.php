@@ -14,17 +14,26 @@ declare(strict_types=1);
 namespace CodeIgniter\Test;
 
 use CodeIgniter\Database\BaseBuilder;
+use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
+use CodeIgniter\Database\MigrationRunner;
+use CodeIgniter\Database\Seeder;
 use CodeIgniter\Test\Constraints\SeeInDatabase;
 use Config\Database;
 use Config\Migrations;
-use Config\Services;
+use PHPUnit\Framework\Attributes\AfterClass;
 
 /**
  * DatabaseTestTrait
  *
  * Provides functionality for refreshing/seeding
  * the database during testing.
+ *
+ * @property BaseConnection                 $db
+ * @property list<array<int|string, mixed>> $insertCache
+ * @property Seeder|null                    $seeder
+ * @property MigrationRunner|null           $migrations
+ * @property list<string>|string|null       $namespace
  *
  * @mixin CIUnitTestCase
  */
@@ -87,7 +96,7 @@ trait DatabaseTestTrait
             $config          = new Migrations();
             $config->enabled = true;
 
-            $this->migrations = Services::migrations($config, $this->db, false);
+            $this->migrations = service('migrations', $config, $this->db, false);
             $this->migrations->setSilent(false);
         }
 
@@ -228,14 +237,12 @@ trait DatabaseTestTrait
     // --------------------------------------------------------------------
     // Utility
     // --------------------------------------------------------------------
-
     /**
      * Reset $doneMigration and $doneSeed
      *
-     * @afterClass
-     *
      * @return void
      */
+    #[AfterClass]
     public static function resetMigrationSeedCount()
     {
         self::$doneMigration = false;
