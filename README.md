@@ -70,6 +70,28 @@ The system now acts with enterprise-level safeguards.
 - **Database Transactions**: Multi-step actions (such as paying or committing cart layouts) run within `$this->db->transStart()`. In the event a script crashes, database changes are completely rolled-back automatically.
 - **Performance**: High-speed, natively auto-incrementing BigInt IDs handle table relationships, ensuring that massive datasets don't slow down SQL lookups.
 
+## Continuous Deployment (CI/CD)
+
+The system is configured with a robust **Multi-Tenant Deployment Pipeline** using GitHub Actions (`.github/workflows/deployment.yml`). This allows you to effortlessly distribute POS updates to all of your customers simultaneously using Matrix Environments.
+
+### Deploying Updates
+1. Navigate to the **Actions** tab in this GitHub repository.
+2. Select the **Multi-Tenant POS Deployment** workflow.
+3. Click "Run workflow".
+4. You will be prompted for a `client` identifier.
+    * Leave it as `all` to cycle through your master list of customers and deploy to all of them sequentially.
+    * Or, type a specific client's identifier (e.g. `client_a`) to ONLY push code to that single customer.
+
+### Boarding New Customers (Configuration)
+When you sell this POS to a new customer, you must register them in GitHub safely to automatically map their FTP credentials:
+1. Go to your repository **Settings** -> **Environments**.
+2. Click **New Environment** and name it matching their identifier (e.g., `client_d`).
+3. Under Environment Secrets, generate the following exactly named variables:
+    * `FTP_SERVER`
+    * `FTP_USERNAME`
+    * `FTP_PASSWORD`
+4. Update the fallback array in `.github/workflows/deployment.yml` (on line 21) to include the new client's name so that typing `all` deploys to them moving forward.
+
 ## Support
 
 Refer to the official [CodeIgniter 4 Documentation](https://codeigniter.com/user_guide/) for further application development troubleshooting.

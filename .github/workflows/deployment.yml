@@ -1,46 +1,62 @@
-name: Deploy The System to production (Manual Trigger)
+name: Multi-Tenant POS Deployment
 
 on:
-  workflow_dispatch: # This event allows manual triggering
+  workflow_dispatch:
+    inputs:
+      client:
+        description: 'Client identifier to deploy to (or type "all" to deploy everywhere)'
+        required: true
+        default: 'all'
 
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
-  web-deploy:
-    name: Deploy
+  define-matrix:
+    name: Determine Target Clients
     runs-on: ubuntu-latest
+    outputs:
+      clients: ${{ steps.set-clients.outputs.clients }}
+    steps:
+      - id: set-clients
+        name: Generate Deployment Matrix
+        run: |
+          # If the user chooses 'all', run through our master array of clients
+          if [ "${{ github.event.inputs.client }}" == "all" ]; then
+            # Edit this array locally as you add more customers
+            echo "clients=[\"client_a\", \"client_b\", \"client_c\"]" >> $GITHUB_OUTPUT
+          else
+            # Only deploy to the single requested client
+            echo "clients=[\"${{ github.event.inputs.client }}\"]" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    name: Deploy
+    needs: define-matrix
+    runs-on: ubuntu-latest
+    
+    # Generate an independent parallel job for each client triggered
+    strategy:
+      fail-fast: false
+      matrix:
+        client: ${{ fromJson(needs.define-matrix.outputs.clients) }}
+
+    # Bind heavily secured secrets to the specific environment dynamically
+    environment: ${{ matrix.client }}
 
     steps:
+      - name: Debug Output Target
+        run: |
+          echo "Initiating FTP Sync to client: ${{ matrix.client }}"
+
       - name: Get latest code
         uses: actions/checkout@v4
 
-      - name: Debug branch reference
-        run: |
-          echo "Current branch: $GITHUB_REF"
-
-      - name: Determine deployment environment
-        id: set-environment
-        run: |
-          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
-            echo "server=${{ secrets.MAIN_FTP_SERVER }}" >> $GITHUB_ENV
-            echo "username=${{ secrets.MAIN_FTP_USERNAME }}" >> $GITHUB_ENV
-            echo "password=${{ secrets.MAIN_FTP_PASSWORD }}" >> $GITHUB_ENV
-            echo "port=21" >> $GITHUB_ENV
-          elif [ "$GITHUB_REF" == "refs/heads/beta" ]; then
-            echo "server=${{ secrets.BETA_FTP_SERVER }}" >> $GITHUB_ENV
-            echo "username=${{ secrets.BETA_FTP_USERNAME }}" >> $GITHUB_ENV
-            echo "password=${{ secrets.BETA_FTP_PASSWORD }}" >> $GITHUB_ENV
-            echo "port=21" >> $GITHUB_ENV
-          else
-            echo "Branch not eligible for deployment."
-            exit 1
-          fi
-
-      - name: Sync files
+      - name: Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ env.server }}
-          username: ${{ env.username }}
-          password: ${{ env.password }}
-          port: ${{ env.port }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Standard FTP port. Switch to 22 if utilizing SFTP overrides optionally within the environment
+          port: 21
