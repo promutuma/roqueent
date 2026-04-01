@@ -28,7 +28,7 @@ class AdminSeeder extends Seeder
             // Set custom profile fields
             $users->update($admin->id, [
                 'user_id' => 'ADMIN001',
-                'user_email' => 'admin@example.com',
+                'user_email' => 'framutuma@gmail.com',
                 'user_fname' => 'System',
                 'user_oname' => 'Administrator',
                 'user_type' => 'superadmin',
