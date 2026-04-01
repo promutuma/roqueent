@@ -37,44 +37,31 @@ class Dashboard extends BaseController
         }
 
 
+        $db = \Config\Database::connect();
         $expense = new ExpenseModel();
         $expense->join('users as user', 'user.user_id=expense.createdBy');
         $data['expense'] = $expense->orderBy('expense.id', 'DESC')->findAll(20);
-        $totalExpenseThisMonth = $expense->WHERE('MONTH(date)', $currentMonth)->select('sum(expense_amount) as TotalAmount')->first();
-        if (empty($totalExpenseThisMonth)) {
-            # code...
-            $data['expenseThisMonth'] = 0;
+        
+        if ($db->DBDriver === 'SQLite3') {
+            $totalExpenseMonth = $expense->where("strftime('%m', date) =", sprintf('%02d', $currentMonth))
+                                         ->selectSum('expense_amount', 'TotalAmount')->first();
+            $totalExpenseWeek = $expense->where("strftime('%W', date) =", sprintf('%02d', $currentWeek))
+                                         ->selectSum('expense_amount', 'TotalAmount')->first();
         } else {
-            # code...
-            $data['expenseThisMonth'] = $totalExpenseThisMonth['TotalAmount'];
+            $totalExpenseMonth = $expense->WHERE('MONTH(date)', $currentMonth)
+                                         ->selectSum('expense_amount', 'TotalAmount')->first();
+            $totalExpenseWeek = $expense->WHERE('WEEK(date)', $currentWeek)
+                                         ->selectSum('expense_amount', 'TotalAmount')->first();
         }
+        $data['expenseThisMonth'] = $totalExpenseMonth['TotalAmount'] ?? 0;
+        $data['expenseThisWeek'] = $totalExpenseWeek['TotalAmount'] ?? 0;
 
-        $totalExpenseThisWeek = $expense->WHERE('WEEK(date)', $currentWeek)->select('sum(expense_amount) as TotalAmount')->first();
-        if (empty($totalExpenseThisWeek)) {
-            # code...
-            $data['expenseThisWeek'] = 0;
-        } else {
-            # code...
-            $data['expenseThisWeek'] = $totalExpenseThisWeek['TotalAmount'];
-        }
+        $totalExpenseToday = $expense->WHERE('date', $getTime['date'])
+                                     ->selectSum('expense_amount', 'TotalAmount')->first();
+        $data['expenseToday'] = $totalExpenseToday['TotalAmount'] ?? 0;
 
-        $totalExpenseToday = $expense->WHERE('date', $getTime['date'])->select('sum(expense_amount) as TotalAmount')->first();
-        if (empty($totalExpenseThisWeek)) {
-            # code...
-            $data['expenseToday'] = 0;
-        } else {
-            # code...
-            $data['expenseToday'] = $totalExpenseToday['TotalAmount'];
-        }
-
-        $totalExpense = $expense->select('sum(expense_amount) as TotalAmount')->first();
-        if (empty($totalExpense)) {
-            # code...
-            $data['expenseTotal'] = 0;
-        } else {
-            # code...
-            $data['expenseTotal'] = $totalExpense['TotalAmount'];
-        }
+        $totalExpenseAll = $expense->selectSum('expense_amount', 'TotalAmount')->first();
+        $data['expenseTotal'] = $totalExpenseAll['TotalAmount'] ?? 0;
 
 
         $sale = new SaleModel();
@@ -82,52 +69,32 @@ class Dashboard extends BaseController
         $data['sales'] = $sale->orderBy('sale.id', 'DESC')->findAll(20);
 
         # Sales
-        $totalASalesthisMonth = $sale->WHERE('MONTH(sale_date)', $currentMonth)->select('sum(amount) as TotalAmount')->first();
-        if (empty($totalASalesthisMonth)) {
-            # code...
-            $data['salesThisMonth'] = 0;
+        if ($db->DBDriver === 'SQLite3') {
+            $totalSalesMonth = $sale->where("strftime('%m', sale_date) =", sprintf('%02d', $currentMonth))
+                                     ->selectSum('amount', 'TotalAmount')->first();
+            $totalSalesWeek = $sale->where("strftime('%W', sale_date) =", sprintf('%02d', $currentWeek))
+                                    ->selectSum('amount', 'TotalAmount')->first();
         } else {
-            # code...
-            $data['salesThisMonth'] = $totalASalesthisMonth['TotalAmount'];
+            $totalSalesMonth = $sale->WHERE('MONTH(sale_date)', $currentMonth)
+                                     ->selectSum('amount', 'TotalAmount')->first();
+            $totalSalesWeek = $sale->WHERE('WEEK(sale_date)', $currentWeek)
+                                    ->selectSum('amount', 'TotalAmount')->first();
         }
-        $totalASalesthisWeek = $sale->WHERE('WEEK(sale_date)', $currentWeek)->select('sum(amount) as TotalAmount')->first();
-        if (empty($totalASalesthisWeek)) {
-            # code...
-            $data['salesThisWeek'] = 0;
-        } else {
-            # code...
-            $data['salesThisWeek'] = $totalASalesthisWeek['TotalAmount'];
-        }
-        $totalASalesToday = $sale->WHERE('sale_date', $getTime['date'])->select('sum(amount) as TotalAmount')->first();
-        if (empty($totalASalesToday)) {
-            # code...
-            $data['salesThisToday'] = "0";
-        } else {
-            # code...
-            $data['salesThisToday'] = $totalASalesToday['TotalAmount'];
-        }
-        $totalASales = $sale->select('sum(amount) as TotalAmount')->first();
+        $data['salesThisMonth'] = $totalSalesMonth['TotalAmount'] ?? 0;
+        $data['salesThisWeek'] = $totalSalesWeek['TotalAmount'] ?? 0;
 
-        if (empty($totalASales)) {
-            # code...
-            $data['salesToday'] = "0";
-        } else {
-            # code...
-            $data['salesToday'] = $totalASales['TotalAmount'];
-        }
+        $totalSalesToday = $sale->WHERE('sale_date', $getTime['date'])
+                                 ->selectSum('amount', 'TotalAmount')->first();
+        $data['salesThisToday'] = $totalSalesToday['TotalAmount'] ?? 0;
+
+        $totalSalesAll = $sale->selectSum('amount', 'TotalAmount')->first();
+        $data['salesTotal'] = $totalSalesAll['TotalAmount'] ?? 0;
 
 
         # Profit
         $profit = new ItemModel();
-        $totalProfit = $profit->select('sum(total_profit) as TotalAmount')->first();
-
-        if (empty($totalProfit)) {
-            # code...
-            $data['totalProfit'] = 0;
-        } else {
-            # code...
-            $data['totalProfit'] = $totalProfit['TotalAmount'];
-        }
+        $totalProfitData = $profit->selectSum('total_profit', 'TotalAmount')->first();
+        $data['totalProfit'] = $totalProfitData['TotalAmount'] ?? 0;
 
         #Logs
         $getLog = new LogModel();
